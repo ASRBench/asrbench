@@ -562,6 +562,17 @@ files = [
 ]
 
 [[package]]
+name = "pydub"
+version = "0.25.1"
+description = "Manipulate audio with an simple and easy high level interface"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pydub-0.25.1-py2.py3-none-any.whl", hash = "sha256:65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6"},
+    {file = "pydub-0.25.1.tar.gz", hash = "sha256:980a33ce9949cab2a569606b65674d748ecbca4f0796887fd6f46173a7b0d30f"},
+]
+
+[[package]]
 name = "pyreadline3"
 version = "3.5.3"
 description = "A python implementation of GNU readline."
@@ -574,6 +585,28 @@ files = [
 
 [package.extras]
 dev = ["build", "flake8", "mypy", "pytest", "twine"]
+
+[[package]]
+name = "pytube"
+version = "15.0.0"
+description = "Python 3 library for downloading YouTube Videos."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytube-15.0.0-py3-none-any.whl", hash = "sha256:07b9904749e213485780d7eb606e5e5b8e4341aa4dccf699160876da00e12d78"},
+    {file = "pytube-15.0.0.tar.gz", hash = "sha256:076052efe76f390dfa24b1194ff821d4e86c17d41cb5562f3a276a8bcbfc9d1d"},
+]
+
+[[package]]
+name = "pytubefix"
+version = "6.16.2"
+description = "Python3 library for downloading YouTube Videos."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytubefix-6.16.2-py3-none-any.whl", hash = "sha256:8d2f94845fba9ca06f58879a05370e19e95a3641a28139fb00eedf33405dfb3c"},
+    {file = "pytubefix-6.16.2.tar.gz", hash = "sha256:36c9daec3634c732d1e2048770979404549b7108cec80166e23e145cb8b82107"},
+]
 
 [[package]]
 name = "pyyaml"
@@ -983,4 +1016,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "27318a6404f9aa4ec8eb92eeb8511a50b2f33fc1601ae959972f293fb42b7045"
+content-hash = "f5e5728ad9e288c30e98c36f045a727e742e944a7c4c3d21bdb7f68a7a42bb67"
