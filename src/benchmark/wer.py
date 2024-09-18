@@ -1,4 +1,3 @@
-from typing import List
 import jiwer
 
 transform = jiwer.Compose(
@@ -13,7 +12,7 @@ transform = jiwer.Compose(
 )
 
 
-def get_wer(reference: str, hypothesis: List[str]) -> float:
+def get_wer(reference: str, hypothesis: str) -> float:
     return round(
         jiwer.wer(
             reference=reference,
