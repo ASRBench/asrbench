@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "tcc-benchmark"
+version = "0.1.0"
+description = ""
+authors = ["BDu4rTe <brianschierduarte@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+jiwer = "^3.0.4"
+faster-whisper = "^1.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
