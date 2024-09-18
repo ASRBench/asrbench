@@ -36,3 +36,10 @@ def __audio2wav(filepath: Path) -> None:
     audio.export(filepath.with_suffix(".wav"), format="wav")
 
     os.remove(filepath)
+
+
+if __name__ == "__main__":
+    ytget_audio(
+        "https://www.youtube.com/watch?v=m5T7WnUIrpU",
+        "./audios",
+    )
