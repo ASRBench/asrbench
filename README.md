@@ -32,14 +32,14 @@ Isso criará um ambiente virtual e instalará todas as bibliotecas necessárias.
 
 ### 🚀 Executar o Projeto
 
-Para rodar o script principal, utilize o Poetry para garantir que as dependências corretas sejam usadas:
+Para rodar o módulo de benchmark principal, utilize o Poetry para garantir que as dependências corretas sejam usadas:
 
 ```shell
 poetry shell
 poetry run python src/benchmark/main.py
 ```
 
-A saida esperada seria algo como:
+A saida será algo como:
 
 ```
 Lang: pt                Lang Accuracy: 93.0%
@@ -53,7 +53,7 @@ Wer: 0.33               Accuracy: 67.0%
 - **src/benchmark** - Pkg para executar os benchmarks.
 - **src/benchmark/resources/audios** - Diretório dos arquivos de áudio de teste.
 - **src/benchmark/resources/references** - Diretório dos arquivos de texto de referência (transcrições esperadas).
-- **src/benchmark/main.py** - Script de benchmark principal que executa a transcrição de áudio.
+- **src/benchmark/main.py** - Módulo de benchmark principal que executa a transcrição de áudio.
 
 - **src/report** - Pkg para a gereção de relatórios dos benchmarks.
 - **src/report/templates** - Diretório dos templates html para gerar os relatórios.
