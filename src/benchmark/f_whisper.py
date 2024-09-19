@@ -1,27 +1,38 @@
 from faster_whisper import WhisperModel
-from enums import FasterWhisperSizeModels
+from dtos.faster_whisper_data import FasterWhisperCfg, FasterWhisperData
 from wer import get_wer
 
-model = WhisperModel(
-    FasterWhisperSizeModels.Base,
-    device="cpu",
-    compute_type="int8",
-)
-audio_dir = "./audios/clips"
-audio_name = "common_voice_pt_38490975.mp3"
 
-segments, info = model.transcribe(
-    "./audios/clips/common_voice_pt_38490975.mp3", beam_size=5
-)
+def fw_run(cfg: FasterWhisperCfg) -> None:
+    model = WhisperModel(
+        model_size_or_path=cfg.ModelSize,
+        device=cfg.Device,
+        compute_type=cfg.Compute_Type
+    )
 
-print(
-    "Detected language '%s' with probability %f"
-    % (info.language, info.language_probability)
-)
+    segments, info = model.transcribe(
+        audio=cfg.Audio_Path,
+        beam_size=cfg.Beam_Size,
+    )
 
-transcript = [seg.text for seg in segments]
-reference: str = "Foi um vareio"
+    hypothesis: str = " ".join([seg.text for seg in segments])
 
-print("Reference: ", reference)
-print("Transcript: ", transcript)
-print("Result: ", get_wer(reference=reference, hypothesis=transcript))
+    data = FasterWhisperData(
+        Wer=get_wer(cfg.Reference, hypothesis),
+        Info=info,
+        Cfg=cfg
+    )
+
+    __show_info(data)
+    print(f">>> hypothesis: {hypothesis}")
+
+
+def __show_info(data: FasterWhisperData) -> None:
+    info = data.Info
+
+    print(
+        f"Lang: {info.language} \t\tLang Accuracy: {info.language_probability}%",
+    )
+    print(f"IA: FasterWhisper \tModel Size: {data.Cfg.ModelSize.__str__()}")
+    print(f"Device: {data.Cfg.Device} \t\tCompute Type: {data.Cfg.Compute_Type}")
+    print(f"Wer: {data.Wer} \t\tAccuracy: {(1 - data.Wer) * 100}%")

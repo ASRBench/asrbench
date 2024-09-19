@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class FasterWhisperSizeModels(Enum, str):
+class FasterWhisperSizeModels(str, Enum):
     Tiny: str = "tiny"
     Small: str = "small"
     Base: str = "base"
