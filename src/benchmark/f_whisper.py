@@ -29,10 +29,11 @@ def fw_run(cfg: FasterWhisperCfg) -> None:
 
 def __show_info(data: FasterWhisperData) -> None:
     info = data.Info
+    lang_probability: float = round(info.language_probability, 2)*100
 
     print(
-        f"Lang: {info.language} \t\tLang Accuracy: {info.language_probability}%",
+        f"Lang: {info.language} \t\tLang Accuracy: {lang_probability}%",
     )
     print(f"IA: FasterWhisper \tModel Size: {data.Cfg.ModelSize.__str__()}")
-    print(f"Device: {data.Cfg.Device} \t\tCompute Type: {data.Cfg.Compute_Type}")
+    print(f"Device: {data.Cfg.Device}\t\tCompute Type: {data.Cfg.Compute_Type}")
     print(f"Wer: {data.Wer} \t\tAccuracy: {(1 - data.Wer) * 100}%")

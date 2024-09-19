@@ -42,7 +42,7 @@ poetry run python src/benchmark/main.py
 A saida esperada seria algo como:
 
 ```
-Lang: pt                Lang Accuracy: 0.9309731721878052%
+Lang: pt                Lang Accuracy: 93.0%
 IA: FasterWhisper       Model Size: FasterWhisperSizeModels.Medium
 Device: cpu             Compute Type: int8
 Wer: 0.33               Accuracy: 67.0%
