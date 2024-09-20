@@ -2,6 +2,20 @@ from pathlib import Path
 from dtos.faster_whisper_data import FasterWhisperCfg
 from enums import FasterWhisperSizeModels
 from f_whisper import fw_run
+import logging
+
+current_dir: str = Path(__file__).parent.__str__()
+
+logging.basicConfig(
+    level=logging.WARNING,
+    format=(
+        "[%(asctime)s] %(levelname)s:   %(message)s -  %(name)s:%(lineno)d"
+    ),
+    filemode="a",
+    filename=f"{current_dir}/benchmark.log",
+)
+
+logger = logging.getLogger(__file__)
 
 AUDIO_DIR: str = "src/benchmark/resources/audios"
 REFERENCE_DIR: str = "src/benchmark/resources/references"
