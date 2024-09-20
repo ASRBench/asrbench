@@ -4,10 +4,10 @@ from enums import FasterWhisperSizeModels
 from f_whisper import fw_run
 
 AUDIO_DIR: str = "src/benchmark/resources/audios"
-REFENCE_DIR: str = "src/benchmark/resources/references"
+REFERENCE_DIR: str = "src/benchmark/resources/references"
 
 audio_path: Path = Path(AUDIO_DIR).joinpath("senna-e-galvao.wav")
-reference_path: Path = Path(REFENCE_DIR).joinpath("senna-e-galvao.txt")
+reference_path: Path = Path(REFERENCE_DIR).joinpath("senna-e-galvao.txt")
 
 fw_cfg = FasterWhisperCfg(
     ModelSize=FasterWhisperSizeModels.Medium,
