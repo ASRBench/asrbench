@@ -1,12 +1,11 @@
 from dataclasses import dataclass
+from typing import Dict
 
 
 @dataclass
 class TranscribeResult:
     ia: str
-    model_size: str
-    compute_type: str
-    beam_size: int
+    params: Dict[str, str]
     reference: str
     hypothesis: str
     audio_duration: float

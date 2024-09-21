@@ -1,9 +1,8 @@
 from pathlib import Path
+from providers.faster_whisper_ import FasterWhisper, FasterWhisperCfg
 from dtos.common import TranscribeResult
-from dtos.faster_whisper_data import FasterWhisperCfg
 from enums import FasterWhisperSizeModels
-from benchmark import Benchmark
-# from f_whisper import fw_run
+from benchmarks import Benchmark
 import logging
 
 current_dir: str = Path(__file__).parent.__str__()
@@ -19,22 +18,22 @@ logging.basicConfig(
 
 logger = logging.getLogger(__file__)
 
-AUDIO_DIR: str = "src/benchmark/resources/audios"
-REFERENCE_DIR: str = "src/benchmark/resources/references"
+AUDIO_DIR: str = "benchmark/resources/audios"
+REFERENCE_DIR: str = "benchmark/resources/references"
 
 audio_path: Path = Path(AUDIO_DIR).joinpath("senna-e-galvao.wav")
 reference_path: Path = Path(REFERENCE_DIR).joinpath("senna-e-galvao.txt")
 
 fw_cfg = FasterWhisperCfg(
-    ModelSize=FasterWhisperSizeModels.Medium,
-    Device="cpu",
-    Compute_Type="int8",
-    Beam_Size=5,
-    Audio_Path=audio_path.__str__(),
-    Reference=reference_path.open().read()
+    model_size=FasterWhisperSizeModels.Medium,
+    device="cpu",
+    compute_type="int8",
+    beam_size=5,
 )
 
-# fw_run(fw_cfg)
+faster_whisper_provider = FasterWhisper(fw_cfg)
+
 benchmark = Benchmark(audio_path, reference_path.open().read())
-result: TranscribeResult = benchmark.run_faster_whisper(fw_cfg)
+benchmark.add_provider("faster_whisper", faster_whisper_provider)
+result: TranscribeResult = benchmark.run_provider("faster_whisper")
 print(result.__dict__)

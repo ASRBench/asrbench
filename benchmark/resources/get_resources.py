@@ -41,5 +41,5 @@ def __audio2wav(filepath: Path) -> None:
 if __name__ == "__main__":
     ytget_audio(
         "https://www.youtube.com/watch?v=m5T7WnUIrpU",
-        "./audios",
+        "audios",
     )
