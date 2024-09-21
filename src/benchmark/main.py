@@ -1,7 +1,9 @@
 from pathlib import Path
+from dtos.common import TranscribeResult
 from dtos.faster_whisper_data import FasterWhisperCfg
 from enums import FasterWhisperSizeModels
-from f_whisper import fw_run
+from benchmark import Benchmark
+# from f_whisper import fw_run
 import logging
 
 current_dir: str = Path(__file__).parent.__str__()
@@ -32,4 +34,7 @@ fw_cfg = FasterWhisperCfg(
     Reference=reference_path.open().read()
 )
 
-fw_run(fw_cfg)
+# fw_run(fw_cfg)
+benchmark = Benchmark(audio_path, reference_path.open().read())
+result: TranscribeResult = benchmark.run_faster_whisper(fw_cfg)
+print(result.__dict__)
