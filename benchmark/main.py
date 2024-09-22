@@ -35,5 +35,4 @@ faster_whisper_provider = FasterWhisper(fw_cfg)
 
 benchmark = Benchmark(audio_path, reference_path.open().read())
 benchmark.add_provider("faster_whisper", faster_whisper_provider)
-result: TranscribeResult = benchmark.run_provider("faster_whisper")
-print(result.__dict__)
+benchmark.run()
