@@ -10,9 +10,11 @@ datasets:
 
 providers:
   faster_whisper:
-    model_size: "medium",
-    compute_type: "int8",
-    device: "cpu",
-    beam_size: 5
-  wav2vec:
-    model_size: ""
+    model_size: "medium"
+    compute_type: "int8"
+    device: "cpu"
+  whisper:
+    model_size: "medium"
+    device: "cpu"
+    language: "pt"
+    fp16: False

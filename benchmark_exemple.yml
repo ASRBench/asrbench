@@ -1,0 +1,13 @@
+audio: "path/to/audio"
+reference: "path/to/reference"
+
+providers:
+  faster_whisper:
+    model_size: "medium"
+    compute_type: "int8"
+    device: "cpu"
+  whisper:
+    model_size: "medium"
+    device: "cpu"
+    language: "pt"
+    fp16: False
