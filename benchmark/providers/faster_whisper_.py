@@ -1,21 +1,11 @@
-from dataclasses import dataclass
 from typing import Dict, Any
-
 from faster_whisper import WhisperModel
-
 from .abc_provider import IaProvider
-
-
-@dataclass
-class FasterWhisperCfg:
-    model_size: str
-    device: str
-    compute_type: str
-    beam_size: int
+from .configs import FWhisperCfg
 
 
 class FasterWhisper(IaProvider):
-    def __init__(self, cfg: FasterWhisperCfg):
+    def __init__(self, cfg: FWhisperCfg):
         self.__params: Dict[str, Any] = cfg.__dict__
         self.__beam_size: int = cfg.beam_size
         self.__model = WhisperModel(

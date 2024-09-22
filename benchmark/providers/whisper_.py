@@ -1,15 +1,16 @@
 from typing import Dict, Any
 from abc_provider import IaProvider
+from configs import WhisperCfg
 import whisper
 
 
 class Whisper(IaProvider):
-    def __init__(self, language, device, model_size: str, fp16: bool):
-        self.__lang: str = language
-        self.__fp16: bool = fp16
+    def __init__(self, cfg: WhisperCfg):
+        self.__lang: str = cfg.language
+        self.__fp16: bool = cfg.fp16
         self.__model = whisper.load_model(
-            name=model_size,
-            device=device
+            name=cfg.model_size,
+            device=cfg.device
         )
         self.__params = None
 
@@ -18,10 +19,10 @@ class Whisper(IaProvider):
         return self.__params
 
     def transcribe(self, audio_path: str) -> str:
-        raise NotImplementedError("Implement transcribe method.")
+        result: Dict[str, Any] = self.__model.transcribe(
+            audio=audio_path,
+            language=self.__lang,
+            fp16=self.__fp16
+        )
 
-
-model = whisper.load_model(
-    name="base",
-    device="cpu",
-)
+        return result["txt"]

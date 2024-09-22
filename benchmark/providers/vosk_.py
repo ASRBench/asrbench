@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from abc_provider import IaProvider
+from .abc_provider import IaProvider
 
 
 class Vosk(IaProvider):
