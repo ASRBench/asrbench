@@ -13,6 +13,7 @@ providers:
     model_size: "medium"
     compute_type: "int8"
     device: "cpu"
+    beam_size: 5
   whisper:
     model_size: "medium"
     device: "cpu"
