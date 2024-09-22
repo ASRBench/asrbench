@@ -13,6 +13,9 @@ pytube = "^15.0.0"
 pydub = "^0.25.1"
 pytubefix = "^6.16.2"
 vosk = "^0.3.45"
+llvmlite = "^0.43.0"
+numba = "^0.60.0"
+openai-whisper = "^20231117"
 
 
 [build-system]
