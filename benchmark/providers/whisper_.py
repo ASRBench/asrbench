@@ -1,6 +1,6 @@
 from typing import Dict, Any
-from abc_provider import IaProvider
-from configs import WhisperCfg
+from .abc_provider import IaProvider
+from .configs import WhisperCfg
 import whisper
 
 
@@ -25,4 +25,4 @@ class Whisper(IaProvider):
             fp16=self.__fp16
         )
 
-        return result["txt"]
+        return result["text"]
