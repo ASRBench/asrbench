@@ -4,6 +4,7 @@ from typing import Dict
 
 @dataclass
 class TranscribeResult:
+    audio: str
     ia: str
     params: Dict[str, str]
     reference: str
