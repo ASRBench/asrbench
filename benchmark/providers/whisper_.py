@@ -12,7 +12,7 @@ class Whisper(IaProvider):
             name=cfg.model_size,
             device=cfg.device
         )
-        self.__params = None
+        self.__params = cfg.__dict__
 
     @property
     def params(self) -> Dict[str, Any]:
