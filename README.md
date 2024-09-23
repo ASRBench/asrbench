@@ -36,7 +36,7 @@ Para rodar o módulo de benchmark principal, utilize o Poetry para garantir que 
 
 ```shell
 poetry shell
-poetry run python src/benchmark/main.py
+poetry run python main_dataset_benchmark.py
 ```
 
 A saida será algo como:
@@ -50,10 +50,7 @@ Wer: 0.33               Accuracy: 67.0%
 
 ## 📁 Estrutura do Projeto
 
-- **src/benchmark** - Pkg para executar os benchmarks.
-- **src/benchmark/resources/audios** - Diretório dos arquivos de áudio de teste.
-- **src/benchmark/resources/references** - Diretório dos arquivos de texto de referência (transcrições esperadas).
-- **src/benchmark/main.py** - Módulo de benchmark principal que executa a transcrição de áudio.
-
-- **src/report** - Pkg para a gereção de relatórios dos benchmarks.
-- **src/report/templates** - Diretório dos templates html para gerar os relatórios.
+- **benchmark** - Pkg para executar os benchmarks.
+- **benchmark/resources/audios** - Diretório dos arquivos de áudio de teste.
+- **benchmark/resources/references** - Diretório dos arquivos de texto de referência (transcrições esperadas).
+- **main_dataset_benchmark.py** - Módulo de benchmark principal que executa a transcrição de áudio.
