@@ -1,22 +1,20 @@
 import torch
 import librosa
 from .abc_provider import IaProvider
-from .configs import Wav2VecCfg
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
+from .configs import HFCfg
+from transformers import AutoModel, AutoProcessor
 from typing import Dict, Any, List
 
 
-class Wav2Vec(IaProvider):
-    def __init__(self, cfg: Wav2VecCfg) -> None:
-        self.__params = cfg.__dict__
-        self.checkpoint = cfg.checkpoint
-        self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
+class HFText2AudioProvider(IaProvider):
+    def __init__(self, cfg: HFCfg) -> None:
+        self.__params: Dict[str, Any] = cfg.__dict__
+        self.__model = AutoModel.from_pretrained(
             pretrained_model_name_or_path=cfg.checkpoint,
             torch_dtype=cfg.compute_type,
-        ).to(cfg.device)
-        self.__processor: Wav2Vec2Processor = Wav2Vec2Processor.from_pretrained(
-            cfg.checkpoint
-
+        )
+        self.__processor = AutoProcessor.from_pretrained(
+            pretrained_model_name_or_path=cfg.checkpoint
         )
 
     @property

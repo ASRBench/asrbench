@@ -55,7 +55,7 @@ class BenchmarkABC(ABC):
 
     @staticmethod
     def _get_output_filename(name: str = "benchmark") -> str:
-        return f"{name}_{datetime.today()}.csv"
+        return f"./results/{name}_{datetime.today()}.csv"
 
     @staticmethod
     def _get_fieldnames() -> List[str]:
