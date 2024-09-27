@@ -11,7 +11,7 @@ class ProviderFactory(ProviderFactoryABC):
 
     def get_provider(self, name: str, cfg: Dict[str, Any]) -> IaProvider:
         match name:
-            case "faster-whisper":
+            case "faster_whisper":
                 return FasterWhisper(self._get_faster_wisper_cfg(cfg))
             case "whisper":
                 return Whisper(self._get_whisper_cfg(cfg))
@@ -25,8 +25,10 @@ class ProviderFactory(ProviderFactoryABC):
     def get_providers(
             self,
             providers_cfg: Dict[str, Dict[str, Any]],
-    ) -> List[IaProvider]:
-        return [
-            self.get_provider(name, cfg)
-            for name, cfg in providers_cfg
-        ]
+    ) -> Dict[str, IaProvider]:
+        providers: Dict[str, IaProvider] = {}
+
+        for name, provider_cfg in providers_cfg.items():
+            providers[name] = self.get_provider(name, provider_cfg)
+
+        return providers
