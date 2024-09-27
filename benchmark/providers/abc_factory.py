@@ -11,7 +11,7 @@ _VOSK: str = "vosk"
 
 def _get_param(data: Dict[str, Any], param: str, provider: str) -> Any:
     if data[param] is None:
-        raise ValueError(f"Config data of {provider} missing {param}.")
+        raise KeyError(f"Config data of {provider} missing {param}.")
     return data[param]
 
 
