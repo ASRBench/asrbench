@@ -3,17 +3,12 @@ from .abc_benchmark import BenchmarkABC
 from .dataset import Dataset
 from .dtos.common import TranscribeResult
 from .providers.abc_provider import IaProvider
-from typing import Dict
 
 
 class DatasetBenchmark(BenchmarkABC):
     def __init__(self, dataset: Dataset) -> None:
-        self.__providers: Dict[str, IaProvider] = {}
+        super().__init__()
         self.__dataset: Dataset = dataset
-
-    @property
-    def providers(self) -> Dict[str, IaProvider]:
-        return self.__providers
 
     def run(self) -> None:
         with open(

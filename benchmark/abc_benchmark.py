@@ -10,10 +10,22 @@ from .wer import get_wer
 
 
 class BenchmarkABC(ABC):
+    def __init__(self):
+        self.__providers: Dict[str, IaProvider] = {}
+
     @property
-    @abstractmethod
     def providers(self) -> Dict[str, IaProvider]:
-        raise NotImplementedError("Implement providers property.")
+        return self.__providers
+
+    @providers.setter
+    def providers(self, providers: Dict[str, IaProvider]) -> None:
+        if providers is None:
+            raise ValueError("Providers is empty.")
+
+        if providers.values() is not IaProvider:
+            raise ValueError("Providers is not IaProvider.")
+
+        self.__providers: Dict[str, IaProvider] = providers
 
     @abstractmethod
     def run(self) -> None:
