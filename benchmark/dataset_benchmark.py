@@ -1,4 +1,5 @@
 import csv
+from pprint import pprint
 from .abc_benchmark import BenchmarkABC
 from .dataset import Dataset
 from .dtos.common import TranscribeResult
@@ -26,6 +27,7 @@ class DatasetBenchmark(BenchmarkABC):
                         pair.reference
                     )
 
+                    pprint(result.__dict__)
                     writer.writerow(result.__dict__)
 
     def run_with_provider(self, name: str) -> None:
@@ -45,5 +47,5 @@ class DatasetBenchmark(BenchmarkABC):
                     pair.reference,
                 )
 
-                # show resume on terminal
+                pprint(result.__dict__)
                 writer.writerow(result.__dict__)

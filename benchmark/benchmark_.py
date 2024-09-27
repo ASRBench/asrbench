@@ -1,7 +1,8 @@
 import csv
+from pprint import pprint
+
 from .abc_benchmark import BenchmarkABC
 from .dtos.common import TranscribeResult
-from .providers.abc_provider import IaProvider
 
 
 class Benchmark(BenchmarkABC):
@@ -31,9 +32,16 @@ class Benchmark(BenchmarkABC):
                     provider, self.audio, self.reference,
                 )
 
-                # show terminal resume
+                pprint(result.__dict__)
                 writer.writerow(result.__dict__)
 
     def run_with_provider(self, name: str) -> TranscribeResult:
-        provider: IaProvider = self._get_provider(name)
-        return self._run_provider(provider, self.audio, self.reference)
+        result = self._run_provider(
+            self._get_provider(name),
+            self.audio,
+            self.reference,
+        )
+
+        pprint(result)
+
+        return result
