@@ -4,25 +4,29 @@ from .faster_whisper_ import FasterWhisper
 from .vosk_ import Vosk
 from .wav2vec_ import Wav2Vec
 from .whisper_ import Whisper
+from typing import Dict, Any, List
 
 
 class ProviderFactory(ProviderFactoryABC):
-    def __init__(self):
-        ...
 
-    def get_provider(self, name: str) -> IaProvider:
+    def get_provider(self, name: str, cfg: Dict[str, Any]) -> IaProvider:
         match name:
             case "faster-whisper":
-                # mount cfg
-                return FasterWhisper()
+                return FasterWhisper(self._get_faster_wisper_cfg(cfg))
             case "whisper":
-                # mount cfg
-                return Whisper()
+                return Whisper(self._get_whisper_cfg(cfg))
             case "wav2vec":
-                # mount cfg
-                return Wav2Vec()
+                return Wav2Vec(self._get_wav2vec_cfg(cfg))
             case "vosk":
-                # mount cfg
                 return Vosk()
             case _:
                 raise ValueError(f"Provider {name} does not exists.")
+
+    def get_providers(
+            self,
+            providers_cfg: Dict[str, Dict[str, Any]],
+    ) -> List[IaProvider]:
+        return [
+            self.get_provider(name, cfg)
+            for name, cfg in providers_cfg
+        ]
