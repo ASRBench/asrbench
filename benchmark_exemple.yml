@@ -1,5 +1,6 @@
-audio: "resources/audios/senna-e-galvao.wav"
-reference: "resources/references/senna-e-galvao.txt"
+audio:
+  path: "resources/audios/senna-e-galvao.wav"
+  reference: "resources/references/senna-e-galvao.txt"
 
 providers:
   faster_whisper:

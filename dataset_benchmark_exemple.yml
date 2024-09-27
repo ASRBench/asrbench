@@ -1,9 +1,9 @@
 datasets:
-  - name: "Dataset 1"
+  dataset1:
     dir: "path/to/dataset/dir"
     audio_ext: "wav"
     reference_ext: "txt"
-  - name: "Dataset 2"
+  dataset2:
     dir: "path/to/dataset/dir"
     audio_ext: "wav"
     reference_ext: "txt"
