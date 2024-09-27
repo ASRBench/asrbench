@@ -51,18 +51,17 @@ class Dataset:
 
     def get_data(self) -> None:
         if not self.__dir.is_dir():
-            raise ValueError("Provided dir is not a directory.")
+            raise ValueError("Provided dir is not a directory or not exists.")
 
         for audio_file in self.__dir.glob(f"*{self.__audio_ext}"):
             ref_file: Path = audio_file.with_suffix(f"{self.__reference_ext}")
-            print(f"audio_file: {audio_file}")
+
             if not ref_file.exists():
                 raise FileNotFoundError(
                     f"Reference file for {audio_file.name} not exists.",
                 )
 
             reference: str = ref_file.open().read()
-            print(f"reference: {reference}")
 
             self.pairs.append(
                 TranscribePairData(

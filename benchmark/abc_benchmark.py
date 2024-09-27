@@ -69,7 +69,6 @@ class BenchmarkABC(ABC):
     @staticmethod
     def _get_fieldnames() -> List[str]:
         return [
-            "dataset",
             "audio",
             "ia",
             "params",

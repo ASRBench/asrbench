@@ -1,12 +1,8 @@
 datasets:
   dataset1:
-    dir: "path/to/dataset/dir"
-    audio_ext: "wav"
-    reference_ext: "txt"
-  dataset2:
-    dir: "path/to/dataset/dir"
-    audio_ext: "wav"
-    reference_ext: "txt"
+    dir: "resources/teste"
+    audio_ext: ".wav"
+    reference_ext: ".txt"
 
 providers:
   faster_whisper:
