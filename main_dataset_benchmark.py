@@ -25,7 +25,7 @@ whisper_cfg = configs.WhisperCfg(
     fp16=False
 )
 print(f"dataset: {dataset}")
-benchmark = DatasetBenchmark(dataset)
+benchmark = DatasetBenchmark([dataset])
 benchmark.add_provider("faster_whisper", FasterWhisper(fw_cfg))
 benchmark.add_provider("whisper", Whisper(whisper_cfg))
 benchmark.run()
