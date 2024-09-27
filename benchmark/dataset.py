@@ -1,5 +1,12 @@
 from typing import List
 from pathlib import Path
+from typing import Dict
+
+
+def _get_param(data: Dict[str, str], param: str, name: str) -> str:
+    if param not in data or data[param] is None:
+        raise KeyError(f"Dataset {name} param {param} is missing.")
+    return data[param]
 
 
 class TranscribePairData:
@@ -63,6 +70,15 @@ class Dataset:
                     reference=reference,
                 )
             )
+
+    @classmethod
+    def from_config(cls, name: str, config: Dict[str, str]):
+        return Dataset(
+            name=name,
+            directory=_get_param(config, "dir", name),
+            audio_ext=_get_param(config, "audio_ext", name),
+            reference_ext=_get_param(config, "reference_ext", name)
+        )
 
     def __repr__(self) -> str:
         return f"<Dataset dir={self.__dir} with {len(self.pairs)} pairs.>"
