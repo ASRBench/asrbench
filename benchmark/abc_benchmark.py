@@ -22,9 +22,6 @@ class BenchmarkABC(ABC):
         if providers is None:
             raise ValueError("Providers is empty.")
 
-        if providers.values() is not IaProvider:
-            raise ValueError("Providers is not IaProvider.")
-
         self.__providers: Dict[str, IaProvider] = providers
 
     @abstractmethod
@@ -72,6 +69,7 @@ class BenchmarkABC(ABC):
     @staticmethod
     def _get_fieldnames() -> List[str]:
         return [
+            "dataset",
             "audio",
             "ia",
             "params",
