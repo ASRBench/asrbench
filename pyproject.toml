@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "tcc-benchmark"
+name = "wavbench"
 version = "0.1.0"
-description = ""
+description = "framework for running audio transcription benchmarks with AIs."
 authors = ["BDu4rTe <brianschierduarte@outlook.com>"]
 readme = "README.md"
 
