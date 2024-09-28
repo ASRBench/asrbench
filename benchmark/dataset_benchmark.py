@@ -1,10 +1,13 @@
 import csv
+import logging
 from pprint import pprint
 from .abc_benchmark import BenchmarkABC
 from .dataset import Dataset
 from .dtos.common import TranscribeResult
 from .providers.abc_provider import IaProvider
 from typing import List, Dict, Any
+
+logger: logging.Logger = logging.getLogger(__file__)
 
 
 class DatasetBenchmark(BenchmarkABC):
@@ -27,6 +30,7 @@ class DatasetBenchmark(BenchmarkABC):
             writer.writeheader()
 
             for dataset in self.__datasets:
+                logger.info(f"Run benchmark with dataset: {dataset.name}")
                 self._process_dataset_with_all_providers(dataset, writer)
 
     def run_with_provider(self, name: str) -> None:
@@ -42,6 +46,10 @@ class DatasetBenchmark(BenchmarkABC):
             writer.writeheader()
 
             for dataset in self.__datasets:
+                logger.info(
+                    f"Run benchmark with provider: {name} \
+                    for dataset: {dataset.name}",
+                )
                 for pair in dataset.pairs:
                     result: TranscribeResult = self._run_provider(
                         provider,

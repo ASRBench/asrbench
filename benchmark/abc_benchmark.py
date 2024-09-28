@@ -1,3 +1,4 @@
+import logging
 import time
 import benchmark.utils as utils
 from abc import ABC, abstractmethod
@@ -7,6 +8,8 @@ from .providers.abc_provider import IaProvider
 from .dtos.common import TranscribeResult
 from typing import Dict, List
 from .wer import get_wer
+
+logger: logging.Logger = logging.getLogger(__file__)
 
 
 class BenchmarkABC(ABC):
@@ -40,6 +43,7 @@ class BenchmarkABC(ABC):
             audio: str,
             reference: str,
     ) -> TranscribeResult:
+        logger.debug(f"Run {provider.__class__.__name__} with audio: {audio}")
         start: float = time.time()
 
         hypothesis: str = provider.transcribe(audio)

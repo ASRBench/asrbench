@@ -1,8 +1,10 @@
 import csv
+import logging
 from pprint import pprint
-
 from .abc_benchmark import BenchmarkABC
 from .dtos.common import TranscribeResult
+
+logger: logging.Logger = logging.getLogger(__file__)
 
 
 class Benchmark(BenchmarkABC):
@@ -23,6 +25,7 @@ class Benchmark(BenchmarkABC):
         return self.__reference
 
     def run(self) -> None:
+        logger.info(f"Run benchmark with audio: {self.audio}")
         with open(self._get_output_filename(), "w") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=self._get_fieldnames())
             writer.writeheader()
@@ -36,6 +39,9 @@ class Benchmark(BenchmarkABC):
                 writer.writerow(result.__dict__)
 
     def run_with_provider(self, name: str) -> TranscribeResult:
+        logger.info(
+            f"Run benchmark with provider: {name} for audio: {self.audio}",
+        )
         result = self._run_provider(
             self._get_provider(name),
             self.audio,
