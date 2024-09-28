@@ -4,7 +4,7 @@ from .faster_whisper_ import FasterWhisper
 from .vosk_ import Vosk
 from .wav2vec_ import Wav2Vec
 from .whisper_ import Whisper
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 
 class ProviderFactory(ProviderFactoryABC):
