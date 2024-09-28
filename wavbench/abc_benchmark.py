@@ -1,6 +1,6 @@
 import logging
 import time
-import benchmark.utils as utils
+import wavbench.utils as utils
 from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
@@ -67,7 +67,7 @@ class BenchmarkABC(ABC):
         )
 
     @staticmethod
-    def _get_output_filename(name: str = "benchmark") -> str:
+    def _get_output_filename(name: str = "wavbench") -> str:
         return f"./results/{name}_{datetime.today()}.csv"
 
     @staticmethod

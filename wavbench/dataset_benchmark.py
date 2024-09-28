@@ -14,7 +14,7 @@ class DatasetBenchmark(BenchmarkABC):
     def __init__(
             self,
             datasets: List[Dataset],
-            name: str = "benchmark",
+            name: str = "wavbench",
     ) -> None:
         super().__init__()
         self.__datasets: List[Dataset] = datasets
@@ -30,7 +30,7 @@ class DatasetBenchmark(BenchmarkABC):
             writer.writeheader()
 
             for dataset in self.__datasets:
-                logger.info(f"Run benchmark with dataset: {dataset.name}")
+                logger.info(f"Run wavbench with dataset: {dataset.name}")
                 self._process_dataset_with_all_providers(dataset, writer)
 
     def run_with_provider(self, name: str) -> None:
@@ -47,7 +47,7 @@ class DatasetBenchmark(BenchmarkABC):
 
             for dataset in self.__datasets:
                 logger.info(
-                    f"Run benchmark with provider: {name} \
+                    f"Run wavbench with provider: {name} \
                     for dataset: {dataset.name}",
                 )
                 for pair in dataset.pairs:
