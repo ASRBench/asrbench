@@ -68,7 +68,8 @@ class BenchmarkABC(ABC):
 
     @staticmethod
     def _get_output_filename(name: str = "benchmark") -> str:
-        return f"./results/{name}_{datetime.today()}.csv"
+        timestamp = datetime.today().isoformat()
+        return str(Path("results", f"{name}_{timestamp}.csv"))
 
     @staticmethod
     def _get_fieldnames() -> List[str]:
