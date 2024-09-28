@@ -36,16 +36,7 @@ Para rodar o módulo de benchmark principal, utilize o Poetry para garantir que 
 
 ```shell
 poetry shell
-poetry run python main_dataset_benchmark.py
-```
-
-A saida será algo como:
-
-```
-Lang: pt                Lang Accuracy: 93.0%
-IA: FasterWhisper       Model Size: FasterWhisperSizeModels.Medium
-Device: cpu             Compute Type: int8
-Wer: 0.33               Accuracy: 67.0%
+poetry run python main.py
 ```
 
 ## 📁 Estrutura do Projeto
