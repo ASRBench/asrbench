@@ -39,5 +39,5 @@ class ProviderFactory(ProviderFactoryABC):
         for name, provider_cfg in providers_cfg.items():
             providers[name] = self.get_provider(name, provider_cfg)
 
-        logging.debug(f"providers for benchmark: {providers.__dict__}")
+        logging.debug(f"providers for benchmark: {providers.__str__()}")
         return providers
