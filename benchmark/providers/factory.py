@@ -16,7 +16,7 @@ class ProviderFactory(ProviderFactoryABC):
         match name:
             case "faster_whisper":
                 logger.debug("Get faster_whisper provider.")
-                return FasterWhisper(self._get_faster_wisper_cfg(cfg))
+                return FasterWhisper(self._get_faster_whisper_cfg(cfg))
             case "whisper":
                 logger.debug("Get whisper provider.")
                 return Whisper(self._get_whisper_cfg(cfg))
