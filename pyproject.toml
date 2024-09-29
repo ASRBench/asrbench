@@ -20,9 +20,6 @@ librosa = "^0.10.2.post1"
 torch = "^2.4.1"
 openai-whisper = { git = "https://github.com/openai/whisper.git" }
 
-[tool.poetry.extras]
-cuda118 = ["torch==2.4.1+cu118"]
-cuda12 = ["torch==2.4.1+cu12X"]
 
 [build-system]
 requires = ["poetry-core"]
