@@ -13,3 +13,5 @@ providers:
     device: "cpu"
     language: "pt"
     fp16: False
+  vosk:
+    model_path: "/home/duarte/Downloads/vosk-model-small-pt-0.3"

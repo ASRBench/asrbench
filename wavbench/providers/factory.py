@@ -25,7 +25,7 @@ class ProviderFactory(ProviderFactoryABC):
                 return Wav2Vec(self._get_wav2vec_cfg(cfg))
             case "vosk":
                 logger.debug("Get vosk provider.")
-                return Vosk()
+                return Vosk(cfg["model_path"])
             case _:
                 logger.error(f"Error on get provider, {name} does not exists.")
                 raise ValueError(f"Provider {name} does not exists.")
