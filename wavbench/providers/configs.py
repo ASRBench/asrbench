@@ -1,5 +1,5 @@
+import torch
 from dataclasses import dataclass
-from torch import dtype
 
 
 @dataclass
@@ -21,14 +21,14 @@ class WhisperCfg:
 @dataclass
 class Wav2VecCfg:
     checkpoint: str
-    compute_type: dtype
     device: str
+    compute_type: torch.dtype
 
 
 @dataclass
 class HFCfg:
     checkpoint: str
-    compute_type: dtype
+    compute_type: torch.dtype
     device: str
 
 

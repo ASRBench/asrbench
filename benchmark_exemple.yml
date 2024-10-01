@@ -13,5 +13,7 @@ providers:
     device: "cpu"
     language: "pt"
     fp16: False
-  vosk:
-    model_path: "/home/duarte/Downloads/vosk-model-small-pt-0.3"
+  wav2vec:
+    checkpoint: "facebook/wav2vec2-large-xlsr-53-portuguese"
+    device: "cpu"
+    compute_type: "float32"

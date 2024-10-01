@@ -1,3 +1,4 @@
+import torch
 from .configs import FWhisperCfg, WhisperCfg, Wav2VecCfg
 from abc import ABC, abstractmethod
 from .abc_provider import IaProvider
@@ -43,6 +44,28 @@ class ProviderFactoryABC(ABC):
     def _get_wav2vec_cfg(data: Dict[str, Any]) -> Wav2VecCfg:
         return Wav2VecCfg(
             checkpoint=_get_param(data, "checkpoint", _WAV2VEC),
-            compute_type=_get_param(data, "compute_type", _WAV2VEC),
-            device=_get_param(data, "device", _WAV2VEC)
+            device=_get_param(data, "device", _WAV2VEC),
+            compute_type=_convert_str2dtype(
+                _get_param(data, "compute_type", _WAV2VEC),
+            )
         )
+
+
+def _convert_str2dtype(dtype_: str) -> torch.dtype:
+    match dtype_:
+        case "float64":
+            return torch.float64
+        case "float32":
+            return torch.float32
+        case "float16":
+            return torch.float16
+        case "int64":
+            return torch.int64
+        case "int32":
+            return torch.int32
+        case "int16":
+            return torch.int16
+        case "int8":
+            return torch.int8
+        case _:
+            raise ValueError(f"Torch dtype {dtype_} does not support.")

@@ -1,8 +1,7 @@
 datasets:
   dataset1:
-    dir: "resources/teste"
-    audio_ext: ".wav"
-    reference_ext: ".txt"
+    audio_dir: "resources/audios"
+    reference_dir: "resources/references"
 
 providers:
   faster_whisper:
@@ -15,3 +14,7 @@ providers:
     device: "cpu"
     language: "pt"
     fp16: False
+  wav2vec:
+    checkpoint: "facebook/wav2vec2-large-xlsr-53-portuguese"
+    compute_type: "float32"
+    device: "cpu"
