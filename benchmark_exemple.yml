@@ -9,7 +9,7 @@ providers:
     device: "cpu"
     beam_size: 5
   whisper:
-    model_size: "medium"
+    model_size: "large-v3-turbo"
     device: "cpu"
     language: "pt"
     fp16: False
