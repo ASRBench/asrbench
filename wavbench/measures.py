@@ -1,13 +1,16 @@
 import jiwer
 import unicodedata
 from .dtos.common import Measures
+from typing import List
 
 
-def _remove_accents(text: str) -> str:
-    return ''.join(
-        char for char in unicodedata.normalize('NFD', text)
-        if unicodedata.category(char) != 'Mn'
-    )
+def _remove_accents(texts: str) -> List[str]:
+    return [
+        ''.join(
+            char for char in unicodedata.normalize('NFD', word)
+            if unicodedata.category(char) != 'Mn'
+        ) for word in texts
+    ]
 
 
 transform = jiwer.Compose(
