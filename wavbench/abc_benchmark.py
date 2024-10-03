@@ -7,7 +7,7 @@ from pathlib import Path
 from .providers.abc_provider import IaProvider
 from .dtos.common import TranscribeResult
 from typing import Dict, List
-from .wer import get_wer
+from .measures import get_wer
 
 logger: logging.Logger = logging.getLogger(__file__)
 
