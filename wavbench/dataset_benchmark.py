@@ -57,7 +57,7 @@ class DatasetBenchmark(BenchmarkABC):
                         pair.reference,
                     )
 
-                    final_result: Dict[str, Any] = result.__dict__
+                    final_result: Dict[str, Any] = result.to_dict()
                     final_result["dataset"] = dataset.name
 
                     pprint(final_result)
@@ -75,7 +75,7 @@ class DatasetBenchmark(BenchmarkABC):
                     pair.audio,
                     pair.reference
                 )
-                final_result: Dict[str, Any] = result.__dict__
+                final_result: Dict[str, Any] = result.to_dict()
                 final_result["dataset"] = dataset.name
 
                 pprint(final_result)

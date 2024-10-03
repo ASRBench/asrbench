@@ -77,10 +77,14 @@ class BenchmarkABC(ABC):
             "params",
             "reference",
             "hypothesis",
-            "measures",
             "audio_duration",
             "runtime",
             "rtf",
+            "wer",
+            "wil",
+            "wip",
+            "cer",
+            "mer",
             "accuracy"
         ]
 

@@ -23,3 +23,21 @@ class TranscribeResult:
     runtime: float
     rtf: float
     accuracy: float
+
+    def to_dict(self) -> Dict[str, any]:
+        return {
+            "audio": self.audio,
+            "ia": self.ia,
+            "params": self.params,
+            "reference": self.reference,
+            "hypothesis": self.hypothesis,
+            "wer": self.measures.wer,
+            "cer": self.measures.cer,
+            "mer": self.measures.mer,
+            "wil": self.measures.wil,
+            "wip": self.measures.wip,
+            "audio_duration": self.audio_duration,
+            "runtime": self.runtime,
+            "rtf": self.rtf,
+            "accuracy": self.accuracy,
+        }

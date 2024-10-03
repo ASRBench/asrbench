@@ -35,8 +35,8 @@ class Benchmark(BenchmarkABC):
                     provider, self.audio, self.reference,
                 )
 
-                pprint(result.__dict__)
-                writer.writerow(result.__dict__)
+                pprint(result.to_dict())
+                writer.writerow(result.to_dict())
 
     def run_with_provider(self, name: str) -> TranscribeResult:
         logger.info(
