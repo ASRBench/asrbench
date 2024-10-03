@@ -5,9 +5,9 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
 from .providers.abc_provider import IaProvider
-from .dtos.common import TranscribeResult
+from .dtos.common import TranscribeResult, Measures
 from typing import Dict, List
-from .measures import get_wer
+from .measures import get_measures
 
 logger: logging.Logger = logging.getLogger(__file__)
 
@@ -44,14 +44,13 @@ class BenchmarkABC(ABC):
             reference: str,
     ) -> TranscribeResult:
         logger.debug(f"Run {provider.__class__.__name__} with audio: {audio}")
+
         start: float = time.time()
-
         hypothesis: str = provider.transcribe(audio)
-
         runtime: float = round((time.time() - start) * (10 ** 3), 3)
-
-        wer: float = get_wer(reference, hypothesis)
         duration: float = utils.get_audio_duration(audio)
+
+        measures: Measures = get_measures(reference, hypothesis)
 
         return TranscribeResult(
             audio=Path(audio).name,
@@ -59,8 +58,8 @@ class BenchmarkABC(ABC):
             params=provider.params,
             hypothesis=hypothesis,
             reference=reference,
-            wer=wer,
-            accuracy=round(((1 - wer) * 100), 2),
+            measures=measures,
+            accuracy=round(((1 - measures.wer) * 100), 2),
             runtime=round((runtime / 1000), 3),
             audio_duration=round((duration / 1000), 3),
             rtf=utils.get_rtf(runtime, duration)
@@ -78,10 +77,10 @@ class BenchmarkABC(ABC):
             "params",
             "reference",
             "hypothesis",
+            "measures",
             "audio_duration",
             "runtime",
             "rtf",
-            "wer",
             "accuracy"
         ]
 
