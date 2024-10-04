@@ -24,7 +24,7 @@ class ProviderFactoryABC(ABC):
         raise NotImplementedError("Implement get_provider method.")
 
     @staticmethod
-    def _get_faster_wisper_cfg(data: Dict[str, Any]) -> FWhisperCfg:
+    def _get_faster_whisper_cfg(data: Dict[str, Any]) -> FWhisperCfg:
         return FWhisperCfg(
             model_size=_get_param(data, "model_size", _FASTER_WHISPER),
             compute_type=_get_param(data, "compute_type", _FASTER_WHISPER),
