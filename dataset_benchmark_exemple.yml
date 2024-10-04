@@ -18,3 +18,7 @@ providers:
     checkpoint: "facebook/wav2vec2-large-xlsr-53-portuguese"
     compute_type: "float32"
     device: "cpu"
+  hf:
+    checkpoint: "facebook/wav2vec2-large-xlsr-53-portuguese"
+    compute_type: "float32"
+    device: "cpu"

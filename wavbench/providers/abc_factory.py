@@ -1,10 +1,11 @@
 import torch
-from .configs import FWhisperCfg, WhisperCfg, Wav2VecCfg
+from .configs import FWhisperCfg, WhisperCfg, Wav2VecCfg, HFCfg
 from abc import ABC, abstractmethod
 from .abc_provider import IaProvider
 from typing import Dict, Any
 
 _FASTER_WHISPER: str = "faster_whisper"
+_HF: str = "hf"
 _WHISPER: str = "whisper"
 _WAV2VEC: str = "wav2vec"
 _VOSK: str = "vosk"
@@ -29,6 +30,14 @@ class ProviderFactoryABC(ABC):
             compute_type=_get_param(data, "compute_type", _FASTER_WHISPER),
             beam_size=_get_param(data, "beam_size", _FASTER_WHISPER),
             device=_get_param(data, "device", _FASTER_WHISPER)
+        )
+
+    @staticmethod
+    def _get_hf_config(data: Dict[str, Any]) -> HFCfg:
+        return HFCfg(
+            checkpoint=_get_param(data, "checkpoint", _HF),
+            device=_get_param(data, "device", _HF),
+            compute_type=_get_param(data, "compute_type", _HF)
         )
 
     @staticmethod

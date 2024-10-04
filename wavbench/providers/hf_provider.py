@@ -2,14 +2,14 @@ import torch
 import librosa
 from .abc_provider import IaProvider
 from .configs import HFCfg
-from transformers import AutoModel, AutoProcessor
+from transformers import AutoModelForCTC, AutoProcessor
 from typing import Dict, Any, List
 
 
 class HFText2AudioProvider(IaProvider):
     def __init__(self, cfg: HFCfg) -> None:
         self.__params: Dict[str, Any] = cfg.__dict__
-        self.__model = AutoModel.from_pretrained(
+        self.__model = AutoModelForCTC.from_pretrained(
             pretrained_model_name_or_path=cfg.checkpoint,
             torch_dtype=cfg.compute_type,
         )
