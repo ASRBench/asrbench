@@ -67,7 +67,8 @@ class BenchmarkABC(ABC):
 
     @staticmethod
     def _get_output_filename(name: str = "wavbench") -> str:
-        return f"./results/{name}_{datetime.today()}.csv"
+        timestamp = datetime.utcnow().strftime("%Y%m%dT%H%M%S")
+        return f"./results/{name}_{timestamp}.csv"
 
     @staticmethod
     def _get_fieldnames() -> List[str]:
