@@ -2,7 +2,7 @@ import logging
 import time
 import wavbench.utils as utils
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import datetime, UTC
 from pathlib import Path
 from .providers.abc_provider import IaProvider
 from .dtos.common import TranscribeResult, Measures
@@ -67,7 +67,7 @@ class BenchmarkABC(ABC):
 
     @staticmethod
     def _get_output_filename(name: str = "wavbench") -> str:
-        timestamp = datetime.utcnow().strftime("%Y%m%dT%H%M%S")
+        timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
         return f"./results/{name}_{timestamp}.csv"
 
     @staticmethod
