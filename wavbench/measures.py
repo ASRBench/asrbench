@@ -26,6 +26,11 @@ transform = jiwer.Compose(
 )
 
 
+def normalize_txt(txt: str) -> str:
+    """Return the post-processed text from jiwer transform"""
+    return transform(txt)
+
+
 def get_measures(reference: str, hypothesis: str) -> Measures:
     """Returns all measures provided by jiwer (wer, cer, mer, wil, wip)"""
     return Measures(

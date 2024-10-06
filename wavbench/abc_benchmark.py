@@ -7,7 +7,7 @@ from pathlib import Path
 from .providers.abc_provider import IaProvider
 from .dtos.common import TranscribeResult, Measures
 from typing import Dict, List
-from .measures import get_measures
+from .measures import get_measures, normalize_txt
 
 logger: logging.Logger = logging.getLogger(__file__)
 
@@ -56,8 +56,8 @@ class BenchmarkABC(ABC):
             audio=Path(audio).name,
             ia=provider.__class__.__name__,
             params=provider.params,
-            hypothesis=hypothesis,
-            reference=reference,
+            hypothesis=normalize_txt(hypothesis),
+            reference=normalize_txt(reference),
             measures=measures,
             accuracy=round(((1 - measures.wer) * 100), 2),
             runtime=round((runtime / 1000), 3),
