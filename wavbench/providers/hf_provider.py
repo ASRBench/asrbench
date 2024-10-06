@@ -10,11 +10,11 @@ class HFText2AudioProvider(IaProvider):
     def __init__(self, cfg: HFCfg) -> None:
         self.__params: Dict[str, Any] = cfg.__dict__
         self.__model = AutoModelForCTC.from_pretrained(
-            pretrained_model_name_or_path=cfg.checkpoint,
+            pretrained_model_name_or_path=cfg.model,
             torch_dtype=cfg.compute_type,
         )
         self.__processor = AutoProcessor.from_pretrained(
-            pretrained_model_name_or_path=cfg.checkpoint
+            pretrained_model_name_or_path=cfg.model
         )
 
     @property

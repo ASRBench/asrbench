@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass
 class FWhisperCfg:
-    model_size: str
+    model: str
     compute_type: str
     device: str
     beam_size: int
@@ -12,7 +12,7 @@ class FWhisperCfg:
 
 @dataclass
 class WhisperCfg:
-    model_size: str
+    model: str
     device: str
     language: str
     fp16: bool
@@ -20,14 +20,14 @@ class WhisperCfg:
 
 @dataclass
 class Wav2VecCfg:
-    checkpoint: str
+    model: str
     device: str
     compute_type: torch.dtype
 
 
 @dataclass
 class HFCfg:
-    checkpoint: str
+    model: str
     compute_type: torch.dtype
     device: str
 

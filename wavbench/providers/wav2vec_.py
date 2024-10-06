@@ -9,13 +9,13 @@ from typing import Dict, Any, List
 class Wav2Vec(IaProvider):
     def __init__(self, cfg: Wav2VecCfg) -> None:
         self.__params = cfg.__dict__
-        self.checkpoint = cfg.checkpoint
+        self.checkpoint = cfg.model
         self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
-            pretrained_model_name_or_path=cfg.checkpoint,
+            pretrained_model_name_or_path=cfg.model,
             torch_dtype=cfg.compute_type,
         ).to(cfg.device)
         self.__processor: Wav2Vec2Processor = Wav2Vec2Processor.from_pretrained(
-            cfg.checkpoint
+            cfg.model
 
         )
 

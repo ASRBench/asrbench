@@ -9,7 +9,7 @@ class FasterWhisper(IaProvider):
         self.__params: Dict[str, Any] = cfg.__dict__
         self.__beam_size: int = cfg.beam_size
         self.__model = WhisperModel(
-            model_size_or_path=cfg.model_size,
+            model_size_or_path=cfg.model,
             compute_type=cfg.compute_type,
             device=cfg.device,
         )

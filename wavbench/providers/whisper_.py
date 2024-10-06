@@ -9,7 +9,7 @@ class Whisper(IaProvider):
         self.__lang: str = cfg.language
         self.__fp16: bool = cfg.fp16
         self.__model = whisper.load_model(
-            name=cfg.model_size,
+            name=cfg.model,
             device=cfg.device
         )
         self.__params = cfg.__dict__
