@@ -34,4 +34,4 @@ class HFCfg:
 
 @dataclass
 class VoskCfg:
-    ...
+    model: str

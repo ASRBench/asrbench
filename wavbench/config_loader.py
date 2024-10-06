@@ -52,7 +52,7 @@ class BenchmarkFactory:
 
     @staticmethod
     def _get_audio_value(audio: Dict[str, str], value: str) -> str:
-        if audio["path"] is None:
+        if value not in audio:
             raise KeyError(f"Audio {value} is missing in config file.")
         return audio[value]
 

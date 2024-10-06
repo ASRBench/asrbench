@@ -1,5 +1,5 @@
 import torch
-from .configs import FWhisperCfg, WhisperCfg, Wav2VecCfg, HFCfg
+from .configs import FWhisperCfg, WhisperCfg, Wav2VecCfg, HFCfg, VoskCfg
 from abc import ABC, abstractmethod
 from .abc_provider import IaProvider
 from typing import Dict, Any
@@ -12,7 +12,7 @@ _VOSK: str = "vosk"
 
 
 def _get_param(data: Dict[str, Any], param: str, provider: str) -> Any:
-    if data[param] is None:
+    if param not in data:
         raise KeyError(f"Config data of {provider} missing {param}.")
     return data[param]
 
@@ -24,39 +24,45 @@ class ProviderFactoryABC(ABC):
         raise NotImplementedError("Implement get_provider method.")
 
     @staticmethod
-    def _get_faster_whisper_cfg(data: Dict[str, Any]) -> FWhisperCfg:
+    def _get_faster_whisper_cfg(name: str, data: Dict[str, Any]) -> FWhisperCfg:
         return FWhisperCfg(
-            model=_get_param(data, "model_size", _FASTER_WHISPER),
-            compute_type=_get_param(data, "compute_type", _FASTER_WHISPER),
-            beam_size=_get_param(data, "beam_size", _FASTER_WHISPER),
-            device=_get_param(data, "device", _FASTER_WHISPER)
+            model=_get_param(data, "model", name),
+            compute_type=_get_param(data, "compute_type", name),
+            beam_size=_get_param(data, "beam_size", name),
+            device=_get_param(data, "device", name)
         )
 
     @staticmethod
-    def _get_hf_config(data: Dict[str, Any]) -> HFCfg:
+    def _get_hf_config(name: str, data: Dict[str, Any]) -> HFCfg:
         return HFCfg(
-            model=_get_param(data, "checkpoint", _HF),
-            device=_get_param(data, "device", _HF),
-            compute_type=_get_param(data, "compute_type", _HF)
+            model=_get_param(data, "model", name),
+            device=_get_param(data, "device", name),
+            compute_type=_get_param(data, "compute_type", name)
         )
 
     @staticmethod
-    def _get_whisper_cfg(data: Dict[str, Any]) -> WhisperCfg:
+    def _get_whisper_cfg(name: str, data: Dict[str, Any]) -> WhisperCfg:
         return WhisperCfg(
-            model=_get_param(data, "model_size", _WHISPER),
-            device=_get_param(data, "device", _WHISPER),
-            language=_get_param(data, "language", _WHISPER),
-            fp16=_get_param(data, "fp16", _WHISPER)
+            model=_get_param(data, "model", name),
+            device=_get_param(data, "device", name),
+            language=_get_param(data, "language", name),
+            fp16=_get_param(data, "fp16", name)
         )
 
     @staticmethod
-    def _get_wav2vec_cfg(data: Dict[str, Any]) -> Wav2VecCfg:
+    def _get_wav2vec_cfg(name: str, data: Dict[str, Any]) -> Wav2VecCfg:
         return Wav2VecCfg(
-            model=_get_param(data, "checkpoint", _WAV2VEC),
-            device=_get_param(data, "device", _WAV2VEC),
+            model=_get_param(data, "model", name),
+            device=_get_param(data, "device", name),
             compute_type=_convert_str2dtype(
-                _get_param(data, "compute_type", _WAV2VEC),
+                _get_param(data, "compute_type", name),
             )
+        )
+
+    @staticmethod
+    def _get_vosk_cfg(name: str, data: Dict[str, Any]) -> VoskCfg:
+        return VoskCfg(
+            model=_get_param(data, "model", name)
         )
 
 

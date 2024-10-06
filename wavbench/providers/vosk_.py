@@ -2,14 +2,15 @@ import librosa
 import json
 import numpy as np
 from typing import Dict, Any
+from .configs import VoskCfg
 from .abc_provider import IaProvider
 from vosk import Model, KaldiRecognizer
 
 
 class Vosk(IaProvider):
-    def __init__(self, model_name: str):
+    def __init__(self, cfg: VoskCfg):
         self.__params = None
-        self.__model = Model(model_name)
+        self.__model = Model(cfg.model)
         self.__recognizer = KaldiRecognizer(self.__model, 16000)
 
     @property
@@ -26,4 +27,3 @@ class Vosk(IaProvider):
         final_result = json.loads(recognizer.FinalResult())
 
         return final_result["text"]
-
