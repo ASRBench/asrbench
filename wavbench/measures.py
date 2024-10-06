@@ -25,10 +25,23 @@ transform = jiwer.Compose(
     ]
 )
 
+normalize_transform = jiwer.Compose(
+    [
+        jiwer.RemoveEmptyStrings(),
+        jiwer.ToLowerCase(),
+        jiwer.RemoveMultipleSpaces(),
+        jiwer.Strip(),
+        jiwer.RemovePunctuation(),
+        _remove_accents,
+    ]
+)
+
 
 def normalize_txt(txt: str) -> str:
     """Return the post-processed text from jiwer transform"""
-    return transform(txt)
+    processed_txt = normalize_transform(txt)
+    print(processed_txt)
+    return "".join(processed_txt)
 
 
 def get_measures(reference: str, hypothesis: str) -> Measures:
