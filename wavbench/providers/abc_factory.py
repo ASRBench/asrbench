@@ -1,5 +1,3 @@
-import torch
-from .configs import FWhisperCfg, WhisperCfg, Wav2VecCfg, HFCfg, VoskCfg
 from abc import ABC, abstractmethod
 from .abc_provider import IaProvider
 from typing import Dict, Any
