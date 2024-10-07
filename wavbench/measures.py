@@ -21,7 +21,19 @@ transform = jiwer.Compose(
         jiwer.Strip(),
         jiwer.RemovePunctuation(),
         _remove_accents,
-        jiwer.ReduceToListOfListOfWords(),
+        jiwer.ReduceToListOfListOfWords()
+    ]
+)
+
+char_transform = jiwer.Compose(
+    [
+        jiwer.RemoveEmptyStrings(),
+        jiwer.ToLowerCase(),
+        jiwer.RemoveMultipleSpaces(),
+        jiwer.Strip(),
+        jiwer.RemovePunctuation(),
+        _remove_accents,
+        jiwer.ReduceToListOfListOfChars()
     ]
 )
 
@@ -73,9 +85,9 @@ def get_cer(reference: str, hypothesis: str) -> float:
     return round(
         jiwer.cer(
             reference=reference,
-            reference_transform=transform,
+            reference_transform=char_transform,
             hypothesis=hypothesis,
-            hypothesis_transform=transform
+            hypothesis_transform=char_transform
         ),
         2
     )
