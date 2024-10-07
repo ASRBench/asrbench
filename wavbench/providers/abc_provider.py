@@ -3,6 +3,10 @@ from typing import Dict, Any
 
 
 class IaProvider(ABC):
+    @classmethod
+    @abstractmethod
+    def from_config(cls, name: str, data: Dict[str, Any]):
+        raise NotImplementedError("Implement from_config method.")
 
     @property
     @abstractmethod

@@ -5,6 +5,7 @@ from .configs import FWhisperCfg
 
 
 class FasterWhisper(IaProvider):
+
     def __init__(self, cfg: FWhisperCfg):
         self.__params: Dict[str, Any] = cfg.__dict__
         self.__beam_size: int = cfg.beam_size
@@ -13,6 +14,10 @@ class FasterWhisper(IaProvider):
             compute_type=cfg.compute_type,
             device=cfg.device,
         )
+
+    @classmethod
+    def from_config(cls, name: str, data: Dict[str, Any]):
+        return FasterWhisper(FWhisperCfg.load(data, name))
 
     @property
     def params(self) -> Dict[str, Any]:

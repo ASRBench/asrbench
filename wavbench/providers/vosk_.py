@@ -10,8 +10,12 @@ from vosk import Model, KaldiRecognizer
 class Vosk(IaProvider):
     def __init__(self, cfg: VoskCfg):
         self.__params = None
-        self.__model = Model(cfg.model)
+        self.__model = Model(model_path=cfg.model, lang=cfg.lang)
         self.__recognizer = KaldiRecognizer(self.__model, 16000)
+
+    @classmethod
+    def from_config(cls, name: str, data: Dict[str, Any]):
+        return Vosk(VoskCfg.load(data, name))
 
     @property
     def params(self) -> Dict[str, Any]:

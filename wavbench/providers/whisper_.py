@@ -5,6 +5,7 @@ import whisper
 
 
 class Whisper(IaProvider):
+
     def __init__(self, cfg: WhisperCfg):
         self.__lang: str = cfg.language
         self.__fp16: bool = cfg.fp16
@@ -13,6 +14,10 @@ class Whisper(IaProvider):
             device=cfg.device
         )
         self.__params = cfg.__dict__
+
+    @classmethod
+    def from_config(cls, name: str, data: Dict[str, Any]):
+        return Whisper(WhisperCfg.load(data, name))
 
     @property
     def params(self) -> Dict[str, Any]:

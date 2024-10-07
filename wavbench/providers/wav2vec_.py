@@ -7,6 +7,7 @@ from typing import Dict, Any, List
 
 
 class Wav2Vec(IaProvider):
+
     def __init__(self, cfg: Wav2VecCfg) -> None:
         self.__params = cfg.__dict__
         self.checkpoint = cfg.model
@@ -18,6 +19,10 @@ class Wav2Vec(IaProvider):
             cfg.model
 
         )
+
+    @classmethod
+    def from_config(cls, name: str, data: Dict[str, Any]):
+        return Wav2Vec(Wav2VecCfg.load(data, name))
 
     @property
     def params(self) -> Dict[str, Any]:
