@@ -2,7 +2,7 @@ import logging
 from .abc_factory import ProviderFactoryABC
 from .abc_provider import IaProvider
 from .faster_whisper_ import FasterWhisper
-from .hf_provider import HFText2AudioProvider
+from .hf_provider import HFAudio2Text
 from .vosk_ import Vosk
 from .wav2vec_ import Wav2Vec
 from .whisper_ import Whisper
@@ -33,7 +33,7 @@ class ProviderFactory(ProviderFactoryABC):
                 return Vosk.from_config(name, cfg)
             case "hf":
                 logger.debug("Get HF provider.")
-                return HFText2AudioProvider.from_config(name, cfg)
+                return HFAudio2Text.from_config(name, cfg)
             case _:
                 logger.error(
                     f"Error on get provider, {provider} does not exists.",
