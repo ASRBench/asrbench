@@ -9,7 +9,7 @@ from vosk import Model, KaldiRecognizer
 
 class Vosk(IaProvider):
     def __init__(self, cfg: VoskCfg):
-        self.__params = None
+        self.__params = cfg.__dict__
         self.__model = Model(model_path=cfg.model, lang=cfg.lang)
         self.__recognizer = KaldiRecognizer(self.__model, 16000)
 
