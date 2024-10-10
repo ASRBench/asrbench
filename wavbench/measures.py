@@ -52,7 +52,6 @@ normalize_transform = jiwer.Compose(
 def normalize_txt(txt: str) -> str:
     """Return the post-processed text from jiwer transform"""
     processed_txt = normalize_transform(txt)
-    print(processed_txt)
     return "".join(processed_txt)
 
 
