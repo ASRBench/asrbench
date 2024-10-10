@@ -14,6 +14,7 @@ logger: logging.Logger = logging.getLogger(__file__)
 class ProviderFactory(ProviderFactoryABC):
 
     def get_provider(self, name: str, cfg: Dict[str, Any]) -> IaProvider:
+        """Return IaProvider with provider config"""
         if "provider" not in cfg:
             raise KeyError(f"Missing provider in {name} config.")
         provider: str = cfg["provider"]
@@ -44,6 +45,7 @@ class ProviderFactory(ProviderFactoryABC):
             self,
             providers_cfg: Dict[str, Dict[str, Any]],
     ) -> Dict[str, IaProvider]:
+        """Set up providers dict from provider section in config file"""
         providers: Dict[str, IaProvider] = {}
 
         for name, provider_cfg in providers_cfg.items():
