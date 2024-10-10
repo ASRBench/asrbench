@@ -29,7 +29,7 @@ class WhisperCfg:
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
-        WhisperCfg(
+        return WhisperCfg(
             model=_get_config_param(data, "model", name),
             device=_get_config_param(data, "device", name),
             language=_get_config_param(data, "language", name),
@@ -45,7 +45,7 @@ class Wav2VecCfg:
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
-        Wav2VecCfg(
+        return Wav2VecCfg(
             model=_get_config_param(data, "model", name),
             device=_get_config_param(data, "device", name),
             compute_type=_convert_str2dtype(
@@ -62,7 +62,7 @@ class HFCfg:
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
-        HFCfg(
+        return HFCfg(
             model=_get_config_param(data, "model", name),
             device=_get_config_param(data, "device", name),
             compute_type=_get_config_param(data, "compute_type", name)
@@ -83,7 +83,7 @@ class VoskCfg:
 
 
 def _get_config_param(data: Dict[str, Any], param: str, provider: str) -> Any:
-    if param not in data or data["param"] is None:
+    if param not in data or data[param] is None:
         raise KeyError(f"Config data of {provider} missing {param}.")
     return data[param]
 
