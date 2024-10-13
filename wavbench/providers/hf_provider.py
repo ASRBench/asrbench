@@ -9,6 +9,7 @@ from typing import Dict, Any, List
 class HFAudio2Text(IaProvider):
 
     def __init__(self, cfg: HFCfg) -> None:
+        self.__name: str = cfg.name
         self.__params: Dict[str, Any] = cfg.__dict__
         self.__model = AutoModelForCTC.from_pretrained(
             pretrained_model_name_or_path=cfg.model,
@@ -17,6 +18,10 @@ class HFAudio2Text(IaProvider):
         self.__processor = AutoProcessor.from_pretrained(
             pretrained_model_name_or_path=cfg.model
         )
+
+    @property
+    def name(self) -> str:
+        return self.__name
 
     @classmethod
     def from_config(cls, name: str, data: Dict[str, Any]):

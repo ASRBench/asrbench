@@ -75,6 +75,7 @@ class BenchmarkABC(ABC):
         return [
             "audio",
             "ia",
+            "provider_name",
             "params",
             "reference",
             "hypothesis",

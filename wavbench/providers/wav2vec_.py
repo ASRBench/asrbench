@@ -9,6 +9,7 @@ from typing import Dict, Any, List
 class Wav2Vec(IaProvider):
 
     def __init__(self, cfg: Wav2VecCfg) -> None:
+        self.__name: str = cfg.name
         self.__params = cfg.__dict__
         self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
             pretrained_model_name_or_path=cfg.model,
@@ -18,6 +19,10 @@ class Wav2Vec(IaProvider):
             cfg.model
 
         )
+
+    @property
+    def name(self) -> str:
+        return self.__name
 
     @classmethod
     def from_config(cls, name: str, data: Dict[str, Any]):

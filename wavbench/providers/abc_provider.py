@@ -13,6 +13,11 @@ class IaProvider(ABC):
     def params(self) -> Dict[str, Any]:
         raise NotImplementedError("Implement params property.")
 
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        raise NotImplementedError("Implement name property.")
+
     @abstractmethod
     def transcribe(self, audio_path: str) -> str:
         raise NotImplementedError("Implement transcribe method.")

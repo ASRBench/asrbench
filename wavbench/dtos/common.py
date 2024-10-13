@@ -15,6 +15,7 @@ class Measures:
 class TranscribeResult:
     audio: str
     ia: str
+    provider_name: str
     params: Dict[str, str]
     reference: str
     hypothesis: str
@@ -28,6 +29,7 @@ class TranscribeResult:
         return {
             "audio": self.audio,
             "ia": self.ia,
+            "provider_name": self.provider_name,
             "params": self.params,
             "reference": self.reference,
             "hypothesis": self.hypothesis,

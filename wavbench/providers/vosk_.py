@@ -9,9 +9,14 @@ from vosk import Model, KaldiRecognizer
 
 class Vosk(IaProvider):
     def __init__(self, cfg: VoskCfg):
+        self.__name: str = cfg.name
         self.__params = cfg.__dict__
         self.__model = Model(model_path=cfg.model, lang=cfg.lang)
         self.__recognizer = KaldiRecognizer(self.__model, 16000)
+
+    @property
+    def name(self) -> str:
+        return self.__name
 
     @classmethod
     def from_config(cls, name: str, data: Dict[str, Any]):

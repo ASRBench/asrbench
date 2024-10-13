@@ -1,11 +1,40 @@
 import torch
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Dict, Any
 
 
 @dataclass
-class FWhisperCfg:
+class ProviderCfg(ABC):
+    """Interface to define the basics of provider configuration.
+
+    Attributes
+    ----------
+    model [str] : name/path of the model to use.
+    name [str] : provider identifier.
+
+    Methods
+    -------
+
+    load(cls, data: Dict[str, Any], name: str) -> ProviderConfig:
+        Loads the configuration with the data extracted from the
+        configuration section of a provider.
+    """
     model: str
+    name: str
+
+    @classmethod
+    @abstractmethod
+    def load(cls, data: Dict[str, Any], name: str):
+        """Loads the configuration with the data extracted from the
+        configuration section of a provider.
+        """
+        raise NotImplementedError("Implement load class method.")
+
+
+@dataclass
+class FWhisperCfg(ProviderCfg):
+    """Implementation of the configuration interface for Faster Whisper."""
     compute_type: str
     device: str
     beam_size: int
@@ -13,16 +42,17 @@ class FWhisperCfg:
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
         return FWhisperCfg(
-            model=_get_config_param(data, "model", name),
-            compute_type=_get_config_param(data, "compute_type", name),
-            beam_size=_get_config_param(data, "beam_size", name),
-            device=_get_config_param(data, "device", name)
+            name=name,
+            model=get_config_param(data, "model", name),
+            compute_type=get_config_param(data, "compute_type", name),
+            beam_size=get_config_param(data, "beam_size", name),
+            device=get_config_param(data, "device", name)
         )
 
 
 @dataclass
-class WhisperCfg:
-    model: str
+class WhisperCfg(ProviderCfg):
+    """Implementation of the configuration interface for Whisper (by OpenAI)."""
     device: str
     language: str
     fp16: bool
@@ -30,59 +60,70 @@ class WhisperCfg:
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
         return WhisperCfg(
-            model=_get_config_param(data, "model", name),
-            device=_get_config_param(data, "device", name),
-            language=_get_config_param(data, "language", name),
-            fp16=_get_config_param(data, "fp16", name)
+            name=name,
+            model=get_config_param(data, "model", name),
+            device=get_config_param(data, "device", name),
+            language=get_config_param(data, "language", name),
+            fp16=get_config_param(data, "fp16", name)
         )
 
 
 @dataclass
-class Wav2VecCfg:
-    model: str
+class Wav2VecCfg(ProviderCfg):
+    """Implementation of the configuration interface for
+    Wav2Vec (by Hugging Face).
+    """
     device: str
     compute_type: torch.dtype
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
         return Wav2VecCfg(
-            model=_get_config_param(data, "model", name),
-            device=_get_config_param(data, "device", name),
+            name=name,
+            model=get_config_param(data, "model", name),
+            device=get_config_param(data, "device", name),
             compute_type=_convert_str2dtype(
-                _get_config_param(data, "compute_type", name),
+                get_config_param(data, "compute_type", name),
             )
         )
 
 
 @dataclass
-class HFCfg:
-    model: str
+class HFCfg(ProviderCfg):
+    """Implementation of the configuration interface for
+    Auto Model from Hugging Face.
+    """
     compute_type: torch.dtype
     device: str
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
         return HFCfg(
-            model=_get_config_param(data, "model", name),
-            device=_get_config_param(data, "device", name),
-            compute_type=_get_config_param(data, "compute_type", name)
+            name=name,
+            model=get_config_param(data, "model", name),
+            device=get_config_param(data, "device", name),
+            compute_type=get_config_param(data, "compute_type", name)
         )
 
 
 @dataclass
-class VoskCfg:
-    model: str
+class VoskCfg(ProviderCfg):
+    """Implementation of the configuration interface for Vosk."""
     lang: str = "pt"
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
         return VoskCfg(
-            model=_get_config_param(data, "model", name),
-            lang=_get_config_param(data, "language", name)
+            name=name,
+            model=get_config_param(data, "model", name),
+            lang=get_config_param(data, "language", name)
         )
 
 
-def _get_config_param(data: Dict[str, Any], param: str, provider: str) -> Any:
+def get_config_param(data: Dict[str, Any], param: str, provider: str) -> Any:
+    """Get value of the parameter on data and raise a KeyError if the
+    parameter not exists or is None.
+    """
     if param not in data or data[param] is None:
         raise KeyError(f"Config data of {provider} missing {param}.")
     return data[param]
@@ -105,4 +146,4 @@ def _convert_str2dtype(dtype_: str) -> torch.dtype:
         case "int8":
             return torch.int8
         case _:
-            raise ValueError(f"Torch dtype {dtype_} does not support.")
+            raise ValueError(f"Torch dtype {dtype_} not supported.")
