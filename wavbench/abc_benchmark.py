@@ -54,6 +54,7 @@ class BenchmarkABC(ABC):
 
         return TranscribeResult(
             audio=Path(audio).name,
+            provider_name=provider.name,
             ia=provider.__class__.__name__,
             params=provider.params,
             hypothesis=normalize_txt(hypothesis),
