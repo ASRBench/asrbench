@@ -36,7 +36,7 @@ Para rodar o módulo de benchmark principal, utilize o Poetry para garantir que 
 
 ```shell
 poetry shell
-poetry run python main.py
+poetry run python run_example.py
 ```
 
 ## 📁 Estrutura do Projeto

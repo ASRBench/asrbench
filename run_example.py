@@ -1,5 +1,5 @@
 import logging
-from wavbench.config_loader import BenchmarkFactory
+from wavbench.configfile import Configfile
 
 logging.basicConfig(
     level=logging.ERROR,
@@ -10,5 +10,5 @@ logging.basicConfig(
     filemode="a",
 )
 
-benchmark = BenchmarkFactory.from_config("dataset_benchmark_exemple.yml")
+benchmark = Configfile("benchmark_exemple.yml").set_up_benchmark()
 benchmark.run()
