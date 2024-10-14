@@ -13,7 +13,7 @@ logger: logging.Logger = logging.getLogger(__file__)
 
 
 class BenchmarkABC(ABC):
-    def __init__(self):
+    def __init__(self) -> None:
         self.__providers: Dict[str, IaProvider] = {}
 
     @property
@@ -31,10 +31,20 @@ class BenchmarkABC(ABC):
     def run(self) -> None:
         raise NotImplementedError("Implement run method.")
 
+    # @abstractmethod
+    # def run_with_gen_progress(self) -> Generator[Dict[str, Any], None, None]:
+    # raise NotImplementedError("Implement run with progress method.")
+
     def add_provider(self, name: str, provider: IaProvider) -> None:
+        if not isinstance(provider, IaProvider):
+            raise ValueError(f"Provider {name} is not instance of IaProvider")
+
         self.providers[name] = provider
 
     def remove_provider(self, name: str) -> None:
+        if name not in self.providers:
+            raise KeyError(f"Provider {name} does not exists.")
+
         self.providers.pop(name)
 
     @staticmethod
