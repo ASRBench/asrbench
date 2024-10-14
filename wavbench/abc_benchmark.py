@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime, UTC
 from pathlib import Path
 from .providers.abc_provider import IaProvider
-from .dtos.common import TranscribeResult, Measures
+from .transcribe import TranscribeResult, Measures
 from typing import Dict, List
 from .measures import get_measures, normalize_txt
 
@@ -13,19 +13,10 @@ logger: logging.Logger = logging.getLogger(__file__)
 
 
 class BenchmarkABC(ABC):
-    def __init__(self) -> None:
-        self.__providers: Dict[str, IaProvider] = {}
-
     @property
+    @abstractmethod
     def providers(self) -> Dict[str, IaProvider]:
-        return self.__providers
-
-    @providers.setter
-    def providers(self, providers: Dict[str, IaProvider]) -> None:
-        if providers is None:
-            raise ValueError("Providers is empty.")
-
-        self.__providers: Dict[str, IaProvider] = providers
+        raise NotImplementedError("Implement providers property.")
 
     @abstractmethod
     def run(self) -> None:

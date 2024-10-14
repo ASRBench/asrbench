@@ -2,7 +2,9 @@ import csv
 import logging
 from pprint import pprint
 from .abc_benchmark import BenchmarkABC
-from .dtos.common import TranscribeResult
+from .providers.abc_provider import IaProvider
+from .transcribe import TranscribePair, TranscribeResult
+from typing import Dict
 
 logger: logging.Logger = logging.getLogger(__file__)
 
@@ -11,10 +13,14 @@ class Benchmark(BenchmarkABC):
     """
     """
 
-    def __init__(self, audio, reference: str):
-        super().__init__()
-        self.__audio: str = audio
-        self.__reference: str = reference
+    def __init__(self, pair: TranscribePair, providers: Dict[str, IaProvider]):
+        self.__providers: Dict[str, IaProvider] = providers
+        self.__audio: str = pair.audio
+        self.__reference: str = pair.reference
+
+    @property
+    def providers(self) -> Dict[str, IaProvider]:
+        return self.__providers
 
     @property
     def audio(self) -> str:

@@ -1,6 +1,6 @@
 import jiwer
 import unicodedata
-from .dtos.common import Measures
+from .transcribe import Measures
 from typing import List
 
 

@@ -1,29 +1,12 @@
-from typing import List
 from pathlib import Path
-from typing import Dict
+from .transcribe import TranscribePair
+from typing import List, Dict
 
 
 def _get_param(data: Dict[str, str], param: str, name: str) -> str:
     if param not in data or data[param] is None:
         raise KeyError(f"Dataset {name} param {param} is missing.")
     return data[param]
-
-
-class TranscribePairData:
-    def __init__(self, audio: str, reference: str) -> None:
-        self.__audio: str = audio
-        self.__reference: str = reference
-
-    @property
-    def audio(self) -> str:
-        return self.__audio
-
-    @property
-    def reference(self) -> str:
-        return self.__reference
-
-    def __repr__(self) -> str:
-        return f"<TranscribeData audio={self.audio} reference={self.reference}>"
 
 
 class Dataset:
@@ -36,7 +19,7 @@ class Dataset:
         self.__name: str = name
         self.__audio_dir: Path = Path(audio_dir)
         self.__ref_dir: Path = Path(ref_dir)
-        self.__pairs: List[TranscribePairData] = []
+        self.__pairs: List[TranscribePair] = []
         self.get_data()
 
     @property
@@ -44,7 +27,7 @@ class Dataset:
         return self.__name
 
     @property
-    def pairs(self) -> List[TranscribePairData]:
+    def pairs(self) -> List[TranscribePair]:
         return self.__pairs
 
     def get_data(self) -> None:
@@ -64,8 +47,8 @@ class Dataset:
             reference: str = ref_file.open().read()
 
             self.pairs.append(
-                TranscribePairData(
-                    audio=audio_file.__str__(),
+                TranscribePair(
+                    audio_path=audio_file.__str__(),
                     reference=reference,
                 )
             )
