@@ -10,8 +10,8 @@ class ProviderCfg(ABC):
 
     Attributes
     ----------
-    model [str] : name/path of the model to use.
-    name [str] : provider identifier.
+    model   [str] : name/path of the model to use.
+    name    [str] : provider identifier.
 
     Methods
     -------
@@ -38,6 +38,7 @@ class FWhisperCfg(ProviderCfg):
     compute_type: str
     device: str
     beam_size: int
+    lang: str
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
@@ -46,7 +47,8 @@ class FWhisperCfg(ProviderCfg):
             model=get_config_param(data, "model", name),
             compute_type=get_config_param(data, "compute_type", name),
             beam_size=get_config_param(data, "beam_size", name),
-            device=get_config_param(data, "device", name)
+            device=get_config_param(data, "device", name),
+            lang=get_config_param(data, "language", name)
         )
 
 
@@ -56,6 +58,7 @@ class WhisperCfg(ProviderCfg):
     device: str
     language: str
     fp16: bool
+    lang: str
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
@@ -64,7 +67,8 @@ class WhisperCfg(ProviderCfg):
             model=get_config_param(data, "model", name),
             device=get_config_param(data, "device", name),
             language=get_config_param(data, "language", name),
-            fp16=get_config_param(data, "fp16", name)
+            fp16=get_config_param(data, "fp16", name),
+            lang=get_config_param(data, "language", name)
         )
 
 
@@ -109,7 +113,7 @@ class HFCfg(ProviderCfg):
 @dataclass
 class VoskCfg(ProviderCfg):
     """Implementation of the configuration interface for Vosk."""
-    lang: str = "pt"
+    lang: str
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):

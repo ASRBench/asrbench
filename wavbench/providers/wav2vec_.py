@@ -17,7 +17,6 @@ class Wav2Vec(IaProvider):
         ).to(cfg.device)
         self.__processor: Wav2Vec2Processor = Wav2Vec2Processor.from_pretrained(
             cfg.model
-
         )
 
     @property

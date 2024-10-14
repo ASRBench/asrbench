@@ -7,6 +7,7 @@ from .configs import FWhisperCfg
 class FasterWhisper(IaProvider):
 
     def __init__(self, cfg: FWhisperCfg):
+        self.__lang: str = cfg.lang
         self.__name: str = cfg.name
         self.__params: Dict[str, Any] = cfg.__dict__
         self.__beam_size: int = cfg.beam_size
@@ -40,6 +41,7 @@ class FasterWhisper(IaProvider):
         segments, info = self.__model.transcribe(
             audio=audio_path,
             beam_size=self.beam_size,
+            language=self.__lang
         )
 
         return " ".join([seg.text for seg in segments])
