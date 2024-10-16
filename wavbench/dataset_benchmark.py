@@ -36,6 +36,7 @@ class DatasetBenchmark(BenchmarkABC):
                 writer.writeheader()
 
                 self._process_dataset_with_all_providers(dataset, writer)
+                csv_file.flush()
 
     def run_with_provider(self, name: str) -> None:
         provider: IaProvider = self._get_provider(name)
@@ -55,6 +56,7 @@ class DatasetBenchmark(BenchmarkABC):
                 writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
                 writer.writeheader()
                 self._process_dataset_pairs(dataset, provider, writer)
+                csv_file.flush()
 
     def _process_dataset_pairs(
             self,
