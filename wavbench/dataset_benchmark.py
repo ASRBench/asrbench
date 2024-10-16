@@ -5,7 +5,7 @@ from .abc_benchmark import BenchmarkABC
 from .dataset import Dataset
 from .transcribe import TranscribeResult
 from .providers.abc_provider import IaProvider
-from typing import List, Dict, Any
+from typing import List, Dict, Any, TextIO
 
 logger: logging.Logger = logging.getLogger(__file__)
 
@@ -35,8 +35,11 @@ class DatasetBenchmark(BenchmarkABC):
                 writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
                 writer.writeheader()
 
-                self._process_dataset_with_all_providers(dataset, writer)
-                csv_file.flush()
+                self._process_dataset_with_all_providers(
+                    dataset,
+                    writer,
+                    csv_file,
+                )
 
     def run_with_provider(self, name: str) -> None:
         provider: IaProvider = self._get_provider(name)
@@ -55,14 +58,14 @@ class DatasetBenchmark(BenchmarkABC):
             with open(output_filename, "w") as csv_file:
                 writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
                 writer.writeheader()
-                self._process_dataset_pairs(dataset, provider, writer)
-                csv_file.flush()
+                self._process_dataset_pairs(dataset, provider, writer, csv_file)
 
     def _process_dataset_pairs(
             self,
             dataset: Dataset,
             provider: IaProvider,
             writer: csv.DictWriter[str],
+            file: TextIO,
     ) -> None:
         for pair in dataset.pairs:
             result: TranscribeResult = self._run_provider(
@@ -76,11 +79,13 @@ class DatasetBenchmark(BenchmarkABC):
 
             pprint(final_result)
             writer.writerow(final_result)
+            file.flush()
 
     def _process_dataset_with_all_providers(
             self,
             dataset: Dataset,
             writer: csv.DictWriter[str],
+            file: TextIO,
     ) -> None:
         for provider_name, provider in self.providers.items():
-            self._process_dataset_pairs(dataset, provider, writer)
+            self._process_dataset_pairs(dataset, provider, writer, file)

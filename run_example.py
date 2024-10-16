@@ -10,5 +10,5 @@ logging.basicConfig(
     filemode="a",
 )
 
-benchmark = Configfile("benchmark_exemple.yml").set_up_benchmark()
+benchmark = Configfile("dataset_benchmark_exemple.yml").set_up_benchmark()
 benchmark.run()
