@@ -22,6 +22,10 @@ class BenchmarkABC(ABC):
     def run(self) -> None:
         raise NotImplementedError("Implement run method.")
 
+    @abstractmethod
+    def run_with_provider(self, provider_name: str) -> None:
+        raise NotImplementedError("Implement run with provider method.")
+
     # @abstractmethod
     # def run_with_gen_progress(self) -> Generator[Dict[str, Any], None, None]:
     # raise NotImplementedError("Implement run with progress method.")

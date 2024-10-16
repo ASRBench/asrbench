@@ -3,7 +3,7 @@ import logging
 from pprint import pprint
 from .abc_benchmark import BenchmarkABC
 from .dataset import Dataset
-from .transcribe import TranscribeResult, TranscribePair
+from .transcribe import TranscribeResult
 from .providers.abc_provider import IaProvider
 from typing import List, Dict, Any
 
