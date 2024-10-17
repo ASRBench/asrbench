@@ -21,3 +21,11 @@ class IaProvider(ABC):
     @abstractmethod
     def transcribe(self, audio_path: str) -> str:
         raise NotImplementedError("Implement transcribe method.")
+
+    @abstractmethod
+    def load(self) -> None:
+        raise NotImplementedError("Implement load model method.")
+
+    @abstractmethod
+    def unload(self) -> None:
+        raise NotImplementedError("Implement unload model method.")

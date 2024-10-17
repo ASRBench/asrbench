@@ -1,21 +1,22 @@
+import logging
+import gc
 from typing import Dict, Any
 from faster_whisper import WhisperModel
 from .abc_provider import IaProvider
 from .configs import FWhisperCfg
 
+logger: logging.Logger = logging.getLogger(__file__)
+
 
 class FasterWhisper(IaProvider):
 
     def __init__(self, cfg: FWhisperCfg):
+        self.__model = None
         self.__lang: str = cfg.lang
         self.__name: str = cfg.name
         self.__params: Dict[str, Any] = cfg.__dict__
+        self.__config: FWhisperCfg = cfg
         self.__beam_size: int = cfg.beam_size
-        self.__model = WhisperModel(
-            model_size_or_path=cfg.model,
-            compute_type=cfg.compute_type,
-            device=cfg.device,
-        )
 
     @classmethod
     def from_config(cls, name: str, data: Dict[str, Any]):
@@ -37,7 +38,23 @@ class FasterWhisper(IaProvider):
     def beam_size(self, beam_size: int) -> None:
         self.__beam_size = beam_size
 
+    def load(self) -> None:
+        self.__model = WhisperModel(
+            model_size_or_path=self.__config.model,
+            compute_type=self.__config.compute_type,
+            device=self.__config.device,
+        )
+        logger.info(f"Load {self.name} model")
+
+    def unload(self) -> None:
+        del self.__model
+        logger.info(f"Unload {self.name} model")
+        gc.collect()
+
     def transcribe(self, audio_path: str) -> str:
+        if self.__model is None:
+            self.load()
+
         segments, info = self.__model.transcribe(
             audio=audio_path,
             beam_size=self.beam_size,

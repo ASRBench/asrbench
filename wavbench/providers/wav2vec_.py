@@ -1,3 +1,5 @@
+import gc
+import logging
 import torch
 import librosa
 from .abc_provider import IaProvider
@@ -5,12 +7,15 @@ from .configs import Wav2VecCfg
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from typing import Dict, Any, List
 
+logger: logging.Logger = logging.getLogger(__file__)
+
 
 class Wav2Vec(IaProvider):
 
     def __init__(self, cfg: Wav2VecCfg) -> None:
         self.__name: str = cfg.name
         self.__params = cfg.__dict__
+        self.__config: Wav2VecCfg = cfg
         self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
             pretrained_model_name_or_path=cfg.model,
             torch_dtype=cfg.compute_type,
@@ -31,7 +36,31 @@ class Wav2Vec(IaProvider):
     def params(self) -> Dict[str, Any]:
         return self.__params
 
+    def load(self) -> None:
+        self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
+            pretrained_model_name_or_path=self.__config.model,
+            torch_dtype=self.__config.compute_type,
+        ).to(self.__config.device)
+        logger.info(f"Load {self.name} model")
+
+        self.__processor: Wav2Vec2Processor = Wav2Vec2Processor.from_pretrained(
+            self.__config.model
+        )
+        logger.info(f"Load {self.name} processor")
+
+    def unload(self) -> None:
+        del self.__model
+        logger.info(f"Unload {self.name} model")
+
+        del self.__processor
+        logger.info(f"Unload {self.name} processor")
+
+        gc.collect()
+
     def transcribe(self, audio_path: str) -> str:
+        if self.__model is None or self.__processor is None:
+            self.load()
+
         audio, sample_rate = librosa.load(audio_path, sr=16000)
         inputs = self.__processor(
             audio=audio,
