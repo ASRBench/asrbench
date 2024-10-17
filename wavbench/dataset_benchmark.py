@@ -88,4 +88,6 @@ class DatasetBenchmark(BenchmarkABC):
             file: TextIO,
     ) -> None:
         for provider_name, provider in self.providers.items():
+            provider.load()
             self._process_dataset_pairs(dataset, provider, writer, file)
+            provider.unload()
