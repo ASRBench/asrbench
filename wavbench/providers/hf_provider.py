@@ -35,7 +35,7 @@ class HFAudio2Text(IaProvider):
         self.__model: AutoModelForCTC = AutoModelForCTC.from_pretrained(
             pretrained_model_name_or_path=self.__config.model,
             torch_dtype=self.__config.compute_type,
-        )
+        ).to(self.__config.device)
         logger.info(f"Load {self.name}  model")
 
         self.__processor: AutoProcessor = AutoProcessor.from_pretrained(
