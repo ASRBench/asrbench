@@ -16,13 +16,8 @@ class Wav2Vec(IaProvider):
         self.__name: str = cfg.name
         self.__params = cfg.__dict__
         self.__config: Wav2VecCfg = cfg
-        self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
-            pretrained_model_name_or_path=cfg.model,
-            torch_dtype=cfg.compute_type,
-        ).to(cfg.device)
-        self.__processor: Wav2Vec2Processor = Wav2Vec2Processor.from_pretrained(
-            cfg.model
-        )
+        self.__model = None
+        self.__processor = None
 
     @property
     def name(self) -> str:
@@ -69,7 +64,7 @@ class Wav2Vec(IaProvider):
             return_tensors="pt"
         ).input_values
 
-        inputs = inputs.to(self.__model.device)
+        inputs = inputs.to(self.__config.device)
 
         with torch.no_grad():
             logits = self.__model(inputs).logits

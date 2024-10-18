@@ -1,0 +1,9 @@
+class ReportData:
+    def __init__(self) -> None:
+        ...
+
+    def load_csv(self, filepath_: str) -> None:
+        ...
+
+    def agg_by(self, field: str) -> None:
+        ...

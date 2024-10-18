@@ -32,13 +32,13 @@ class HFAudio2Text(IaProvider):
         return self.__params
 
     def load(self) -> None:
-        self.__model = AutoModelForCTC.from_pretrained(
+        self.__model: AutoModelForCTC = AutoModelForCTC.from_pretrained(
             pretrained_model_name_or_path=self.__config.model,
             torch_dtype=self.__config.compute_type,
         )
         logger.info(f"Load {self.name}  model")
 
-        self.__processor = AutoProcessor.from_pretrained(
+        self.__processor: AutoProcessor = AutoProcessor.from_pretrained(
             pretrained_model_name_or_path=self.__config.model
         )
         logger.info(f"Load {self.name}  processor")
@@ -64,7 +64,7 @@ class HFAudio2Text(IaProvider):
             return_tensors="pt"
         ).input_values
 
-        inputs = inputs.to(self.__model.device)
+        inputs = inputs.to(self.__config.device)
 
         with torch.no_grad():
             logits = self.__model(inputs).logits
