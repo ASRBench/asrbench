@@ -52,7 +52,7 @@ class BenchmarkABC(ABC):
 
         start: float = time.time()
         hypothesis: str = provider.transcribe(audio)
-        runtime: float = round((time.time() - start) * (10 ** 3), 3)
+        runtime: float = utils.get_runtime(start)
         duration: float = utils.get_audio_duration(audio)
 
         measures: Measures = get_measures(reference, hypothesis)
@@ -66,8 +66,8 @@ class BenchmarkABC(ABC):
             reference=normalize_txt(reference),
             measures=measures,
             accuracy=round(((1 - measures.wer) * 100), 2),
-            runtime=round((runtime / 1000), 3),
-            audio_duration=round((duration / 1000), 3),
+            runtime=runtime,
+            audio_duration=duration,
             rtf=utils.get_rtf(runtime, duration)
         )
 

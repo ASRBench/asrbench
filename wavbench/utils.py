@@ -1,3 +1,4 @@
+import time
 import yaml
 from pydub import AudioSegment
 from pathlib import Path
@@ -16,16 +17,25 @@ def check_path(filepath: str) -> None:
         raise FileNotFoundError(f"File {path.name} in {path} does not exists.")
 
 
+def get_runtime(start: float) -> float:
+    """Return time since start in seconds."""
+    return round(
+        (time.time() - start),
+        3,
+    )
+
+
 def get_rtf(runtime, duration: float) -> float:
-    """Calculate Real Time Factor [RTF]."""
+    """Calculate Real Time Factor [RTF] in seconds."""
     rtf: float = runtime / duration
     return round(rtf, 3)
 
 
 def get_audio_duration(audio_path: str) -> float:
+    """Get audio duration in seconds"""
     audio = AudioSegment.from_wav(audio_path)
     if audio is not None:
-        return round(len(audio), 3)
+        return round(len(audio)/1000, 3)
 
 
 def read_config_data(filepath_: str) -> Dict[str, Any]:
