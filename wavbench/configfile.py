@@ -6,17 +6,18 @@ from .dataset_benchmark import DatasetBenchmark
 from .dataset import Dataset
 from pathlib import Path
 from .providers.abc_provider import IaProvider
-from .providers.factory import ProviderFactory
+from .providers.abc_factory import ProviderFactoryABC
 from .transcribe import TranscribePair
 from typing import Dict, List, Any
 
 
 class Configfile:
-    def __init__(self, filepath_: str) -> None:
+    def __init__(self, filepath_: str, factory: ProviderFactoryABC) -> None:
         utils.check_path(filepath_)
 
         self.__path: str = filepath_
         self.__data: Dict[str, Dict[str, Any]] = self._read_data()
+        self.__factory: ProviderFactoryABC = factory
 
     @property
     def data(self) -> Dict[str, Dict[str, Any]]:
@@ -72,8 +73,7 @@ class Configfile:
         )
 
     def get_providers(self) -> Dict[str, IaProvider]:
-        provider_factory = ProviderFactory()
-        return provider_factory.get_providers(
+        return self.__factory.from_config(
             self._get_config_section("providers"),
         )
 
