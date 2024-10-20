@@ -1,7 +1,7 @@
 datasets:
   dataset1:
-    audio_dir: "resources/audios"
-    reference_dir: "resources/references"
+    audio_dir: "resources/common_voice_10/wav"
+    reference_dir: "resources/common_voice_10/txt"
 
 providers:
   faster_whisper:
