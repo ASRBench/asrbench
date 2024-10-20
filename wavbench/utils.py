@@ -3,7 +3,7 @@ import yaml
 from pydub import AudioSegment
 from pathlib import Path
 from typing import Dict, Any
-from .providers.factory import ProviderFactory
+from .providers.factory import DefaultProviderFactory
 
 
 def check_path(filepath: str) -> None:
@@ -50,7 +50,7 @@ def read_config_data(filepath_: str) -> Dict[str, Any]:
 
 def gen_dataset_references(config_path: str) -> None:
     config: Dict[str, Any] = read_config_data(config_path)
-    provider_factory = ProviderFactory()
+    provider_factory = DefaultProviderFactory()
 
     if "datasets" not in config:
         raise KeyError("Configfile missing datasets.")

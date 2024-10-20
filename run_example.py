@@ -1,7 +1,7 @@
 import logging
 import warnings
 from wavbench.configfile import Configfile
-from wavbench.providers.factory import ProviderFactory
+from wavbench.providers.factory import DefaultProviderFactory
 
 warnings.filterwarnings(action="ignore", category=FutureWarning)
 
@@ -16,6 +16,6 @@ logging.basicConfig(
 
 benchmark = Configfile(
     filepath_="dataset_benchmark_exemple.yml",
-    factory=ProviderFactory(),
+    factory=DefaultProviderFactory(),
 ).set_up_benchmark()
 benchmark.run()

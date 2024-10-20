@@ -11,7 +11,7 @@ from typing import Dict, Any
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class ProviderFactory(ProviderFactoryABC):
+class DefaultProviderFactory(ProviderFactoryABC):
 
     def get_provider(self, name: str, cfg: Dict[str, Any]) -> IaProvider:
         """Return IaProvider with provider config"""
