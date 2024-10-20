@@ -1,7 +1,8 @@
 import torch
+import warnings
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Dict, Any
+from typing import Dict, Any, Set
 
 
 @dataclass
@@ -42,6 +43,16 @@ class FWhisperCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
+        supported: Set[str] = {
+            "model",
+            "compute_type",
+            "beam_size",
+            "device",
+            "language",
+            "provider",
+        }
+        _check_unsupported(data, supported, name)
+
         return FWhisperCfg(
             name=name,
             model=get_config_param(data, "model", name),
@@ -58,17 +69,24 @@ class WhisperCfg(ProviderCfg):
     device: str
     language: str
     fp16: bool
-    lang: str
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
+        supported: Set[str] = {
+            "model",
+            "device",
+            "language",
+            "fp16",
+            "provider",
+        }
+        _check_unsupported(data, supported, name)
+
         return WhisperCfg(
             name=name,
             model=get_config_param(data, "model", name),
             device=get_config_param(data, "device", name),
             language=get_config_param(data, "language", name),
             fp16=get_config_param(data, "fp16", name),
-            lang=get_config_param(data, "language", name)
         )
 
 
@@ -82,6 +100,9 @@ class Wav2VecCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
+        supported: Set[str] = {"model", "device", "compute_type", "provider"}
+        _check_unsupported(data, supported, name)
+
         return Wav2VecCfg(
             name=name,
             model=get_config_param(data, "model", name),
@@ -102,6 +123,9 @@ class HFCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
+        supported: Set[str] = {"model", "device", "compute_type", "provider"}
+        _check_unsupported(data, supported, name)
+
         return HFCfg(
             name=name,
             model=get_config_param(data, "model", name),
@@ -117,6 +141,9 @@ class VoskCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
+        supported: Set[str] = {"model", "language", "provider"}
+        _check_unsupported(data, supported, name)
+
         return VoskCfg(
             name=name,
             model=get_config_param(data, "model", name),
@@ -131,6 +158,20 @@ def get_config_param(data: Dict[str, Any], param: str, provider: str) -> Any:
     if param not in data or data[param] is None:
         raise KeyError(f"Config data of {provider} missing {param}.")
     return data[param]
+
+
+def _check_unsupported(
+        config: Dict[str, Any],
+        supported: Set[str],
+        name: str,
+) -> None:
+    unsupported: Set[str] = set(config.keys()) - supported
+    if unsupported:
+        warnings.warn(
+            message=f"The following parameters in {name} config are not"
+                    f"supported and will be ignored: [{" ".join(unsupported)}]",
+            category=UserWarning
+        )
 
 
 def _convert_str2dtype(dtype_: str) -> torch.dtype:
