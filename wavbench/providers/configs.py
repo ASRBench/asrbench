@@ -168,7 +168,7 @@ def _check_unsupported(
     unsupported: Set[str] = set(config.keys()) - supported
     if unsupported:
         warnings.warn(
-            message=f"The following parameters in {name} config are not"
+            message=f"The following parameters in {name} config are not "
                     f"supported and will be ignored: [{" ".join(unsupported)}]",
             category=UserWarning
         )
