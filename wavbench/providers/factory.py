@@ -41,7 +41,7 @@ class ProviderFactory(ProviderFactoryABC):
                 )
                 raise ValueError(f"Provider {provider} does not exists.")
 
-    def get_providers(
+    def from_config(
             self,
             providers_cfg: Dict[str, Dict[str, Any]],
     ) -> Dict[str, IaProvider]:
