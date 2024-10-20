@@ -1,5 +1,8 @@
 import logging
+import warnings
 from wavbench.configfile import Configfile
+
+warnings.filterwarnings(action="ignore", category=FutureWarning)
 
 logging.basicConfig(
     level=logging.ERROR,
