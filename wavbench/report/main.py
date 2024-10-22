@@ -1,18 +1,15 @@
 import pandas as pd
-from pprint import pprint
+from report_data import ReportData
 
-
-# processar infos
-# calcular dados
-# plotar graficos
-# montar pdf
-# escrever e salvar arquivo
-
-def load_csv(filepath: str) -> pd.DataFrame:
-    df: pd.DataFrame = pd.read_csv(filepath)
-    pprint(df)
-    return df
-
+"""
+para cada benchmark separar cada IA para cada configuracao e fazer a 
+media dos measures.
+talvez juntar cada series de media e plotar um grafico de dispercao.
+fazer esse processo para cada dataset.
+"""
 
 if __name__ == "__main__":
-    load_csv("./results/test.csv")
+    data: ReportData = ReportData("../../results/test.csv")
+
+    for df in data.get_by_config():
+        print(df.describe().T['mean'])
