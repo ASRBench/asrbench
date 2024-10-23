@@ -1,6 +1,7 @@
 import pandas as pd
-from plot_strategy import PlotStrategy
-from typing import List
+from plots.strategy import PlotStrategy
+from plots.appearance import AppearanceComposite
+from typing import List, Dict, Optional
 
 
 class ReportData:
@@ -13,9 +14,9 @@ class ReportData:
 
     @df.setter
     def df(self, dataframe: pd.DataFrame) -> None:
-        self.df = dataframe
+        self.__df = dataframe
 
-    def get_by_config(self) -> List[pd.DataFrame]:
+    def get_by_configs(self) -> List[pd.DataFrame]:
         """Creates a list of dataframes, each of which is a
         different configuration of a transformer"""
         return [
@@ -33,9 +34,28 @@ class ReportData:
         in the column provided."""
         return self.df[column].unique()
 
-    def plot(self, strategy: PlotStrategy) -> None:
+    def group_by_mean(self, column: str) -> pd.DataFrame:
+        return self.df.groupby([column]).mean(numeric_only=True)
+
+    def rename_columns(self, columns: Dict[str, str]) -> None:
+        self.df.rename(
+            columns=columns,
+            inplace=True,
+        )
+
+    def enumerate_index(self) -> None:
+        self.df.index = [
+            f"{n + 1} {name}" for n, name in enumerate(self.df.index.tolist())
+        ]
+
+    def plot(
+            self,
+            strategy: PlotStrategy,
+            appearance: Optional[AppearanceComposite] = None,
+    ) -> None:
         """HERE?????"""
         strategy.plot(self.df)
+        appearance.customize()
 
 
 if __name__ == "__main__":
