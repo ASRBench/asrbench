@@ -1,15 +1,44 @@
-import pandas as pd
 from report_data import ReportData
+from plots.strategy import DispersionPlot
+from plots.axis_labels import FacetGridAxisLabels
+from plots.appearance import (
+    AppearanceComposite,
+    EnumeratePoints,
+    LegendPosition,
+    AxisLabels,
+)
 
-"""
-para cada benchmark separar cada IA para cada configuracao e fazer a 
-media dos measures.
-talvez juntar cada series de media e plotar um grafico de dispercao.
-fazer esse processo para cada dataset.
-"""
+data: ReportData = ReportData("../../results/common_voice_12000.csv")
+provider_group = data.group_by_mean("provider_name")
+print(provider_group)
 
-if __name__ == "__main__":
-    data: ReportData = ReportData("../../results/test.csv")
+data.df = provider_group
+data.df["provider_name"] = [
+    f"{n + 1} {name}" for n, name in enumerate(data.df.index.tolist())
+]
+# data.enumerate_index()
 
-    for df in data.get_by_config():
-        print(df.describe().T['mean'])
+strategy = DispersionPlot(
+    x="accuracy",
+    y="rtf",
+    hue="provider_name",
+)
+
+plot = strategy.plot(data.df)
+
+appearance_kit: AppearanceComposite = AppearanceComposite()
+appearance_kit.add(EnumeratePoints(data.df, "accuracy", "rtf"))
+appearance_kit.add(LegendPosition(plot))
+appearance_kit.add(
+    AxisLabels(
+        FacetGridAxisLabels(
+            plot=plot,
+            xlabel="Accuracy (%)",
+            ylabel="RTF",
+            font_size=11.0,
+        )
+    )
+)
+
+appearance_kit.customize()
+plot.savefig("../../results/plots/test_flow.png")
