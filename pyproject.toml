@@ -20,6 +20,7 @@ librosa = "^0.10.2.post1"
 torch = "^2.4.1"
 openai-whisper = { git = "https://github.com/openai/whisper.git" }
 pandas = "^2.2.3"
+seaborn = "^0.13.2"
 
 
 [build-system]
