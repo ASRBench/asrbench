@@ -3,7 +3,7 @@ import logging
 import torch
 import librosa
 from .abc_provider import IaProvider
-from .configs import Wav2VecCfg
+from .configs import Wav2VecCfg, convert_str2dtype
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from typing import Dict, Any, List
 
@@ -34,7 +34,7 @@ class Wav2Vec(IaProvider):
     def load(self) -> None:
         self.__model: Wav2Vec2ForCTC = Wav2Vec2ForCTC.from_pretrained(
             pretrained_model_name_or_path=self.__config.model,
-            torch_dtype=self.__config.compute_type,
+            torch_dtype=convert_str2dtype(self.__config.compute_type),
         ).to(self.__config.device)
         logger.info(f"Load {self.name} model")
 

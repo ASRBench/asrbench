@@ -3,7 +3,7 @@ import logging
 import torch
 import librosa
 from .abc_provider import IaProvider
-from .configs import HFCfg
+from .configs import HFCfg, convert_str2dtype
 from transformers import AutoModelForCTC, AutoProcessor
 from typing import Dict, Any, List
 
@@ -34,7 +34,7 @@ class HFAudio2Text(IaProvider):
     def load(self) -> None:
         self.__model: AutoModelForCTC = AutoModelForCTC.from_pretrained(
             pretrained_model_name_or_path=self.__config.model,
-            torch_dtype=self.__config.compute_type,
+            torch_dtype=convert_str2dtype(self.__config.compute_type),
         ).to(self.__config.device)
         logger.info(f"Load {self.name}  model")
 

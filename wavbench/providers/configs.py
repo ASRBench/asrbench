@@ -96,7 +96,7 @@ class Wav2VecCfg(ProviderCfg):
     Wav2Vec (by Hugging Face).
     """
     device: str
-    compute_type: torch.dtype
+    compute_type: str
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
@@ -107,9 +107,7 @@ class Wav2VecCfg(ProviderCfg):
             name=name,
             model=get_config_param(data, "model", name),
             device=get_config_param(data, "device", name),
-            compute_type=_convert_str2dtype(
-                get_config_param(data, "compute_type", name),
-            )
+            compute_type=get_config_param(data, "compute_type", name),
         )
 
 
@@ -118,7 +116,7 @@ class HFCfg(ProviderCfg):
     """Implementation of the configuration interface for
     Auto Model from Hugging Face.
     """
-    compute_type: torch.dtype
+    compute_type: str
     device: str
 
     @classmethod
@@ -174,7 +172,7 @@ def _check_unsupported(
         )
 
 
-def _convert_str2dtype(dtype_: str) -> torch.dtype:
+def convert_str2dtype(dtype_: str) -> torch.dtype:
     match dtype_:
         case "float64":
             return torch.float64
