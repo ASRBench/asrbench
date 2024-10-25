@@ -1,7 +1,7 @@
 datasets:
   dataset1:
-    audio_dir: "resources/common_voice_10/wav"
-    reference_dir: "resources/common_voice_10/txt"
+    audio_dir: "resources/common_voice_05/wav"
+    reference_dir: "resources/common_voice_05/txt"
 
 providers:
   faster_whisper:
@@ -23,12 +23,12 @@ providers:
     device: "cpu"
     language: "pt"
     fp16: False
-  wav2vec:
-    provider: "wav2vec"
-    model: "facebook/wav2vec2-large-xlsr-53-portuguese"
-    compute_type: "float32"
-    device: "cpu"
-    language: "pt"
+#  wav2vec:
+#    provider: "wav2vec"
+#    model: "facebook/wav2vec2-large-xlsr-53-portuguese"
+#    compute_type: "float32"
+#    device: "cpu"
+#    language: "pt"
   hf:
     provider: "hf"
     model: "facebook/wav2vec2-large-xlsr-53-portuguese"
