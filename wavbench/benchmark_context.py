@@ -1,32 +1,25 @@
 import sys
 import time
-from csv import DictWriter
 from .dataset import Dataset
+from .output import OutputABC
 from .utils import get_runtime
-from typing import TextIO
 
 
 class BenchmarkContext:
     def __init__(
             self,
             dataset: Dataset,
-            file: TextIO,
-            writer: DictWriter,
+            output: OutputABC,
     ) -> None:
         self.__dataset: Dataset = dataset
-        self.__file: TextIO = file
-        self.__writer: DictWriter = writer
+        self.__output: OutputABC = output
         self.__total_pairs: int = len(self.__dataset.pairs)
         self._processed_pairs: int = 0
         self.__start: float = 0.0
 
     @property
-    def writer(self) -> DictWriter:
-        return self.__writer
-
-    @property
-    def file(self) -> TextIO:
-        return self.__file
+    def output(self) -> OutputABC:
+        return self.__output
 
     @property
     def dataset(self) -> Dataset:

@@ -5,6 +5,7 @@ from .benchmark_context import BenchmarkContext
 from .dataset import Dataset
 from .transcribe import TranscribeResult
 from .providers.abc_provider import IaProvider
+from .output import OutputABC
 from typing import List, Dict, Any
 
 logger: logging.Logger = logging.getLogger(__file__)
@@ -15,9 +16,11 @@ class DatasetBenchmark(BenchmarkABC):
             self,
             datasets: List[Dataset],
             providers: Dict[str, IaProvider],
+            output: OutputABC
     ) -> None:
         self.__providers: Dict[str, IaProvider] = providers
         self.__datasets: List[Dataset] = datasets
+        self.__output: OutputABC = output
 
     @property
     def providers(self) -> Dict[str, IaProvider]:
@@ -29,17 +32,13 @@ class DatasetBenchmark(BenchmarkABC):
 
         for dataset in self.__datasets:
             logger.info(f"Run benchmark with dataset: {dataset.name}")
-            output_filename: str = self._get_output_filename(dataset.name)
+            self.__output.filepath = self._get_output_filename(dataset.name)
 
-            with open(output_filename, "w") as csv_file:
-                writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-                writer.writeheader()
-
+            with self.__output:
                 self._process_dataset_with_all_providers(
                     BenchmarkContext(
                         dataset=dataset,
-                        writer=writer,
-                        file=csv_file,
+                        output=self.__output,
                     )
                 )
 
@@ -63,8 +62,7 @@ class DatasetBenchmark(BenchmarkABC):
                 self._process_dataset_pairs(
                     BenchmarkContext(
                         dataset=dataset,
-                        file=csv_file,
-                        writer=writer
+                        output=self.__output,
                     ),
                     provider,
                 )
@@ -86,8 +84,7 @@ class DatasetBenchmark(BenchmarkABC):
             final_result["dataset"] = ctx.dataset.name
 
             ctx.update_progress(provider.name)
-            ctx.writer.writerow(final_result)
-            ctx.file.flush()
+            ctx.output.write_row(final_result)
 
     def _process_dataset_with_all_providers(
             self,

@@ -4,6 +4,7 @@ from .abc_benchmark import BenchmarkABC
 from .benchmark_ import Benchmark
 from .dataset_benchmark import DatasetBenchmark
 from .dataset import Dataset
+from .output import OutputABC, CsvOutput, JsonOutput
 from pathlib import Path
 from .providers.abc_provider import IaProvider
 from .providers.abc_factory import ProviderFactoryABC
@@ -33,19 +34,26 @@ class Configfile:
         self.__path = filepath_
 
     def set_up_benchmark(self) -> BenchmarkABC:
+        output: OutputABC = self.get_output()
+        providers: Dict[str, IaProvider] = self.get_providers()
+
         if self.has_dataset():
             return DatasetBenchmark(
-                self.get_datasets(),
-                self.get_providers(),
+                datasets=self.get_datasets(),
+                providers=providers,
+                output=output,
             )
 
         if self.has_audio():
             return Benchmark(
-                self.get_audio_config(),
-                self.get_providers()
+                pair=self.get_audio_config(),
+                providers=providers,
             )
 
         raise SyntaxError("Invalid configfile syntax.")
+
+    def has_output(self) -> bool:
+        return "output" in self.data
 
     def has_audio(self) -> bool:
         return "audio" in self.data
@@ -76,6 +84,21 @@ class Configfile:
         return self.__factory.from_config(
             self._get_config_section("providers"),
         )
+
+    def get_output(self) -> OutputABC:
+        if not self.has_output():
+            return CsvOutput()
+
+        output_cfg: Dict[str, Any] = self._get_config_section("output")
+        type_: str = self._get_config_value(output_cfg, "type")
+
+        match type_:
+            case "csv":
+                return CsvOutput()
+            case "json":
+                return JsonOutput()
+            case _:
+                raise ValueError(f"Output type {type_} not supported.")
 
     def _read_data(self) -> Dict[str, Any]:
         """Read config data."""

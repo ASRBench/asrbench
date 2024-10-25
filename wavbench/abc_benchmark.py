@@ -26,10 +26,6 @@ class BenchmarkABC(ABC):
     def run_with_provider(self, provider_name: str) -> None:
         raise NotImplementedError("Implement run with provider method.")
 
-    # @abstractmethod
-    # def run_with_gen_progress(self) -> Generator[Dict[str, Any], None, None]:
-    # raise NotImplementedError("Implement run with progress method.")
-
     def add_provider(self, name: str, provider: IaProvider) -> None:
         if not isinstance(provider, IaProvider):
             raise ValueError(f"Provider {name} is not instance of IaProvider")
@@ -74,7 +70,7 @@ class BenchmarkABC(ABC):
     @staticmethod
     def _get_output_filename(name: str = "wavbench") -> str:
         timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
-        return f"./results/{name}_{timestamp}.csv"
+        return f"./results/{name}_{timestamp}"
 
     @staticmethod
     def _get_fieldnames() -> List[str]:
