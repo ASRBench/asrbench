@@ -1,4 +1,3 @@
-import seaborn
 import seaborn as sns
 import pandas as pd
 from abc import ABC, abstractmethod
@@ -6,6 +5,7 @@ from typing import Optional, Any
 
 sns.set()
 sns.set_context("paper")
+sns.set_style("darkgrid")
 
 
 class PlotStrategy(ABC):
