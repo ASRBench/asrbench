@@ -1,5 +1,4 @@
 import datetime
-import time
 from pathlib import Path
 from report_data import ReportData
 from plots.strategy import DispersionPlot
