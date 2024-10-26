@@ -11,3 +11,4 @@ dist
 # Output files
 *.log
 *.csv
+*.pdf
