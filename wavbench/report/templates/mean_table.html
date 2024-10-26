@@ -1,0 +1,23 @@
+<div class="mean">
+    <h2>Models Statistics</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>provider</th>
+            {% for column in mean_stats.values()|first %}
+            <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for provider, values in mean_stats.items() %}
+        <tr>
+            <td>{{ provider }}</td>
+            {% for value in values.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

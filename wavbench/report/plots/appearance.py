@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from abc import ABC, abstractmethod
-from .axis_labels import AxisLabelsStrategy
 from .colors_ import generate_palette
 from typing import List, Any, Tuple, Dict, Hashable
 
