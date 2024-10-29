@@ -1,65 +1,54 @@
 import wavbench.utils as utils
 import yaml
 from .abc_benchmark import BenchmarkABC
-from .benchmark_ import Benchmark
-from .dataset_benchmark import DatasetBenchmark
+from .benchmark import DefaultBenchmark
 from .dataset import Dataset
-from .output import OutputABC, CsvOutput, JsonOutput
+from datetime import datetime, UTC
+from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
 from pathlib import Path
 from .providers.abc_provider import IaProvider
 from .providers.abc_factory import ProviderFactoryABC
-from .transcribe import TranscribePair
+from .observer import Observer, ConsoleObserver
 from typing import Dict, List, Any
 
 
 class Configfile:
-    def __init__(self, filepath_: str, factory: ProviderFactoryABC) -> None:
+    def __init__(
+            self,
+            filepath_: str,
+            factory: ProviderFactoryABC,
+            observer: Observer = ConsoleObserver()
+    ) -> None:
         utils.check_path(filepath_)
 
         self.__path: str = filepath_
-        self.__data: Dict[str, Dict[str, Any]] = self._read_data()
+        self._observer: Observer = observer
+        self.__data: Dict[str, Dict[str, Any]] = self.read_data()
         self.__factory: ProviderFactoryABC = factory
+        self.__output_cfg: Dict[str, str] = self.data.get("output", {})
 
     @property
     def data(self) -> Dict[str, Dict[str, Any]]:
         return self.__data
 
-    @property
-    def filepath(self) -> str:
-        return self.__path
-
-    @filepath.setter
-    def filepath(self, filepath_: str) -> None:
-        utils.check_path(filepath_)
-        self.__path = filepath_
+    def read_data(self) -> Dict[str, Any]:
+        """Read config data."""
+        self._observer.notify("Reading configfile...")
+        with open(self.__path, "r") as file:
+            config: Dict[str, Any] = yaml.safe_load(file)
+        self._observer.finish()
+        return config
 
     def set_up_benchmark(self) -> BenchmarkABC:
-        output: OutputABC = self.get_output()
-        providers: Dict[str, IaProvider] = self.get_providers()
-
-        if self.has_dataset():
-            return DatasetBenchmark(
-                datasets=self.get_datasets(),
-                providers=providers,
-                output=output,
-            )
-
-        if self.has_audio():
-            return Benchmark(
-                pair=self.get_audio_config(),
-                providers=providers,
-            )
-
-        raise SyntaxError("Invalid configfile syntax.")
-
-    def has_output(self) -> bool:
-        return "output" in self.data
-
-    def has_audio(self) -> bool:
-        return "audio" in self.data
-
-    def has_dataset(self) -> bool:
-        return "datasets" in self.data
+        self._observer.notify("Mounting Benchmark...")
+        benchmark = DefaultBenchmark(
+            datasets=self.get_datasets(),
+            providers=self.get_providers(),
+            output=self.get_output(),
+            observer=self._observer,
+        )
+        self._observer.finish()
+        return benchmark
 
     def get_datasets(self) -> List[Dataset]:
         if not self.has_dataset():
@@ -70,51 +59,50 @@ class Configfile:
             for name, config in self.data.get("datasets").items()
         ]
 
-    def get_audio_config(self) -> TranscribePair:
-        audio_section: Dict[str, Any] = self._get_config_section("audio")
-
-        return TranscribePair(
-            audio_path=self._get_config_value(audio_section, "path"),
-            reference=Path(
-                self._get_config_value(audio_section, "reference"),
-            ).open().read()
-        )
+    def has_dataset(self) -> bool:
+        return "datasets" in self.data
 
     def get_providers(self) -> Dict[str, IaProvider]:
         return self.__factory.from_config(
-            self._get_config_section("providers"),
+            self.get_config_section("providers"),
         )
 
-    def get_output(self) -> OutputABC:
-        if not self.has_output():
-            return CsvOutput()
-
-        output_cfg: Dict[str, Any] = self._get_config_section("output")
-        type_: str = self._get_config_value(output_cfg, "type")
+    def get_output(self) -> OutputContextABC:
+        type_: str = self.__output_cfg.get("type", "csv")
 
         match type_:
             case "csv":
-                return CsvOutput()
+                return CsvOutputContext(self.get_output_filepath())
             case "json":
-                return JsonOutput()
+                return JsonOutputContext(self.get_output_filepath())
             case _:
                 raise ValueError(f"Output type {type_} not supported.")
 
-    def _read_data(self) -> Dict[str, Any]:
-        """Read config data."""
-        with open(self.__path, "r") as file:
-            config: Dict[str, Any] = yaml.safe_load(file)
+    def set_up_output_filename(self) -> str:
+        timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
+        return f"{self.get_output_filename()}_{timestamp}"
 
-        return config
+    def get_output_filepath(self) -> str:
+        return Path(
+            self.get_output_dir()
+        ).joinpath(
+            self.set_up_output_filename()
+        ).__str__()
 
-    def _get_config_section(self, section: str) -> Dict[str, Any]:
+    def get_output_dir(self) -> str:
+        return self.__output_cfg.get("dir", Path.cwd())
+
+    def get_output_filename(self) -> str:
+        return self.__output_cfg.get("filename", "asrbench")
+
+    def get_config_section(self, section: str) -> Dict[str, Any]:
         if section not in self.data:
             raise KeyError(f"Configfile dont have {section} section.")
         return self.data[section]
 
     @staticmethod
-    def _get_config_value(section: Dict[str, Any], name: str) -> Any:
-        if name not in section or section[name] is None:
-            raise KeyError(f"Configfile {section} section missing {name}.")
+    def get_config_value(section: Dict[str, Any], key: str) -> Any:
+        if key not in section or section[key] is None:
+            raise KeyError(f"Configfile {section} section missing {key}.")
 
-        return section[name]
+        return section[key]
