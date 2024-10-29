@@ -9,16 +9,11 @@ def _set_ext(filepath_: str, ext_: str) -> str:
     return Path(filepath_).with_suffix(ext_).__str__()
 
 
-class OutputABC(ABC):
+class OutputContextABC(ABC):
     @property
     @abstractmethod
     def filepath(self) -> str:
         raise NotImplementedError("Implement filepath property.")
-
-    @filepath.setter
-    @abstractmethod
-    def filepath(self, filepath_: str) -> None:
-        raise NotImplementedError("Implement filepath setter.")
 
     @property
     @abstractmethod
@@ -38,18 +33,14 @@ class OutputABC(ABC):
         raise NotImplementedError("Implement dunder exit method.")
 
 
-class CsvOutput(OutputABC):
-    def __init__(self, mode: str = "w") -> None:
+class CsvOutputContext(OutputContextABC):
+    def __init__(self, filepath_: str, mode: str = "w") -> None:
         self._mode: str = mode
-        self._filepath = None
+        self._filepath: str = _set_ext(filepath_, ".csv")
 
     @property
     def filepath(self) -> str:
         return self._filepath
-
-    @filepath.setter
-    def filepath(self, filepath_: str) -> None:
-        self._filepath: str = _set_ext(filepath_, ".csv")
 
     @property
     def file(self) -> TextIO:
@@ -60,9 +51,6 @@ class CsvOutput(OutputABC):
         self.__file.flush()
 
     def __enter__(self) -> TextIO:
-        if self._filepath is None:
-            raise ValueError("Output filepath not provided.")
-
         self.__file: TextIO = open(self._filepath, self._mode, encoding="utf8")
 
         fieldnames: List[str] = [
@@ -100,20 +88,20 @@ class CsvOutput(OutputABC):
             exception_.add_note("Error when create outputfile for benchmark.")
 
 
-class JsonOutput(OutputABC):
-    def __init__(self, mode: str = "w", indent: int = 4) -> None:
+class JsonOutputContext(OutputContextABC):
+    def __init__(
+            self, filepath_: str,
+            mode: str = "w",
+            indent: int = 4,
+    ) -> None:
         self._mode: str = mode
         self._indent: int = indent
         self._data: List[Dict[str, Any]] = []
-        self._filepath = None
+        self._filepath: str = _set_ext(filepath_, ".json")
 
     @property
     def filepath(self) -> str:
         return self._filepath
-
-    @filepath.setter
-    def filepath(self, filepath_: str) -> None:
-        self._filepath: str = _set_ext(filepath_, ".json")
 
     @property
     def file(self) -> TextIO:
@@ -123,9 +111,6 @@ class JsonOutput(OutputABC):
         self._data.append(data)
 
     def __enter__(self) -> TextIO:
-        if self._filepath is None:
-            raise ValueError("Output filepath not provided.")
-
         self.__file: TextIO = open(self._filepath, self._mode, encoding="utf8")
         return self.__file
 
