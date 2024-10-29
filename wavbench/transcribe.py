@@ -24,6 +24,7 @@ class TranscribeResult:
     runtime: float
     rtf: float
     accuracy: float
+    dataset: str
 
     def to_dict(self) -> Dict[str, any]:
         return {
@@ -42,6 +43,7 @@ class TranscribeResult:
             "runtime": self.runtime,
             "rtf": self.rtf,
             "accuracy": self.accuracy,
+            "dataset": self.dataset,
         }
 
 
