@@ -15,7 +15,7 @@ logging.basicConfig(
 )
 
 benchmark = Configfile(
-    filepath_="dataset_benchmark_exemple.yml",
+    filepath_="configfile_example.yml",
     factory=DefaultProviderFactory(),
 ).set_up_benchmark()
 benchmark.run()
