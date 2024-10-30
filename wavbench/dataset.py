@@ -34,7 +34,7 @@ class Dataset:
         if not self.__audio_dir.is_dir():
             raise ValueError("Provided dir is not a directory or not exists.")
 
-        for audio_file in self.__audio_dir.glob("*.wav"):
+        for audio_file in self.__audio_dir.glob("*"):
             ref_file: Path = self.__ref_dir.joinpath(
                 audio_file.with_suffix(".txt").name,
             )

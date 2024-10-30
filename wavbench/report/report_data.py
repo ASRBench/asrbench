@@ -1,12 +1,13 @@
 import pandas as pd
 from plots.strategy import PlotStrategy
 from plots.appearance import AppearanceComposite
+from wavbench.utils import check_path
 from typing import List, Dict, Optional
 
 
 class ReportData:
-    def __init__(self, filepath_: str) -> None:
-        self.__df: pd.DataFrame = pd.read_csv(filepath_)
+    def __init__(self, input_: str) -> None:
+        self.__df: pd.DataFrame = pd.read_csv(input_)
 
     @property
     def df(self) -> pd.DataFrame:
@@ -45,17 +46,9 @@ class ReportData:
 
     def enumerate_index(self) -> None:
         self.df.index = [
-            f"{n + 1} {name}" for n, name in enumerate(self.df.index.tolist())
+            f"{n + 1} {name}"
+            for n, name in enumerate(self.df.index.tolist())
         ]
-
-    def plot(
-            self,
-            strategy: PlotStrategy,
-            appearance: Optional[AppearanceComposite] = None,
-    ) -> None:
-        """HERE?????"""
-        strategy.plot(self.df)
-        appearance.customize()
 
 
 if __name__ == "__main__":

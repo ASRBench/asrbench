@@ -11,6 +11,7 @@ from plots.appearance import (
 )
 from jinja2 import FileSystemLoader, Environment
 from weasyprint import HTML
+
 filepath = Path("./results/common_voice_12000.csv")
 data: ReportData = ReportData(filepath.__str__())
 
