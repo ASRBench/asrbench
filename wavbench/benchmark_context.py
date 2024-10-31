@@ -37,14 +37,14 @@ class BenchmarkContext:
     def update_progress(self, provider_name: str) -> None:
         self._current += 1
         self._observer.update_progress(
-            self._get_progress(),
+            self._calculate_progress(),
             self._get_progress_msg(provider_name),
         )
 
         if self._current == self._total:
             self._observer.finish()
 
-    def _get_progress(self) -> float:
+    def _calculate_progress(self) -> float:
         self._progress = self._current / self._total
         return self._progress
 
