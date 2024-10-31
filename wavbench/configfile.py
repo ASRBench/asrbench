@@ -101,7 +101,7 @@ class Configfile:
         return self.data[section]
 
     @staticmethod
-    def get_config_value(section: Dict[str, Any], key: str) -> Any:
+    def get_section_value(section: Dict[str, Any], key: str) -> Any:
         if key not in section or section[key] is None:
             raise KeyError(f"Configfile {section} section missing {key}.")
 
