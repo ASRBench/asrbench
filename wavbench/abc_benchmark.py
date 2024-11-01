@@ -13,11 +13,11 @@ class BenchmarkABC(ABC):
         raise NotImplementedError("Implement providers property.")
 
     @abstractmethod
-    def run(self) -> None:
+    def run(self) -> str:
         raise NotImplementedError("Implement run method.")
 
     @abstractmethod
-    def run_with_provider(self, provider_name: str) -> None:
+    def run_with_provider(self, provider_name: str) -> str:
         raise NotImplementedError("Implement run with provider method.")
 
     def add_provider(self, name: str, provider: IaProvider) -> None:

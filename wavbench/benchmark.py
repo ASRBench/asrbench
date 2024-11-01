@@ -32,14 +32,15 @@ class DefaultBenchmark(BenchmarkABC):
     def providers(self) -> Dict[str, IaProvider]:
         return self.__providers
 
-    def run(self) -> None:
+    def run(self) -> str:
         with self.__output:
             for idx, dataset in enumerate(self.__datasets):
                 logger.info(f"Run benchmark for dataset: {dataset.name}")
                 self._context.set_dataset(idx)
                 self._process_dataset_with_providers()
+        return self.__output.filepath
 
-    def run_with_provider(self, name: str) -> None:
+    def run_with_provider(self, name: str) -> str:
         with self.__output:
             for idx, dataset in enumerate(self.__datasets):
                 logger.info(
@@ -49,6 +50,7 @@ class DefaultBenchmark(BenchmarkABC):
 
                 self._context.set_dataset(idx)
                 self._process_dataset_pairs(self._get_provider(name))
+        return self.__output.filepath
 
     def _process_dataset_pairs(self, provider: IaProvider) -> None:
         self._context.start_progress()
