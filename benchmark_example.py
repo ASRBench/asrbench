@@ -2,6 +2,8 @@ import logging
 import warnings
 from wavbench.configfile import Configfile
 from wavbench.providers.factory import DefaultProviderFactory
+from wavbench.report.report_template import DefaultReport
+from wavbench.report.input_ import CsvInput
 
 warnings.filterwarnings(action="ignore", category=FutureWarning)
 
@@ -14,8 +16,13 @@ logging.basicConfig(
     filemode="a",
 )
 
-benchmark = Configfile(
+cfg = Configfile(
     filepath_="configfile_example.yml",
     factory=DefaultProviderFactory(),
-).set_up_benchmark()
-benchmark.run()
+)
+
+benchmark = cfg.set_up_benchmark()
+output_filepath: str = benchmark.run()
+
+report = DefaultReport(CsvInput(output_filepath))
+report.generate_report()
