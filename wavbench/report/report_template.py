@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime, UTC
 from .input_ import Input
 from jinja2 import Template
-from plots.appearance import (
+from .plots.appearance import (
     AppearanceComposite,
     EnumeratePoints,
     LegendPosition,
@@ -25,35 +25,40 @@ class ReportTemplate(ABC):
 
     @abstractmethod
     def process_data(self) -> pd.DataFrame:
-        ...
+        raise NotImplementedError("Implement process_data method.")
 
     @abstractmethod
     def create_plot(self, df: pd.DataFrame) -> None:
-        ...
+        raise NotImplementedError("Implement create_plot method.")
 
     @abstractmethod
     def mount_report(self) -> None:
-        ...
+        raise NotImplementedError("Implement mount_report method.")
 
 
 class DefaultReport(ReportTemplate):
-    def __init__(self, input_: Input, output_: Path) -> None:
+    def __init__(self, input_: Input) -> None:
         self._data = ReportData(input_.read_data())
-        self._output: Path = output_
-        self._result: Dict[str, Any] = {"file": input_.filepath}
+        self._output: Path = Path(input_.filepath).absolute()
+        self._result: Dict[str, Any] = {"file": self._output.name}
 
     def process_data(self) -> pd.DataFrame:
         mean: pd.DataFrame = self._data.group_by_mean("provider_name")
 
         self._result["configs"] = self._data.get_configs_dict()
-        self._result["mean_stats"] = mean.to_dict(orient="index")
+        self._result["mean_stats"] = mean.round(3).to_dict(orient="index")
+
+        mean["provider_name"] = [
+            f"{n + 1} {name}"
+            for n, name in enumerate(mean.index.tolist())
+        ]
 
         return mean
 
     def create_plot(self, df: pd.DataFrame) -> None:
         strategy = DispersionPlot(
             x="accuracy",
-            y="rft",
+            y="rtf",
             hue="provider_name"
         )
         plot = strategy.plot(df)
@@ -72,7 +77,7 @@ class DefaultReport(ReportTemplate):
         appearance_kit.customize()
 
         plot_output_path: str = self._output.with_suffix(".png").__str__()
-        plot.savefig(plot_output_path)
+        plot.savefig(plot_output_path, dpi=300)
 
         self._result["plot_title"] = "Dispersion Plot"
         self._result["plot"] = plot_output_path
@@ -83,6 +88,9 @@ class DefaultReport(ReportTemplate):
         template: Template = loader.load("default.html")
 
         self._result["created_at"] = datetime.now(UTC)
+        self._result["templates_dir"] = Path(__file__).parent.joinpath(
+            "templates",
+        )
 
         HTML(
             string=template.render(**self._result),
