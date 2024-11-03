@@ -2,7 +2,7 @@ import gc
 import logging
 import torch
 import librosa
-from .abc_provider import IaProvider
+from .abc_provider import ASRProvider
 from .configs import HFCfg, convert_str2dtype
 from transformers import AutoModelForCTC, AutoProcessor
 from typing import Dict, Any, List
@@ -10,7 +10,7 @@ from typing import Dict, Any, List
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class HFAudio2Text(IaProvider):
+class HFAudio2Text(ASRProvider):
 
     def __init__(self, cfg: HFCfg) -> None:
         self.__name: str = cfg.name

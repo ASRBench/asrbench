@@ -5,13 +5,13 @@ import json
 import numpy as np
 from typing import Dict, Any
 from .configs import VoskCfg
-from .abc_provider import IaProvider
+from .abc_provider import ASRProvider
 from vosk import Model, KaldiRecognizer
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class Vosk(IaProvider):
+class Vosk(ASRProvider):
     def __init__(self, cfg: VoskCfg):
         self.__name: str = cfg.name
         self.__params = cfg.__dict__

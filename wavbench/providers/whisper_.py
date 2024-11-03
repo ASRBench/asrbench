@@ -1,14 +1,14 @@
 import gc
 import logging
 from typing import Dict, Any
-from .abc_provider import IaProvider
+from .abc_provider import ASRProvider
 from .configs import WhisperCfg
 import whisper
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class Whisper(IaProvider):
+class Whisper(ASRProvider):
 
     def __init__(self, cfg: WhisperCfg):
         self.__name: str = cfg.name

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Dict, Any
 
 
-class IaProvider(ABC):
+class ASRProvider(ABC):
     @classmethod
     @abstractmethod
     def from_config(cls, name: str, data: Dict[str, Any]):

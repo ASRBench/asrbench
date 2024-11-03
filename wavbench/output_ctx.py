@@ -55,7 +55,7 @@ class CsvOutputContext(OutputContextABC):
 
         fieldnames: List[str] = [
             "audio",
-            "ia",
+            "asr",
             "provider_name",
             "params",
             "reference",

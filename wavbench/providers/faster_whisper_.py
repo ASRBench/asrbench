@@ -2,13 +2,13 @@ import logging
 import gc
 from typing import Dict, Any
 from faster_whisper import WhisperModel
-from .abc_provider import IaProvider
+from .abc_provider import ASRProvider
 from .configs import FWhisperCfg
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class FasterWhisper(IaProvider):
+class FasterWhisper(ASRProvider):
 
     def __init__(self, cfg: FWhisperCfg):
         self.__model = None

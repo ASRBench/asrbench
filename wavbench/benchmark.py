@@ -6,7 +6,7 @@ from .abc_benchmark import BenchmarkABC
 from .benchmark_context import BenchmarkContext
 from .dataset import Dataset
 from .transcribe import TranscribeResult, TranscribePair, Measures
-from .providers.abc_provider import IaProvider
+from .providers.abc_provider import ASRProvider
 from .observer import Observer
 from .output_ctx import OutputContextABC
 from typing import List, Dict, Any
@@ -18,18 +18,18 @@ class DefaultBenchmark(BenchmarkABC):
     def __init__(
             self,
             datasets: List[Dataset],
-            providers: Dict[str, IaProvider],
+            providers: Dict[str, ASRProvider],
             output: OutputContextABC,
             observer: Observer,
     ) -> None:
-        self.__providers: Dict[str, IaProvider] = providers
+        self.__providers: Dict[str, ASRProvider] = providers
         self.__datasets: List[Dataset] = datasets
         self.__output: OutputContextABC = output
         self._observer: Observer = observer
         self._context: BenchmarkContext = BenchmarkContext(datasets, observer)
 
     @property
-    def providers(self) -> Dict[str, IaProvider]:
+    def providers(self) -> Dict[str, ASRProvider]:
         return self.__providers
 
     def run(self) -> str:
@@ -52,7 +52,7 @@ class DefaultBenchmark(BenchmarkABC):
                 self._process_dataset_pairs(self._get_provider(name))
         return self.__output.filepath
 
-    def _process_dataset_pairs(self, provider: IaProvider) -> None:
+    def _process_dataset_pairs(self, provider: ASRProvider) -> None:
         self._context.start_progress()
         for pair in self._context.dataset.pairs:
             result: TranscribeResult = self._run_transcribe(
@@ -72,7 +72,7 @@ class DefaultBenchmark(BenchmarkABC):
             provider.unload()
             self._context.reset_progress()
 
-    def _get_provider(self, name: str) -> IaProvider:
+    def _get_provider(self, name: str) -> ASRProvider:
         if name not in self.__providers:
             raise KeyError(f"Provider {name} not in benchmark providers.")
 
@@ -80,7 +80,7 @@ class DefaultBenchmark(BenchmarkABC):
 
     def _run_transcribe(
             self,
-            provider: IaProvider,
+            provider: ASRProvider,
             pair: TranscribePair,
     ) -> TranscribeResult:
         audio_path: str = pair.audio
@@ -100,7 +100,7 @@ class DefaultBenchmark(BenchmarkABC):
         return TranscribeResult(
             audio=utils.get_filename(audio_path),
             provider_name=provider.name,
-            ia=provider.__class__.__name__,
+            asr=provider.__class__.__name__,
             params=provider.params,
             hypothesis=jiwer_.normalize_txt(hypothesis),
             reference=jiwer_.normalize_txt(reference),

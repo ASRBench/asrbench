@@ -6,7 +6,7 @@ from .dataset import Dataset
 from datetime import datetime, UTC
 from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
 from pathlib import Path
-from .providers.abc_provider import IaProvider
+from .providers.abc_provider import ASRProvider
 from .providers.abc_factory import ProviderFactoryABC
 from .observer import Observer, ConsoleObserver
 from typing import Dict, List, Any
@@ -62,7 +62,7 @@ class Configfile:
     def has_dataset(self) -> bool:
         return "datasets" in self.data
 
-    def get_providers(self) -> Dict[str, IaProvider]:
+    def get_providers(self) -> Dict[str, ASRProvider]:
         return self.__factory.from_config(
             self.get_config_section("providers"),
         )

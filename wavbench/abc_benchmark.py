@@ -1,6 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
-from .providers.abc_provider import IaProvider
+from .providers.abc_provider import ASRProvider
 from typing import Dict
 
 logger: logging.Logger = logging.getLogger(__file__)
@@ -9,7 +9,7 @@ logger: logging.Logger = logging.getLogger(__file__)
 class BenchmarkABC(ABC):
     @property
     @abstractmethod
-    def providers(self) -> Dict[str, IaProvider]:
+    def providers(self) -> Dict[str, ASRProvider]:
         raise NotImplementedError("Implement providers property.")
 
     @abstractmethod
@@ -20,8 +20,8 @@ class BenchmarkABC(ABC):
     def run_with_provider(self, provider_name: str) -> str:
         raise NotImplementedError("Implement run with provider method.")
 
-    def add_provider(self, name: str, provider: IaProvider) -> None:
-        if not isinstance(provider, IaProvider):
+    def add_provider(self, name: str, provider: ASRProvider) -> None:
+        if not isinstance(provider, ASRProvider):
             raise ValueError(f"Provider {name} is not instance of IaProvider")
 
         self.providers[name] = provider

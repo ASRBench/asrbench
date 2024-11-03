@@ -14,7 +14,7 @@ class Measures:
 @dataclass
 class TranscribeResult:
     audio: str
-    ia: str
+    asr: str
     provider_name: str
     params: Dict[str, str]
     reference: str
@@ -29,7 +29,7 @@ class TranscribeResult:
     def to_dict(self) -> Dict[str, any]:
         return {
             "audio": self.audio,
-            "ia": self.ia,
+            "asr": self.asr,
             "provider_name": self.provider_name,
             "params": self.params,
             "reference": self.reference,
