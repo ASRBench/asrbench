@@ -41,7 +41,7 @@ class FWhisperCfg(ProviderCfg):
             "beam_size",
             "device",
             "language",
-            "provider",
+            "asr",
         }
         _check_unsupported(data, supported, name)
 
@@ -69,7 +69,7 @@ class WhisperCfg(ProviderCfg):
             "device",
             "language",
             "fp16",
-            "provider",
+            "asr",
         }
         _check_unsupported(data, supported, name)
 
@@ -92,7 +92,7 @@ class Wav2VecCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
-        supported: Set[str] = {"model", "device", "compute_type", "provider"}
+        supported: Set[str] = {"model", "device", "compute_type", "asr"}
         _check_unsupported(data, supported, name)
 
         return Wav2VecCfg(
@@ -113,7 +113,7 @@ class HFCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
-        supported: Set[str] = {"model", "device", "compute_type", "provider"}
+        supported: Set[str] = {"model", "device", "compute_type", "asr"}
         _check_unsupported(data, supported, name)
 
         return HFCfg(
@@ -131,7 +131,7 @@ class VoskCfg(ProviderCfg):
 
     @classmethod
     def load(cls, data: Dict[str, Any], name: str):
-        supported: Set[str] = {"model", "language", "provider"}
+        supported: Set[str] = {"model", "language", "asr"}
         _check_unsupported(data, supported, name)
 
         return VoskCfg(

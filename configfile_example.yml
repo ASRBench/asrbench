@@ -10,31 +10,31 @@ datasets:
 
 transcribers:
   faster_whisper:
-    provider: "faster_whisper"
+    asr: "faster_whisper"
     model: "medium"
     compute_type: "int8"
     device: "cpu"
     beam_size: 5
     language: "pt"
   whisper_1:
-    provider: "whisper"
+    asr: "whisper"
     model: "medium"
     device: "cpu"
     language: "pt"
     fp16: False
   whisper_2:
-    provider: "whisper"
+    asr: "whisper"
     model: "large-v3-turbo"
     device: "cpu"
     language: "pt"
     fp16: False
   wav2vec:
-    provider: "wav2vec"
+    asr: "wav2vec"
     model: "facebook/wav2vec2-large-xlsr-53-portuguese"
     compute_type: "float32"
     device: "cpu"
   hf:
-    provider: "hf"
+    asr: "hf"
     model: "facebook/wav2vec2-large-xlsr-53-portuguese"
     compute_type: "float32"
     device: "cpu"

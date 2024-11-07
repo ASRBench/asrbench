@@ -15,9 +15,9 @@ class DefaultTranscriberFactory(TranscriberFactoryABC):
 
     def get_transcriber(self, name: str, cfg: Dict[str, Any]) -> Transcriber:
         """Return IaProvider with provider config"""
-        if "provider" not in cfg:
-            raise KeyError(f"Missing provider in {name} config.")
-        provider: str = cfg["provider"]
+        if "asr" not in cfg:
+            raise KeyError(f"Missing asr in {name} config.")
+        provider: str = cfg["asr"]
 
         match provider:
             case "faster_whisper":
