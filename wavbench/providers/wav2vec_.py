@@ -24,8 +24,8 @@ class Wav2Vec(ASRProvider):
         return self.__name
 
     @classmethod
-    def from_config(cls, name: str, data: Dict[str, Any]):
-        return Wav2Vec(Wav2VecCfg.load(data, name))
+    def from_config(cls, name: str, config: Dict[str, Any]):
+        return Wav2Vec(Wav2VecCfg.load(config, name))
 
     @property
     def params(self) -> Dict[str, Any]:

@@ -9,6 +9,7 @@ logger: logging.Logger = logging.getLogger(__file__)
 
 
 class FasterWhisper(ASRProvider):
+    """Implementation of the ASR interface for the Faster Whisper."""
 
     def __init__(self, cfg: FWhisperCfg):
         self.__model = None
@@ -19,8 +20,8 @@ class FasterWhisper(ASRProvider):
         self.__beam_size: int = cfg.beam_size
 
     @classmethod
-    def from_config(cls, name: str, data: Dict[str, Any]):
-        return FasterWhisper(FWhisperCfg.load(data, name))
+    def from_config(cls, name: str, config: Dict[str, Any]):
+        return FasterWhisper(FWhisperCfg.load(config, name))
 
     @property
     def name(self) -> str:
@@ -33,10 +34,6 @@ class FasterWhisper(ASRProvider):
     @property
     def beam_size(self) -> int:
         return self.__beam_size
-
-    @beam_size.setter
-    def beam_size(self, beam_size: int) -> None:
-        self.__beam_size = beam_size
 
     def load(self) -> None:
         self.__model = WhisperModel(

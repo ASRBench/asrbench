@@ -23,8 +23,8 @@ class Whisper(ASRProvider):
         return self.__name
 
     @classmethod
-    def from_config(cls, name: str, data: Dict[str, Any]):
-        return Whisper(WhisperCfg.load(data, name))
+    def from_config(cls, name: str, config: Dict[str, Any]):
+        return Whisper(WhisperCfg.load(config, name))
 
     @property
     def params(self) -> Dict[str, Any]:

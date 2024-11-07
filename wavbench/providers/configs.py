@@ -9,17 +9,9 @@ from typing import Dict, Any, Set
 class ProviderCfg(ABC):
     """Interface to define the basics of provider configuration.
 
-    Attributes
-    ----------
-    model   [str] : name/path of the model to use.
-    name    [str] : provider identifier.
-
-    Methods
-    -------
-
-    load(cls, data: Dict[str, Any], name: str) -> ProviderConfig:
-        Loads the configuration with the data extracted from the
-        configuration section of a provider.
+    Attributes:
+        model: name/path of the model to use.
+        name: provider identifier.
     """
     model: str
     name: str

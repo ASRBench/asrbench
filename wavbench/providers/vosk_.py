@@ -24,8 +24,8 @@ class Vosk(ASRProvider):
         return self.__name
 
     @classmethod
-    def from_config(cls, name: str, data: Dict[str, Any]):
-        return Vosk(VoskCfg.load(data, name))
+    def from_config(cls, name: str, config: Dict[str, Any]):
+        return Vosk(VoskCfg.load(config, name))
 
     @property
     def params(self) -> Dict[str, Any]:

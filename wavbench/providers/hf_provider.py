@@ -24,8 +24,8 @@ class HFAudio2Text(ASRProvider):
         return self.__name
 
     @classmethod
-    def from_config(cls, name: str, data: Dict[str, Any]):
-        return HFAudio2Text(HFCfg.load(data, name))
+    def from_config(cls, name: str, config: Dict[str, Any]):
+        return HFAudio2Text(HFCfg.load(config, name))
 
     @property
     def params(self) -> Dict[str, Any]:
