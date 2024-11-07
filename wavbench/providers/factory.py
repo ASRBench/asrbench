@@ -1,6 +1,6 @@
 import logging
-from .abc_factory import ProviderFactoryABC
-from .abc_provider import ASRProvider
+from .abc_factory import TranscriberFactoryABC
+from .abc_transcriber import Transcriber
 from .faster_whisper_ import FasterWhisper
 from .hf_provider import HFAudio2Text
 from .vosk_ import Vosk
@@ -11,9 +11,9 @@ from typing import Dict, Any
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class DefaultProviderFactory(ProviderFactoryABC):
+class DefaultTranscriberFactory(TranscriberFactoryABC):
 
-    def get_provider(self, name: str, cfg: Dict[str, Any]) -> ASRProvider:
+    def get_transcriber(self, name: str, cfg: Dict[str, Any]) -> Transcriber:
         """Return IaProvider with provider config"""
         if "provider" not in cfg:
             raise KeyError(f"Missing provider in {name} config.")
@@ -44,12 +44,12 @@ class DefaultProviderFactory(ProviderFactoryABC):
     def from_config(
             self,
             providers_cfg: Dict[str, Dict[str, Any]],
-    ) -> Dict[str, ASRProvider]:
+    ) -> Dict[str, Transcriber]:
         """Set up providers dict from provider section in config file"""
-        providers: Dict[str, ASRProvider] = {}
+        providers: Dict[str, Transcriber] = {}
 
         for name, provider_cfg in providers_cfg.items():
-            providers[name] = self.get_provider(name, provider_cfg)
+            providers[name] = self.get_transcriber(name, provider_cfg)
 
         logging.debug(f"providers for benchmark: {providers.__str__()}")
         return providers

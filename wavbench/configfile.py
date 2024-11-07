@@ -6,8 +6,8 @@ from .dataset import Dataset
 from datetime import datetime, UTC
 from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
 from pathlib import Path
-from .providers.abc_provider import ASRProvider
-from .providers.abc_factory import ProviderFactoryABC
+from .providers.abc_transcriber import Transcriber
+from .providers.abc_factory import TranscriberFactoryABC
 from .observer import Observer, ConsoleObserver
 from typing import Dict, List, Any
 
@@ -16,7 +16,7 @@ class Configfile:
     def __init__(
             self,
             filepath_: str,
-            factory: ProviderFactoryABC,
+            factory: TranscriberFactoryABC,
             observer: Observer = ConsoleObserver()
     ) -> None:
         utils.check_path(filepath_)
@@ -24,7 +24,7 @@ class Configfile:
         self.__path: str = filepath_
         self._observer: Observer = observer
         self.__data: Dict[str, Dict[str, Any]] = self.read_data()
-        self.__factory: ProviderFactoryABC = factory
+        self.__factory: TranscriberFactoryABC = factory
         self.__output_cfg: Dict[str, str] = self.data.get("output", {})
 
     @property
@@ -43,7 +43,7 @@ class Configfile:
         self._observer.notify("Mounting Benchmark...")
         benchmark = DefaultBenchmark(
             datasets=self.get_datasets(),
-            providers=self.get_providers(),
+            transcribers=self.get_transcribers(),
             output=self.get_output(),
             observer=self._observer,
         )
@@ -62,9 +62,9 @@ class Configfile:
     def has_dataset(self) -> bool:
         return "datasets" in self.data
 
-    def get_providers(self) -> Dict[str, ASRProvider]:
+    def get_transcribers(self) -> Dict[str, Transcriber]:
         return self.__factory.from_config(
-            self.get_config_section("providers"),
+            self.get_config_section("transcribers"),
         )
 
     def get_output(self) -> OutputContextABC:

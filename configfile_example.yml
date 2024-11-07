@@ -8,7 +8,7 @@ datasets:
     audio_dir: "resources/common_voice_05/wav"
     reference_dir: "resources/common_voice_05/txt"
 
-providers:
+transcribers:
   faster_whisper:
     provider: "faster_whisper"
     model: "medium"

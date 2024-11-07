@@ -2,7 +2,7 @@ import gc
 import logging
 import torch
 import librosa
-from .abc_provider import ASRProvider
+from .abc_transcriber import Transcriber
 from .configs import Wav2VecCfg, convert_str2dtype
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from typing import Dict, Any, List
@@ -10,7 +10,7 @@ from typing import Dict, Any, List
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class Wav2Vec(ASRProvider):
+class Wav2Vec(Transcriber):
 
     def __init__(self, cfg: Wav2VecCfg) -> None:
         self.__name: str = cfg.name

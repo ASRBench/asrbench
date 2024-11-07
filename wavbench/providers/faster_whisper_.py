@@ -2,13 +2,13 @@ import logging
 import gc
 from typing import Dict, Any
 from faster_whisper import WhisperModel
-from .abc_provider import ASRProvider
+from .abc_transcriber import Transcriber
 from .configs import FWhisperCfg
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
-class FasterWhisper(ASRProvider):
+class FasterWhisper(Transcriber):
     """Implementation of the ASR interface for the Faster Whisper."""
 
     def __init__(self, cfg: FWhisperCfg):
