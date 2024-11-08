@@ -4,6 +4,7 @@ from typing import Dict
 
 @dataclass
 class Measures:
+    """Defines the structure of Jiwer measures."""
     wer: float
     cer: float
     mer: float
@@ -13,9 +14,10 @@ class Measures:
 
 @dataclass
 class TranscribeResult:
+    """Defines the result structure of transcriptions."""
     audio: str
     asr: str
-    provider_name: str
+    transcriber_name: str
     params: Dict[str, str]
     reference: str
     hypothesis: str
@@ -27,10 +29,11 @@ class TranscribeResult:
     dataset: str
 
     def to_dict(self) -> Dict[str, any]:
+        """Transforms the class structure into a Dict."""
         return {
             "audio": self.audio,
             "asr": self.asr,
-            "provider_name": self.provider_name,
+            "transcriber_name": self.transcriber_name,
             "params": self.params,
             "reference": self.reference,
             "hypothesis": self.hypothesis,
@@ -48,6 +51,11 @@ class TranscribeResult:
 
 
 class TranscribePair:
+    """Defines the structure of a data pair for transcription.
+
+    Arguments:
+        audio_path: path to the audio file.
+    """
     def __init__(self, audio_path: str, reference: str) -> None:
         self.__audio: str = audio_path
         self.__reference: str = reference

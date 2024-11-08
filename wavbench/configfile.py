@@ -46,7 +46,7 @@ class Configfile:
             external_path: Path = Path(
                 self.get_config_section("custom_transcriber_dir")
             )
-            load_registers(external_path, external_path.name)
+            load_registers(external_path)
 
     def set_up_benchmark(self) -> BenchmarkABC:
         self._observer.notify("Mounting Benchmark...")
@@ -60,6 +60,7 @@ class Configfile:
         return benchmark
 
     def get_datasets(self) -> List[Dataset]:
+        """Get datasets from the configuration file"""
         if not self.has_dataset():
             raise ValueError("Configfile dont have datasets configuration.")
 
@@ -72,11 +73,13 @@ class Configfile:
         return "datasets" in self.data
 
     def get_transcribers(self) -> Dict[str, Transcriber]:
+        """Get transcribers from the configuration file"""
         return self.__factory.from_config(
             self.get_config_section("transcribers"),
         )
 
     def get_output(self) -> OutputContextABC:
+        """Get output from the configuration file."""
         type_: str = self.__output_cfg.get("type", "csv")
 
         match type_:
@@ -92,6 +95,7 @@ class Configfile:
         return f"{self.get_output_filename()}_{timestamp}"
 
     def get_output_filepath(self) -> str:
+        """Set up output filepath from the configuration file."""
         return Path(
             self.get_output_dir()
         ).joinpath(
@@ -99,18 +103,22 @@ class Configfile:
         ).__str__()
 
     def get_output_dir(self) -> str:
+        """Get output dir from the configuration file"""
         return self.__output_cfg.get("dir", Path.cwd())
 
     def get_output_filename(self) -> str:
+        """Get output filename from the configuration file."""
         return self.__output_cfg.get("filename", "asrbench")
 
     def get_config_section(self, section: str) -> Any:
+        """Get the section of the configfile by the name provided."""
         if section not in self.data:
             raise KeyError(f"Configfile dont have {section} section.")
         return self.data[section]
 
     @staticmethod
     def get_section_value(section: Dict[str, Any], key: str) -> Any:
+        """Get the value from the section and key provided."""
         if key not in section or section[key] is None:
             raise KeyError(f"Configfile {section} section missing {key}.")
 

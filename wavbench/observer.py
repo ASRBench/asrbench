@@ -3,16 +3,22 @@ from abc import ABC, abstractmethod
 
 
 class Observer(ABC):
+    """Defines methods to show the status of the benchmark execution
+    to the user."""
+
     @abstractmethod
     def update_progress(self, progress: float, message: str) -> None:
+        """Updates execution progress."""
         raise NotImplementedError("Implement update_progress method.")
 
     @abstractmethod
     def notify(self, message: str) -> None:
+        """Displays a message to the user."""
         raise NotImplementedError("Implement notify method.")
 
     @abstractmethod
     def finish(self) -> None:
+        """Shows the finalization of progress."""
         raise NotImplementedError("Implement finish method.")
 
 

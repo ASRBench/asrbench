@@ -10,6 +10,14 @@ def _get_param(data: Dict[str, str], param: str, name: str) -> str:
 
 
 class Dataset:
+    """Class representing the structure of a dataset.
+
+    Arguments:
+        name: Dataset name.
+        audio_dir: Audio directory.
+        ref_dir: Reference directory.
+    """
+
     def __init__(
             self,
             name: str,
@@ -31,6 +39,7 @@ class Dataset:
         return self.__pairs
 
     def get_data(self) -> None:
+        """Set up dataset TranscriberPairs."""
         if not self.__audio_dir.is_dir():
             raise ValueError("Provided dir is not a directory or not exists.")
 
@@ -55,6 +64,7 @@ class Dataset:
 
     @classmethod
     def from_config(cls, name: str, config: Dict[str, str]):
+        """Set up Dataset from config Dict in configfile."""
         return Dataset(
             name=name,
             audio_dir=_get_param(config, "audio_dir", name),

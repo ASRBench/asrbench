@@ -12,17 +12,22 @@ class BenchmarkABC(ABC):
     @property
     @abstractmethod
     def transcribers(self) -> Dict[str, Transcriber]:
+        """Gets all the transcribers of the class."""
         raise NotImplementedError("Implement transcribers property.")
 
     @abstractmethod
     def run(self) -> str:
+        """Run the transcription with each transcriber for each audio in each
+        dataset of the class."""
         raise NotImplementedError("Implement run method.")
 
     @abstractmethod
     def run_with_transcriber(self, name: str) -> str:
+        """Runs the benchmark only with the chosen transcriber."""
         raise NotImplementedError("Implement run with transcriber method.")
 
     def add_provider(self, name: str, transcriber: Transcriber) -> None:
+        """Add a transcriber to the class."""
         if not isinstance(transcriber, Transcriber):
             raise ValueError(
                 f"Transcriber {name} is not instance of Transcriber.",
@@ -31,6 +36,7 @@ class BenchmarkABC(ABC):
         self.transcribers[name] = transcriber
 
     def remove_provider(self, name: str) -> None:
+        """Removes the transcriber from the class."""
         if name not in self.transcribers:
             raise KeyError(f"Provider {name} does not exists.")
 

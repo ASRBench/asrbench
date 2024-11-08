@@ -99,7 +99,7 @@ class DefaultBenchmark(BenchmarkABC):
 
         return TranscribeResult(
             audio=utils.get_filename(audio_path),
-            provider_name=provider.name,
+            transcriber_name=provider.name,
             asr=provider.__class__.__name__,
             params=provider.params,
             hypothesis=jiwer_.normalize_txt(hypothesis),
