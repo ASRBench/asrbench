@@ -21,12 +21,16 @@ class DefaultTranscriberFactory(TranscriberFactoryABC):
 
     def from_config(
             self,
-            providers_cfg: Dict[str, Dict[str, Any]],
+            config: Dict[str, Dict[str, Any]],
     ) -> Dict[str, Transcriber]:
-        """Set up transcribers dict from provider section in config file"""
+        """Set up transcribers dict from provider section in config file.
+
+        Arguments:
+           config: transcribers section of the configuration file.
+        """
         providers: Dict[str, Transcriber] = {}
 
-        for name, provider_cfg in providers_cfg.items():
+        for name, provider_cfg in config.items():
             providers[name] = self.get_transcriber(name, provider_cfg)
 
         logging.debug(f"transcribers for benchmark: {providers.__str__()}")
