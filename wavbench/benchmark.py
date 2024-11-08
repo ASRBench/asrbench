@@ -6,7 +6,7 @@ from .abc_benchmark import BenchmarkABC
 from .benchmark_context import BenchmarkContext
 from .dataset import Dataset
 from .transcribe import TranscribeResult, TranscribePair, Measures
-from .providers.abc_transcriber import Transcriber
+from .transcribers.abc_transcriber import Transcriber
 from .observer import Observer
 from .output_ctx import OutputContextABC
 from typing import List, Dict, Any

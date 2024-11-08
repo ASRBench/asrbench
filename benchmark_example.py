@@ -1,7 +1,7 @@
 import logging
 import warnings
 from wavbench.configfile import Configfile
-from wavbench.providers.factory import DefaultTranscriberFactory
+from wavbench.transcribers.factory import DefaultTranscriberFactory
 from wavbench.report.report_template import DefaultReport
 from wavbench.report.input_ import CsvInput
 

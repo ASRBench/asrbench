@@ -6,10 +6,10 @@ from .dataset import Dataset
 from datetime import datetime, UTC
 from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
 from pathlib import Path
-from .providers.abc_transcriber import Transcriber
-from .providers.abc_factory import TranscriberFactoryABC
+from .transcribers.abc_transcriber import Transcriber
+from .transcribers.abc_factory import TranscriberFactoryABC
 from .observer import Observer, ConsoleObserver
-from .providers.registry import load_registers
+from .transcribers.registry import load_registers
 from typing import Dict, List, Any
 
 

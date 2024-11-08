@@ -1,6 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
-from .providers.abc_transcriber import Transcriber
+from .transcribers.abc_transcriber import Transcriber
 from typing import Dict
 
 logger: logging.Logger = logging.getLogger(__file__)
