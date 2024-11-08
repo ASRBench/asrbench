@@ -4,12 +4,14 @@ import torch
 import librosa
 from .abc_transcriber import Transcriber
 from .configs import Wav2VecCfg, convert_str2dtype
+from .registry import register_transcriber
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 from typing import Dict, Any, List
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
+@register_transcriber("wav2vec")
 class Wav2Vec(Transcriber):
 
     def __init__(self, cfg: Wav2VecCfg) -> None:

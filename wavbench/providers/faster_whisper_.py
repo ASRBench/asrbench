@@ -4,10 +4,12 @@ from typing import Dict, Any
 from faster_whisper import WhisperModel
 from .abc_transcriber import Transcriber
 from .configs import FWhisperCfg
+from .registry import register_transcriber
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
+@register_transcriber("faster_whisper")
 class FasterWhisper(Transcriber):
     """Implementation of the ASR interface for the Faster Whisper."""
 

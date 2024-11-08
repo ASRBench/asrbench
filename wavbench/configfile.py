@@ -9,6 +9,7 @@ from pathlib import Path
 from .providers.abc_transcriber import Transcriber
 from .providers.abc_factory import TranscriberFactoryABC
 from .observer import Observer, ConsoleObserver
+from .providers.registry import load_registers
 from typing import Dict, List, Any
 
 
@@ -26,6 +27,7 @@ class Configfile:
         self.__data: Dict[str, Dict[str, Any]] = self.read_data()
         self.__factory: TranscriberFactoryABC = factory
         self.__output_cfg: Dict[str, str] = self.data.get("output", {})
+        self.check_external_transcribers()
 
     @property
     def data(self) -> Dict[str, Dict[str, Any]]:
@@ -38,6 +40,13 @@ class Configfile:
             config: Dict[str, Any] = yaml.safe_load(file)
         self._observer.finish()
         return config
+
+    def check_external_transcribers(self) -> None:
+        if "custom_transcriber_dir" in self.data:
+            external_path: Path = Path(
+                self.get_config_section("custom_transcriber_dir")
+            )
+            load_registers(external_path, external_path.name)
 
     def set_up_benchmark(self) -> BenchmarkABC:
         self._observer.notify("Mounting Benchmark...")
@@ -95,7 +104,7 @@ class Configfile:
     def get_output_filename(self) -> str:
         return self.__output_cfg.get("filename", "asrbench")
 
-    def get_config_section(self, section: str) -> Dict[str, Any]:
+    def get_config_section(self, section: str) -> Any:
         if section not in self.data:
             raise KeyError(f"Configfile dont have {section} section.")
         return self.data[section]

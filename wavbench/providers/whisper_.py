@@ -3,11 +3,13 @@ import logging
 from typing import Dict, Any
 from .abc_transcriber import Transcriber
 from .configs import WhisperCfg
+from .registry import register_transcriber
 import whisper
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
+@register_transcriber("whisper")
 class Whisper(Transcriber):
 
     def __init__(self, cfg: WhisperCfg):

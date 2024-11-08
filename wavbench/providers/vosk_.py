@@ -6,11 +6,13 @@ import numpy as np
 from typing import Dict, Any
 from .configs import VoskCfg
 from .abc_transcriber import Transcriber
+from .registry import register_transcriber
 from vosk import Model, KaldiRecognizer
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
+@register_transcriber("vosk")
 class Vosk(Transcriber):
     def __init__(self, cfg: VoskCfg):
         self.__name: str = cfg.name

@@ -4,12 +4,14 @@ import torch
 import librosa
 from .abc_transcriber import Transcriber
 from .configs import HFCfg, convert_str2dtype
+from .registry import register_transcriber
 from transformers import AutoModelForCTC, AutoProcessor
 from typing import Dict, Any, List
 
 logger: logging.Logger = logging.getLogger(__file__)
 
 
+@register_transcriber("hf")
 class HFAudio2Text(Transcriber):
 
     def __init__(self, cfg: HFCfg) -> None:
