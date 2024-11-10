@@ -1,9 +1,9 @@
 import logging
 import warnings
-from wavbench.configfile import Configfile
-from wavbench.transcribers.factory import DefaultTranscriberFactory
-from wavbench.report.report_template import DefaultReport
-from wavbench.report.input_ import CsvInput
+from asrbench.configfile import Configfile
+from asrbench.transcribers.factory import DefaultTranscriberFactory
+from asrbench.report.report_template import DefaultReport
+from asrbench.report.input_ import CsvInput
 
 warnings.filterwarnings(action="ignore", category=FutureWarning)
 

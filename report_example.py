@@ -1,6 +1,6 @@
 from pathlib import Path
-from wavbench.report.report_template import DefaultReport
-from wavbench.report.input_ import CsvInput
+from asrbench.report.report_template import DefaultReport
+from asrbench.report.input_ import CsvInput
 
 path = Path()
 

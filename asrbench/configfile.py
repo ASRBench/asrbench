@@ -1,4 +1,4 @@
-import wavbench.utils as utils
+import asrbench.utils as utils
 import yaml
 from .abc_benchmark import BenchmarkABC
 from .benchmark import DefaultBenchmark

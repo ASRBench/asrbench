@@ -1,6 +1,6 @@
 import pandas as pd
 from abc import ABC, abstractmethod
-from wavbench.utils import check_path
+from asrbench.utils import check_path
 
 
 class Input(ABC):
