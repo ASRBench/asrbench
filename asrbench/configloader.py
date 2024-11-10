@@ -14,7 +14,7 @@ from .transcribers.registry import load_registers
 from typing import Dict, List, Any
 
 
-class Configfile:
+class ConfigLoader:
     """Facade to configure the entire benchmark execution environment.
 
     Arguments:

@@ -1,7 +1,6 @@
 import logging
 import warnings
-from asrbench.configfile import Configfile
-from asrbench.transcribers.factory import DefaultTranscriberFactory
+from asrbench.configloader import ConfigLoader
 from asrbench.report.report_template import DefaultReport
 from asrbench.report.input_ import CsvInput
 
@@ -16,10 +15,7 @@ logging.basicConfig(
     filemode="a",
 )
 
-cfg = Configfile(
-    filepath_="configfile_example.yml",
-    factory=DefaultTranscriberFactory(),
-)
+cfg = ConfigLoader("configfile_example.yml")
 
 benchmark = cfg.set_up_benchmark()
 output_filepath: str = benchmark.run()
