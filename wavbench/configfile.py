@@ -8,16 +8,24 @@ from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
 from pathlib import Path
 from .transcribers.abc_transcriber import Transcriber
 from .transcribers.abc_factory import TranscriberFactoryABC
+from .transcribers.factory import DefaultTranscriberFactory
 from .observer import Observer, ConsoleObserver
 from .transcribers.registry import load_registers
 from typing import Dict, List, Any
 
 
 class Configfile:
+    """Facade to configure the entire benchmark execution environment.
+
+    Arguments:
+        filepath_: path to configuration file.
+        factory: factory to set up Transcribers.
+        observer: observer to show execution status.
+    """
     def __init__(
             self,
             filepath_: str,
-            factory: TranscriberFactoryABC,
+            factory: TranscriberFactoryABC = DefaultTranscriberFactory(),
             observer: Observer = ConsoleObserver()
     ) -> None:
         utils.check_path(filepath_)
