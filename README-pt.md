@@ -41,7 +41,7 @@ output:
   dir: "./results"
   filename: "example_filename"
 
-# configuração dos corpos de teste
+# configuração dos datasets
 datasets:
   dataset1:
     audio_dir: "resources/common_voice_05/wav"
@@ -93,7 +93,7 @@ no arquivo [pyproject.toml](./pyproject.toml) e são gerenciadas com [Poetry](ht
 ## Sobre
 O ASRBench foi desenvolvido como parte de um Trabalho de Conclusão de Curso (TCC) para explorar e avaliar a eficiência
 de modelos de transcrição de áudio. O projeto acadêmico oferece uma análise detalhada do desenvolvimento do framework,
-além dos desafios e resultados obtidos ao longo da pesquisa. Para mais informações, consulte o [TCC completo]().
+além dos desafios e resultados obtidos ao longo da pesquisa. Para mais informações, consulte o [TCC]().
 
 ## Licença
 Distribuído sob a licença MIT. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
