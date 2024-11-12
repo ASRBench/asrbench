@@ -3,7 +3,7 @@ import logging
 from . import jiwer_
 from . import utils
 from .abc_benchmark import BenchmarkABC
-from .benchmark_context import BenchmarkContext
+from .benchmark_ctx import BenchmarkContext
 from .dataset import Dataset
 from .transcribe import TranscribeResult, TranscribePair, Measures
 from .transcribers.abc_transcriber import Transcriber

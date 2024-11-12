@@ -1,6 +1,6 @@
 import logging
 import warnings
-from asrbench.configloader import ConfigLoader
+from asrbench.config_loader import ConfigLoader
 from asrbench.report.report_template import DefaultReport
 from asrbench.report.input_ import CsvInput
 
