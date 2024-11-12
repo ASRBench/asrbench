@@ -62,7 +62,7 @@ Com o arquivo de configuração pronto, basta criar um script Python para ler o 
 Veja um exemplo abaixo:
 
 ```python
-from asrbench.configloader import ConfigLoader
+from asrbench.config_loader import ConfigLoader
 
 loader = ConfigLoader("path/to/configfile.yml")
 benchmark = loader.set_up_benchmark()
