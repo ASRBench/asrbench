@@ -1,0 +1,55 @@
+site_name: ASRBench
+repo_url: https://github.com/BDu4rTe/asrbench
+repo_name: BDu4rTe/asrbench
+# edit_uri: tree/main/docs
+nav:
+  - AsrBench: index.md
+  - Getting start:
+      - Installation: installation.md
+      - Configuration: configuration.md
+      - Usage: usage.md
+  - References:
+      - ConfigLoader: references/configloader.md
+      - Dataset: references/dataset.md
+      - TranscribePairs: transcribe_pairs.md
+      - Benchmark: references/benchmark.md
+      - Transcribers:
+          - Registry: references/transcribers/registry.md
+          - Transcriber: references/transcribers/transcriber.md
+          - Factory: references/transcribers/factory.md
+
+theme:
+  name: material
+  # logo: assets/logo.png
+  # favicon: assets/logo.png
+  palette:
+    - scheme: default
+      primary: green
+      toggle:
+        icon: material/weather-night
+        name: Dark Mode
+    - scheme: slate
+      primary: green
+      toggle:
+        icon: material/weather-sunny
+        name: Light Mode
+  features:
+    - content.code.copy
+    - navigation.tabs
+
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.emoji
+  - pymdownx.details
+  - admonition
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [asrbench, asrbench/transcribers]
