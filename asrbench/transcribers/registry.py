@@ -19,6 +19,7 @@ def register_transcriber(id_: str) -> Callable[
 
     Usage:
         @register_transcriber("identifier")
+
         class MyCustomTranscriber(Transcriber):
             pass
     """
