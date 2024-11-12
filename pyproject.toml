@@ -1,7 +1,8 @@
 [tool.poetry]
-name = "wavbench"
+name = "asrbench"
 version = "0.0.1"
 description = "framework for running audio transcription benchmarks with AIs."
+license = "MIT"
 authors = ["BDu4rTe <brianschierduarte@outlook.com>"]
 readme = "README.md"
 
@@ -24,6 +25,26 @@ seaborn = "^0.13.2"
 jinja2 = "^3.1.4"
 weasyprint = "^62.3"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-cov = "^6.0.0"
+isort = "^5.13.2"
+
+
+[tool.poetry.group.doc.dependencies]
+mkdocs-material = "^9.5.44"
+mkdocstrings = "^0.27.0"
+mkdocstrings-python = "^1.12.2"
+pymdown-extensions = "^10.12"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = "--doctest-modules"
+
+[tool.isort]
+profile = "black"
+line_length = 79
 
 [build-system]
 requires = ["poetry-core"]
