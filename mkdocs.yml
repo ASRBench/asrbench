@@ -11,12 +11,16 @@ nav:
   - References:
       - ConfigLoader: references/configloader.md
       - Dataset: references/dataset.md
-      - TranscribePairs: transcribe_pairs.md
       - Benchmark: references/benchmark.md
+      - Transcribe Data: references/transcribe.md
       - Transcribers:
           - Registry: references/transcribers/registry.md
           - Transcriber: references/transcribers/transcriber.md
           - Factory: references/transcribers/factory.md
+      - Utils: references/utils.md
+      - Output: references/output.md
+      - Observer: references/observer.md
+      - Jiwer: references/jiwer_.md
 
 theme:
   name: material
