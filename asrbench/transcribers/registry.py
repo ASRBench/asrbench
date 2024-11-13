@@ -31,14 +31,18 @@ def register_transcriber(id_: str) -> Callable[
     return decorator
 
 
-def load_registers(pkg_path: Path) -> None:
+def load_registers(pkg_path: Path, pkg: str = __package__) -> None:
     """Loads all the modules within the package provided.
 
     Arguments:
-        pkg_path: Path class from pathlib with the package path.
+        pkg_path: path class from pathlib with the package path.
+        pkg: package name.
     """
+    if not pkg_path.is_dir():
+        raise ValueError(f"The path {pkg_path} is not a valid directory.")
+
     for _, module_name, _ in pkgutil.iter_modules([pkg_path]):
-        importlib.import_module(f"{pkg_path.name}.{module_name}")
+        importlib.import_module(f"{pkg}.{module_name}")
 
 
 class TranscriberRegistry:
