@@ -732,6 +732,16 @@ files = [
 ]
 
 [[package]]
+name = "docopt"
+version = "0.6.2"
+description = "Pythonic argument parser, that will make you smile"
+optional = false
+python-versions = "*"
+files = [
+    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
+]
+
+[[package]]
 name = "faster-whisper"
 version = "1.0.3"
 description = "Faster Whisper transcription with CTranslate2"
@@ -1702,6 +1712,20 @@ doc = ["intersphinx-registry", "myst-nb (>=1.1)", "numpydoc (>=1.8.0)", "pillow 
 example = ["cairocffi (>=1.7)", "contextily (>=1.6)", "igraph (>=0.11)", "momepy (>=0.7.2)", "osmnx (>=1.9)", "scikit-learn (>=1.5)", "seaborn (>=0.13)"]
 extra = ["lxml (>=4.6)", "pydot (>=3.0.1)", "pygraphviz (>=1.14)", "sympy (>=1.10)"]
 test = ["pytest (>=7.2)", "pytest-cov (>=4.0)"]
+
+[[package]]
+name = "num2words"
+version = "0.5.13"
+description = "Modules to convert numbers to words. Easily extensible."
+optional = false
+python-versions = "*"
+files = [
+    {file = "num2words-0.5.13-py3-none-any.whl", hash = "sha256:39e662c663f0a7e15415431ea68eb3dc711b49e3b776d93403e1da0a219ca4ee"},
+    {file = "num2words-0.5.13.tar.gz", hash = "sha256:a3064716fbbf90d75c449450cebfbc73a6a13e63b2531d09bdecc3ab1a2209cf"},
+]
+
+[package.dependencies]
+docopt = ">=0.6.2"
 
 [[package]]
 name = "numba"
@@ -3818,4 +3842,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "ffe5dfcddba88b18baa483940583971d1501ff450a7d71c0a747829f381658ca"
+content-hash = "b6084ca43b4fe48653a5553843a29938b6b0da2fea55e2ed38ff9b20a108b36e"

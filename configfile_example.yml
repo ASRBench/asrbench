@@ -9,25 +9,25 @@ datasets:
     reference_dir: "resources/common_voice_05/txt"
 
 transcribers:
-  faster_whisper:
-    asr: "faster_whisper"
-    model: "medium"
-    compute_type: "int8"
-    device: "cpu"
-    beam_size: 5
-    language: "pt"
-  whisper_1:
-    asr: "whisper"
-    model: "medium"
-    device: "cpu"
-    language: "pt"
-    fp16: False
-  whisper_2:
-    asr: "whisper"
-    model: "large-v3-turbo"
-    device: "cpu"
-    language: "pt"
-    fp16: False
+#  faster_whisper:
+#    asr: "faster_whisper"
+#    model: "medium"
+#    compute_type: "int8"
+#    device: "cpu"
+#    beam_size: 5
+#    language: "pt"
+#  whisper_1:
+#    asr: "whisper"
+#    model: "medium"
+#    device: "cpu"
+#    language: "pt"
+#    fp16: False
+#  whisper_2:
+#    asr: "whisper"
+#    model: "large-v3-turbo"
+#    device: "cpu"
+#    language: "pt"
+#    fp16: False
   wav2vec:
     asr: "wav2vec"
     model: "facebook/wav2vec2-large-xlsr-53-portuguese"

@@ -1,15 +1,37 @@
 import jiwer
+import re
 import unicodedata
+from num2words import num2words
 from .transcribe import Measures
 from typing import List
 
 
-def _remove_accents(texts: str) -> List[str]:
+def _normalize_number2word(texts: List[str]) -> List[str]:
+    """Converts numerical digits in the text to their word equivalents.
+
+    Parameters:
+        texts : the input text list.
+
+    Returns:
+        the texts with numbers converted to words.
+    """
+
+    def replace_number(match: re.Match) -> str:
+        number_as_word = num2words(
+            int(match.group()),
+        )
+
+        return number_as_word
+
+    return [re.sub(r'\b\d+\b', replace_number, txt) for txt in texts]
+
+
+def _remove_accents(texts: List[str]) -> List[str]:
     return [
         ''.join(
-            char for char in unicodedata.normalize('NFD', word)
+            char for char in unicodedata.normalize('NFD', txt)
             if unicodedata.category(char) != 'Mn'
-        ) for word in texts
+        ) for txt in texts
     ]
 
 
@@ -20,6 +42,7 @@ transform = jiwer.Compose(
         jiwer.RemoveMultipleSpaces(),
         jiwer.Strip(),
         jiwer.RemovePunctuation(),
+        _normalize_number2word,
         _remove_accents,
         jiwer.ReduceToListOfListOfWords()
     ]
@@ -32,6 +55,7 @@ char_transform = jiwer.Compose(
         jiwer.RemoveMultipleSpaces(),
         jiwer.Strip(),
         jiwer.RemovePunctuation(),
+        _normalize_number2word,
         _remove_accents,
         jiwer.ReduceToListOfListOfChars()
     ]
@@ -45,6 +69,7 @@ normalize_transform = jiwer.Compose(
         jiwer.Strip(),
         jiwer.RemovePunctuation(),
         _remove_accents,
+        _normalize_number2word,
     ]
 )
 
