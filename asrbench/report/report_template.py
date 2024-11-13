@@ -69,8 +69,8 @@ class DefaultReport(ReportTemplate):
         appearance_kit.add(
             FacetGridAxisLabels(
                 plot=plot,
-                xlabel="Accuracy (%)",
-                ylabel="RTF",
+                xlabel="Accuracy (% higher is better)",
+                ylabel="RTFx(higher is better)",
                 font_size=11.0,
             )
         )
