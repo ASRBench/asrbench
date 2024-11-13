@@ -41,7 +41,10 @@ class Dataset:
     def get_data(self) -> None:
         """Set up dataset TranscriberPairs."""
         if not self.__audio_dir.is_dir():
-            raise ValueError("Provided dir is not a directory or not exists.")
+            raise ValueError(
+                f"audio directory {self.__audio_dir} of "
+                f"dataset {self.name} is not valid."
+            )
 
         for audio_file in self.__audio_dir.glob("*"):
             ref_file: Path = self.__ref_dir.joinpath(
