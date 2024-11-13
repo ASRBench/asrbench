@@ -26,7 +26,7 @@ class BenchmarkABC(ABC):
         """Runs the benchmark only with the chosen transcriber."""
         raise NotImplementedError("Implement run with transcriber method.")
 
-    def add_provider(self, name: str, transcriber: Transcriber) -> None:
+    def add_transcriber(self, name: str, transcriber: Transcriber) -> None:
         """Add a transcriber to the class."""
         if not isinstance(transcriber, Transcriber):
             raise ValueError(
@@ -35,9 +35,9 @@ class BenchmarkABC(ABC):
 
         self.transcribers[name] = transcriber
 
-    def remove_provider(self, name: str) -> None:
+    def remove_transcriber(self, name: str) -> None:
         """Removes the transcriber from the class."""
         if name not in self.transcribers:
-            raise KeyError(f"Provider {name} does not exists.")
+            raise KeyError(f"Transcriber {name} does not exists.")
 
         self.transcribers.pop(name)

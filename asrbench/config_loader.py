@@ -54,7 +54,7 @@ class ConfigLoader:
             external_path: Path = Path(
                 self.get_config_section("custom_transcriber_dir")
             )
-            load_registers(external_path)
+            load_registers(external_path, external_path.name)
 
     def set_up_benchmark(self) -> BenchmarkABC:
         self._observer.notify("Mounting Benchmark...")

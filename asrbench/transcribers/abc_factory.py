@@ -7,7 +7,7 @@ class TranscriberFactoryABC(ABC):
 
     @abstractmethod
     def get_transcriber(self, name: str, cfg: Dict[str, Any]) -> Transcriber:
-        """Get Transcriber with provider config"""
+        """Get Transcriber with config"""
         raise NotImplementedError("Implement get_transcriber method.")
 
     @abstractmethod
@@ -15,5 +15,5 @@ class TranscriberFactoryABC(ABC):
             self,
             config: Dict[str, Dict[str, Any]],
     ) -> Dict[str, Transcriber]:
-        """Set up transcribers dict from provider section in config file"""
+        """Set up transcribers dict from transcribers section in config file"""
         raise NotImplementedError("Implement from_config method.")

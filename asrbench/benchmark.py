@@ -22,7 +22,7 @@ class DefaultBenchmark(BenchmarkABC):
             output: OutputContextABC,
             observer: Observer,
     ) -> None:
-        self.__providers: Dict[str, Transcriber] = transcribers
+        self.__transcribers: Dict[str, Transcriber] = transcribers
         self.__datasets: List[Dataset] = datasets
         self.__output: OutputContextABC = output
         self._observer: Observer = observer
@@ -30,68 +30,68 @@ class DefaultBenchmark(BenchmarkABC):
 
     @property
     def transcribers(self) -> Dict[str, Transcriber]:
-        return self.__providers
+        return self.__transcribers
 
     def run(self) -> str:
         with self.__output:
             for idx, dataset in enumerate(self.__datasets):
                 logger.info(f"Run benchmark for dataset: {dataset.name}")
                 self._context.set_dataset(idx)
-                self._process_dataset_with_providers()
+                self._process_dataset_with_transcribers()
         return self.__output.filepath
 
     def run_with_transcriber(self, name: str) -> str:
         with self.__output:
             for idx, dataset in enumerate(self.__datasets):
                 logger.info(
-                    f"Run benchmark with provider: {name}"
+                    f"Run benchmark with transcriber: {name}"
                     f"for dataset: {dataset.name}",
                 )
 
                 self._context.set_dataset(idx)
-                self._process_dataset_pairs(self._get_provider(name))
+                self._process_dataset_pairs(self._get_transcriber(name))
         return self.__output.filepath
 
-    def _process_dataset_pairs(self, provider: Transcriber) -> None:
+    def _process_dataset_pairs(self, trasncriber: Transcriber) -> None:
         self._context.start_progress()
         for pair in self._context.dataset.pairs:
             result: TranscribeResult = self._run_transcribe(
-                provider,
+                trasncriber,
                 pair,
             )
 
             final_result: Dict[str, Any] = result.to_dict()
 
-            self._context.update_progress(provider.name)
+            self._context.update_progress(trasncriber.name)
             self.__output.write_row(final_result)
 
-    def _process_dataset_with_providers(self) -> None:
-        for provider_name, provider in self.transcribers.items():
-            provider.load()
-            self._process_dataset_pairs(provider)
-            provider.unload()
+    def _process_dataset_with_transcribers(self) -> None:
+        for _, transcriber in self.transcribers.items():
+            transcriber.load()
+            self._process_dataset_pairs(transcriber)
+            transcriber.unload()
             self._context.reset_progress()
 
-    def _get_provider(self, name: str) -> Transcriber:
-        if name not in self.__providers:
-            raise KeyError(f"Provider {name} not in benchmark providers.")
+    def _get_transcriber(self, name: str) -> Transcriber:
+        if name not in self.__transcribers:
+            raise KeyError(f"Transcriber {name} not in benchmark transcribers.")
 
-        return self.__providers[name]
+        return self.__transcribers[name]
 
     def _run_transcribe(
             self,
-            provider: Transcriber,
+            transcriber: Transcriber,
             pair: TranscribePair,
     ) -> TranscribeResult:
         audio_path: str = pair.audio
         reference: str = pair.reference
 
         logger.debug(
-            f"Run {provider.__class__.__name__} with audio: {audio_path}",
+            f"Run {transcriber.__class__.__name__} with audio: {audio_path}",
         )
 
         start: float = time.time()
-        hypothesis: str = provider.transcribe(audio_path)
+        hypothesis: str = transcriber.transcribe(audio_path)
         runtime: float = utils.get_runtime(start)
         duration: float = utils.get_audio_duration(audio_path)
 
@@ -99,9 +99,9 @@ class DefaultBenchmark(BenchmarkABC):
 
         return TranscribeResult(
             audio=utils.get_filename(audio_path),
-            transcriber_name=provider.name,
-            asr=provider.__class__.__name__,
-            params=provider.params,
+            transcriber_name=transcriber.name,
+            asr=transcriber.__class__.__name__,
+            params=transcriber.params,
             hypothesis=jiwer_.normalize_txt(hypothesis),
             reference=jiwer_.normalize_txt(reference),
             measures=measures,

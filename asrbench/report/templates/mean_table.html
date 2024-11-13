@@ -3,16 +3,16 @@
     <table class="table">
         <thead>
         <tr>
-            <th>provider</th>
+            <th>transcriber</th>
             {% for column in mean_stats.values()|first %}
             <th>{{ column }}</th>
             {% endfor %}
         </tr>
         </thead>
         <tbody>
-        {% for provider, values in mean_stats.items() %}
+        {% for transcriber, values in mean_stats.items() %}
         <tr>
-            <td>{{ provider }}</td>
+            <td>{{ transcriber}}</td>
             {% for value in values.values() %}
             <td>{{ value }}</td>
             {% endfor %}

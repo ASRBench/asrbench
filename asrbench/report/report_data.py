@@ -14,12 +14,12 @@ class ReportData:
     def df(self, dataframe: pd.DataFrame) -> None:
         self.__df = dataframe
 
-    def get_by_provider_name(self) -> List[pd.DataFrame]:
+    def get_by_transcriber_name(self) -> List[pd.DataFrame]:
         """Creates a list of dataframes, each of which is a
         different configuration of a transformer"""
         return [
-            self.get_by("provider_name", name)
-            for name in self.get("provider_name")
+            self.get_by("transcriber_name", name)
+            for name in self.get("transcriber_name")
         ]
 
     def get_by(self, column: str, value: str) -> pd.DataFrame:
@@ -37,7 +37,7 @@ class ReportData:
 
     def get_configs_dict(self) -> Dict[str, Dict[str, Any]]:
         raw_params = self.df[
-            ["provider_name", "params"]
+            ["transcriber_name", "params"]
         ].drop_duplicates().to_dict(orient="records")
 
         config: Dict[str, Dict[str, Any]] = {}
@@ -45,7 +45,7 @@ class ReportData:
         for cfg in raw_params:
             params_ = eval(cfg["params"])
             params_.pop("name")
-            name = cfg["provider_name"]
+            name = cfg["transcriber_name"]
             config[name] = params_
 
         return config

@@ -44,12 +44,12 @@ class BenchmarkContext:
         self._current: int = 0
         self._progress: float = 0.0
 
-    def update_progress(self, provider_name: str) -> None:
+    def update_progress(self, transcriber_name: str) -> None:
         """Updates progress status."""
         self._current += 1
         self._observer.update_progress(
             self._calculate_progress(),
-            self._get_progress_msg(provider_name),
+            self._get_progress_msg(transcriber_name),
         )
 
         if self._current == self._total:
@@ -59,6 +59,6 @@ class BenchmarkContext:
         self._progress = self._current / self._total
         return self._progress
 
-    def _get_progress_msg(self, provider: str) -> str:
+    def _get_progress_msg(self, trasncriber: str) -> str:
         dataset: str = self.__dataset.name
-        return f"Processing pairs from {dataset} with {provider}..."
+        return f"Processing pairs from {dataset} with {trasncriber}..."

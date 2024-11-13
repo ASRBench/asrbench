@@ -6,12 +6,12 @@ from typing import Dict, Any, Set
 
 
 @dataclass
-class ProviderCfg(ABC):
-    """Interface to define the basics of provider configuration.
+class TranscriberCFG(ABC):
+    """Interface to define the basics of transcriber configuration.
 
     Attributes:
         model: name/path of the model to use.
-        name: provider identifier.
+        name: transcriber identifier.
     """
     model: str
     name: str
@@ -20,13 +20,13 @@ class ProviderCfg(ABC):
     @abstractmethod
     def load(cls, data: Dict[str, Any], name: str):
         """Loads the configuration with the data extracted from the
-        configuration section of a provider.
+        configuration section of a transcriber.
         """
         raise NotImplementedError("Implement load class method.")
 
 
 @dataclass
-class FWhisperCfg(ProviderCfg):
+class FWhisperCfg(TranscriberCFG):
     """Implementation of the configuration interface for Faster Whisper."""
     compute_type: str
     device: str
@@ -56,7 +56,7 @@ class FWhisperCfg(ProviderCfg):
 
 
 @dataclass
-class WhisperCfg(ProviderCfg):
+class WhisperCfg(TranscriberCFG):
     """Implementation of the configuration interface for Whisper (by OpenAI)."""
     device: str
     language: str
@@ -83,7 +83,7 @@ class WhisperCfg(ProviderCfg):
 
 
 @dataclass
-class Wav2VecCfg(ProviderCfg):
+class Wav2VecCfg(TranscriberCFG):
     """Implementation of the configuration interface for
     Wav2Vec (by Hugging Face).
     """
@@ -104,7 +104,7 @@ class Wav2VecCfg(ProviderCfg):
 
 
 @dataclass
-class HFCfg(ProviderCfg):
+class HFCfg(TranscriberCFG):
     """Implementation of the configuration interface for
     Auto Model from Hugging Face.
     """
@@ -125,7 +125,7 @@ class HFCfg(ProviderCfg):
 
 
 @dataclass
-class VoskCfg(ProviderCfg):
+class VoskCfg(TranscriberCFG):
     """Implementation of the configuration interface for Vosk."""
     lang: str
 
@@ -141,12 +141,12 @@ class VoskCfg(ProviderCfg):
         )
 
 
-def get_config_param(data: Dict[str, Any], param: str, provider: str) -> Any:
+def get_config_param(data: Dict[str, Any], param: str, transcriber: str) -> Any:
     """Get value of the parameter on data and raise a KeyError if the
     parameter not exists or is None.
     """
     if param not in data or data[param] is None:
-        raise KeyError(f"Config data of {provider} missing {param}.")
+        raise KeyError(f"Config data of {transcriber} missing {param}.")
     return data[param]
 
 

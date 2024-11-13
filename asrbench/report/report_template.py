@@ -43,12 +43,12 @@ class DefaultReport(ReportTemplate):
         self._result: Dict[str, Any] = {"file": self._output.name}
 
     def process_data(self) -> pd.DataFrame:
-        mean: pd.DataFrame = self._data.group_by_mean("provider_name")
+        mean: pd.DataFrame = self._data.group_by_mean("transcriber_name")
 
         self._result["configs"] = self._data.get_configs_dict()
         self._result["mean_stats"] = mean.round(3).to_dict(orient="index")
 
-        mean["provider_name"] = [
+        mean["transcriber_name"] = [
             f"{n + 1} {name}"
             for n, name in enumerate(mean.index.tolist())
         ]
@@ -59,7 +59,7 @@ class DefaultReport(ReportTemplate):
         strategy = DispersionPlot(
             x="accuracy",
             y="rtf",
-            hue="provider_name"
+            hue="transcriber_name"
         )
         plot = strategy.plot(df)
 

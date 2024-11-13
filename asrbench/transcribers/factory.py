@@ -12,7 +12,7 @@ class DefaultTranscriberFactory(TranscriberFactoryABC):
         self.__registry: TranscriberRegistry = TranscriberRegistry()
 
     def get_transcriber(self, name: str, cfg: Dict[str, Any]) -> Transcriber:
-        """Return IaProvider with provider config"""
+        """Return TranscriberABC with config"""
         if "asr" not in cfg:
             raise KeyError(f"Missing asr in {name} config.")
 
@@ -23,15 +23,15 @@ class DefaultTranscriberFactory(TranscriberFactoryABC):
             self,
             config: Dict[str, Dict[str, Any]],
     ) -> Dict[str, Transcriber]:
-        """Set up transcribers dict from provider section in config file.
+        """Set up transcribers dict from transcribers section in config file.
 
         Arguments:
            config: transcribers section of the configuration file.
         """
-        providers: Dict[str, Transcriber] = {}
+        transcribers: Dict[str, Transcriber] = {}
 
-        for name, provider_cfg in config.items():
-            providers[name] = self.get_transcriber(name, provider_cfg)
+        for name, transcriber_cfg in config.items():
+            transcribers[name] = self.get_transcriber(name, transcriber_cfg)
 
-        logging.debug(f"transcribers for benchmark: {providers.__str__()}")
-        return providers
+        logging.debug(f"transcribers for benchmark: {transcribers.__str__()}")
+        return transcribers

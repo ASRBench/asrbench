@@ -3,16 +3,16 @@
     <table class="table">
         <thead>
         <tr>
-            <th>provider</th>
+            <th>transcriber</th>
             {% for column in configs.values()|first %}
             <th>{{ column }}</th>
             {% endfor %}
         </tr>
         </thead>
         <tbody>
-        {% for provider, values in configs.items() %}
+        {% for transcriber, values in configs.items() %}
         <tr>
-            <td>{{ provider }}</td>
+            <td>{{ transcriber}}</td>
             {% for value in values.values() %}
             <td>{{ value }}</td>
             {% endfor %}
