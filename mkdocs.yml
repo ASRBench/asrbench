@@ -4,7 +4,7 @@ repo_name: BDu4rTe/asrbench
 # edit_uri: tree/main/docs
 nav:
   - AsrBench: index.md
-  - Getting start:
+  - Getting Start:
       - Installation: installation.md
       - Configuration: configuration.md
       - Usage: usage.md
