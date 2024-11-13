@@ -1,6 +1,6 @@
 site_name: ASRBench
-repo_url: https://github.com/BDu4rTe/asrbench
-repo_name: BDu4rTe/asrbench
+repo_url: https://github.com/ASRBench/asrbench
+repo_name: ASRBench/asrbench
 # edit_uri: tree/main/docs
 nav:
   - AsrBench: index.md
