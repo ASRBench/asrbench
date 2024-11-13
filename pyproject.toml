@@ -19,8 +19,8 @@ classifiers = [
 
 [tool.poetry.urls]
 "Documentation" = ""
-"Source" = ""
-"Bug Tracker" = ""
+"Source" = "https://github.com/ASRBench/asrbench"
+"Bug Tracker" = "https://github.com/ASRBench/asrbench/issues"
 
 [tool.poetry.dependencies]
 python = "^3.12"
