@@ -55,6 +55,7 @@ class TranscribePair:
 
     Arguments:
         audio_path: path to the audio file.
+        reference: reference transcription.
     """
     def __init__(self, audio_path: str, reference: str) -> None:
         self.__audio: str = audio_path
@@ -69,4 +70,4 @@ class TranscribePair:
         return self.__reference
 
     def __repr__(self) -> str:
-        return f"<TranscribeData audio={self.audio} reference={self.reference}>"
+        return f"<TranscribePair audio={self.audio} reference={self.reference}>"
