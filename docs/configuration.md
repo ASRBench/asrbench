@@ -34,20 +34,20 @@ The configuration file is divided into three main sections: output, datasets and
 section of the YAML file.
 
 ## Output
+??? info "Optional Section"
+    This section is optional. If not provided, the framework will use default values: the type will be csv, the filename 
+    will be asrbench, and the directory will be the current directory.
 
-In this section, we configure [OutputCtx](), where we define:
+In this section, we configure [OutputCtx](./references/output.md), where we define:
 
 - type: Type of output file, such as csv or json.
 - dir: Directory where the file will be saved.
 - filename: Base name of the file, which will be combined with a timestamp.
 
-!!! info "Optional Section"
-    This section is optional. If not provided, the framework will use default values: the type will be csv, the filename 
-    will be asrbench, and the directory will be the current directory.
-
 ## Datasets
 
-In this section, we define the datasets that will be used in the benchmark. For each [dataset](), we provide:
+In this section, we define the datasets that will be used in the benchmark. For each [Dataset](./references/dataset.md), 
+we provide:
 
 - identifier: A unique name for the dataset.
 - audio_dir: Directory where the audio files for transcription are located.
@@ -59,7 +59,7 @@ In this section, we define the datasets that will be used in the benchmark. For 
 ## Transcribers
 
 In this section, we configure the transcription systems (ASR), with parameters that vary according to the system chosen. 
-For each [transcriber](), we provide:
+For each [Transcriber](./references/transcribers/transcriber.md), we provide:
 
 - identifier: A unique name for the transcriber.
 - asr: name of the ASR system registered in the framework.

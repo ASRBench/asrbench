@@ -23,4 +23,5 @@ report.generate_report()
 
 ```
 
-If you prefer a more direct and simplified solution, you can check out [asrbench-cli]().
+If you prefer a more direct and simplified solution, you can check out 
+[asrbench-cli](https://github.com/ASRBench/asrbench-cli).

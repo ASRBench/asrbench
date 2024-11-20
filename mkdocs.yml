@@ -4,23 +4,25 @@ repo_name: ASRBench/asrbench
 # edit_uri: tree/main/docs
 nav:
   - AsrBench: index.md
-  - Getting Start:
+  - Getting started:
       - Installation: installation.md
       - Configuration: configuration.md
       - Usage: usage.md
+  - Learn:
+      - New Transcriber: learn/new-transcriber.md
   - References:
       - ConfigLoader: references/configloader.md
       - Dataset: references/dataset.md
       - Benchmark: references/benchmark.md
       - Transcribe Data: references/transcribe.md
       - Transcribers:
-          - Registry: references/custom/registry.md
-          - Transcriber: references/custom/transcriber.md
-          - Factory: references/custom/factory.md
+          - Registry: references/transcribers/registry.md
+          - Transcriber: references/transcribers/transcriber.md
+          - Factory: references/transcribers/factory.md
       - Utils: references/utils.md
       - Output: references/output.md
       - Observer: references/observer.md
-      - Jiwer: references/jiwer_.md
+      - Jiwer: references/jiwer.md
 
 theme:
   name: material
@@ -29,11 +31,13 @@ theme:
   palette:
     - scheme: default
       primary: green
+      accent: amber
       toggle:
         icon: material/weather-night
         name: Dark Mode
     - scheme: slate
       primary: green
+      accent: amber
       toggle:
         icon: material/weather-sunny
         name: Light Mode
@@ -49,11 +53,11 @@ markdown_extensions:
   - pymdownx.details
   - admonition
 
-extra_css:
-  - stylesheets/extra.css
+#extra_css:
+#  - stylesheets/extra.css
 
 plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [asrbench, asrbench/custom]
+          paths: [asrbench, asrbench/transcribers]
