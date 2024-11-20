@@ -6,11 +6,12 @@ from .transcribe import Measures
 from typing import List
 
 
-def _normalize_number2word(texts: List[str]) -> List[str]:
+def _normalize_number2word(texts: List[str], lang: str = "en") -> List[str]:
     """Converts numerical digits in the text to their word equivalents.
 
     Parameters:
         texts : the input text list.
+        lang: transcription language.
 
     Returns:
         the texts with numbers converted to words.
@@ -19,6 +20,7 @@ def _normalize_number2word(texts: List[str]) -> List[str]:
     def replace_number(match: re.Match) -> str:
         number_as_word = num2words(
             int(match.group()),
+            lang=lang,
         )
 
         return number_as_word
