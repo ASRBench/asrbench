@@ -25,22 +25,18 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.12"
 jiwer = "^3.0.4"
-faster-whisper = "^1.0.3"
-pytube = "^15.0.0"
-pydub = "^0.25.1"
-pytubefix = "^6.16.2"
 vosk = "^0.3.45"
 llvmlite = "^0.43.0"
 numba = "^0.60.0"
 transformers = "^4.44.2"
 librosa = "^0.10.2.post1"
 torch = "^2.4.1"
-openai-whisper = { git = "https://github.com/openai/whisper.git" }
 pandas = "^2.2.3"
 seaborn = "^0.13.2"
 jinja2 = "^3.1.4"
 weasyprint = "^62.3"
 num2words = "^0.5.13"
+pydub = "^0.25.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -58,6 +54,10 @@ pymdown-extensions = "^10.12"
 [tool.pytest.ini_options]
 pythonpath = "."
 addopts = "--doctest-modules"
+markers = [
+    "errors: tests to match raises errors.",
+    "configloader: tests for config loader class."
+]
 
 [tool.isort]
 profile = "black"
