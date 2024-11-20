@@ -14,9 +14,9 @@ nav:
       - Benchmark: references/benchmark.md
       - Transcribe Data: references/transcribe.md
       - Transcribers:
-          - Registry: references/transcribers/registry.md
-          - Transcriber: references/transcribers/transcriber.md
-          - Factory: references/transcribers/factory.md
+          - Registry: references/custom/registry.md
+          - Transcriber: references/custom/transcriber.md
+          - Factory: references/custom/factory.md
       - Utils: references/utils.md
       - Output: references/output.md
       - Observer: references/observer.md
@@ -56,4 +56,4 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [asrbench, asrbench/transcribers]
+          paths: [asrbench, asrbench/custom]
