@@ -44,15 +44,17 @@ class ConfigLoader:
     def read_data(self) -> Dict[str, Any]:
         """Read config data."""
         self._observer.notify("Reading configfile...")
+
         with open(self.__path, "r") as file:
             config: Dict[str, Any] = yaml.safe_load(file)
+
         self._observer.finish()
         return config
 
     def check_external_transcribers(self) -> None:
-        if "custom_transcriber_dir" in self.data:
+        if "transcriber_dir" in self.data:
             external_path: Path = Path(
-                self.get_config_section("custom_transcriber_dir")
+                self.get_config_section("transcriber_dir")
             )
             load_registers(external_path, external_path.name)
 
@@ -81,9 +83,9 @@ class ConfigLoader:
         return "datasets" in self.data
 
     def get_transcribers(self) -> Dict[str, Transcriber]:
-        """Get transcribers from the configuration file"""
+        """Get custom from the configuration file"""
         return self.__factory.from_config(
-            self.get_config_section("transcribers"),
+            self.get_config_section("custom"),
         )
 
     def get_output(self) -> OutputContextABC:
