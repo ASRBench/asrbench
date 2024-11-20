@@ -1,5 +1,6 @@
 import logging
 import pkgutil
+import sys
 import importlib
 from .abc_transcriber import Transcriber
 from pathlib import Path
@@ -41,8 +42,16 @@ def load_registers(pkg_path: Path, pkg: str = __package__) -> None:
     if not pkg_path.is_dir():
         raise ValueError(f"The path {pkg_path} is not a valid directory.")
 
+    pkg_path_str: str = pkg_path.parent.resolve().__str__()
+
+    if pkg_path_str not in sys.path:
+        sys.path.insert(0, pkg_path_str)
+
     for _, module_name, _ in pkgutil.iter_modules([pkg_path]):
         importlib.import_module(f"{pkg}.{module_name}")
+
+    if pkg_path_str in sys.path:
+        sys.path.remove(pkg_path_str)
 
 
 class TranscriberRegistry:
