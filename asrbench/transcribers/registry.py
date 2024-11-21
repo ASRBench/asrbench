@@ -32,12 +32,11 @@ def register_transcriber(id_: str) -> Callable[
     return decorator
 
 
-def load_registers(pkg_path: Path, pkg: str = __package__) -> None:
+def load_registers(pkg_path: Path) -> None:
     """Loads all the modules within the package provided.
 
     Arguments:
         pkg_path: path class from pathlib with the package path.
-        pkg: package name.
     """
     if not pkg_path.is_dir():
         raise ValueError(f"The path {pkg_path} is not a valid directory.")
@@ -48,7 +47,7 @@ def load_registers(pkg_path: Path, pkg: str = __package__) -> None:
         sys.path.insert(0, pkg_path_str)
 
     for _, module_name, _ in pkgutil.iter_modules([pkg_path]):
-        importlib.import_module(f"{pkg}.{module_name}")
+        importlib.import_module(f"{pkg_path.name}.{module_name}")
 
     if pkg_path_str in sys.path:
         sys.path.remove(pkg_path_str)
