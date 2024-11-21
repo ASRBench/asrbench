@@ -4,13 +4,14 @@ from .abc_benchmark import BenchmarkABC
 from .benchmark import DefaultBenchmark
 from .dataset import Dataset
 from datetime import datetime, UTC
-from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
+from .jiwer_ import JiwerManager, is_language_supported
 from pathlib import Path
 from .transcribers.abc_transcriber import Transcriber
 from .transcribers.abc_factory import TranscriberFactoryABC
 from .transcribers.factory import DefaultTranscriberFactory
-from .observer import Observer, ConsoleObserver
 from .transcribers.registry import load_registers
+from .observer import Observer, ConsoleObserver
+from .output_ctx import OutputContextABC, CsvOutputContext, JsonOutputContext
 from typing import Dict, List, Any
 
 
@@ -22,6 +23,7 @@ class ConfigLoader:
         factory: factory to set up Transcribers.
         observer: observer to show execution status.
     """
+
     def __init__(
             self,
             filepath_: str,
@@ -65,9 +67,18 @@ class ConfigLoader:
             transcribers=self.get_transcribers(),
             output=self.get_output(),
             observer=self._observer,
+            jiwer_=JiwerManager(language=self.get_language())
         )
         self._observer.finish()
         return benchmark
+
+    def get_language(self) -> str:
+        language: str = self.data.get("language", "en")
+
+        if not is_language_supported(language):
+            raise ValueError(f"Language {language} is not supported.")
+
+        return language
 
     def get_datasets(self) -> List[Dataset]:
         """Get datasets from the configuration file"""
