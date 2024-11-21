@@ -5,10 +5,9 @@ description = "Extensible, easy to use Python framework for evaluation of audio 
 license = "MIT"
 authors = ["BDu4rTe <brianschierduarte@outlook.com>"]
 readme = "README.md"
-packages = [{include = "asrbench"}]
+packages = [{ include = "asrbench" }]
 classifiers = [
     "Development Status :: 4 - Beta",
-    "Environment :: GPU :: NVIDIA CUDA :: 12",
     "Framework :: ASRBench",
     "Natural Language :: English",
     "Operating System :: OS Independent",
@@ -38,12 +37,10 @@ weasyprint = "^62.3"
 num2words = "^0.5.13"
 pydub = "^0.25.1"
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
 pytest-cov = "^6.0.0"
 isort = "^5.13.2"
-
 
 [tool.poetry.group.doc.dependencies]
 mkdocs-material = "^9.5.44"

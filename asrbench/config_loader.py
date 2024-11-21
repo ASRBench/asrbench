@@ -94,9 +94,9 @@ class ConfigLoader:
         return "datasets" in self.data
 
     def get_transcribers(self) -> Dict[str, Transcriber]:
-        """Get custom from the configuration file"""
+        """Get transcribers from the configuration file"""
         return self.__factory.from_config(
-            self.get_config_section("custom"),
+            self.get_config_section("transcribers"),
         )
 
     def get_output(self) -> OutputContextABC:
