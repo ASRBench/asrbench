@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import List, Dict, Any, TextIO
 
 
-def _set_ext(filepath_: str, ext_: str) -> str:
-    return Path(filepath_).with_suffix(ext_).__str__()
+def _set_ext(filepath_: Path, ext_: str) -> str:
+    return filepath_.with_suffix(ext_).__str__()
 
 
 class OutputContextABC(ABC):
@@ -34,7 +34,7 @@ class OutputContextABC(ABC):
 
 
 class CsvOutputContext(OutputContextABC):
-    def __init__(self, filepath_: str, mode: str = "w") -> None:
+    def __init__(self, filepath_: Path, mode: str = "w") -> None:
         self._mode: str = mode
         self._filepath: str = _set_ext(filepath_, ".csv")
 
@@ -90,7 +90,7 @@ class CsvOutputContext(OutputContextABC):
 
 class JsonOutputContext(OutputContextABC):
     def __init__(
-            self, filepath_: str,
+            self, filepath_: Path,
             mode: str = "w",
             indent: int = 4,
     ) -> None:

@@ -58,7 +58,7 @@ class ConfigLoader:
             external_path: Path = Path(
                 self.get_config_section("transcriber_dir")
             )
-            load_registers(external_path, external_path.name)
+            load_registers(external_path)
 
     def set_up_benchmark(self) -> BenchmarkABC:
         self._observer.notify("Mounting Benchmark...")
@@ -115,13 +115,13 @@ class ConfigLoader:
         timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
         return f"{self.get_output_filename()}_{timestamp}"
 
-    def get_output_filepath(self) -> str:
+    def get_output_filepath(self) -> Path:
         """Set up output filepath from the configuration file."""
         return Path(
             self.get_output_dir()
         ).joinpath(
             self.set_up_output_filename()
-        ).__str__()
+        )
 
     def get_output_dir(self) -> str:
         """Get output dir from the configuration file"""
