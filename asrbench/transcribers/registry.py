@@ -58,9 +58,6 @@ class TranscriberRegistry:
     @register_transcriber decorator."""
     __transcribers: Dict[str, Type[Transcriber]] = {}
 
-    def __init__(self) -> None:
-        load_registers(Path(__file__).parent)
-
     @classmethod
     def register(cls, id_: str, class_: Type[Transcriber]) -> None:
         logger.debug(f"Register transcriber {id_}.")
