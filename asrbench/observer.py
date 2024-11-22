@@ -7,8 +7,18 @@ class Observer(ABC):
     to the user."""
 
     @abstractmethod
+    def start_progress(self) -> None:
+        """Start progress execution."""
+        raise NotImplementedError("Implement start_progress method.")
+
+    @abstractmethod
     def update_progress(self, progress: float, message: str) -> None:
-        """Updates execution progress."""
+        """Updates execution progress.
+
+        Parameters:
+            progress:
+            message:
+        """
         raise NotImplementedError("Implement update_progress method.")
 
     @abstractmethod
@@ -23,6 +33,9 @@ class Observer(ABC):
 
 
 class ConsoleObserver(Observer):
+    def start_progress(self) -> None:
+        ...
+
     def update_progress(self, progress: float, message: str) -> None:
         self.__display_message(f"\r[{progress * 100:.2f}%] {message}")
 

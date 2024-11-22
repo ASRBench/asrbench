@@ -38,6 +38,7 @@ class BenchmarkContext:
     def start_progress(self) -> None:
         """Progress timer starts."""
         self._start: float = time.time()
+        self._observer.start_progress()
 
     def reset_progress(self) -> None:
         """Restarts all execution progress."""
@@ -61,4 +62,4 @@ class BenchmarkContext:
 
     def _get_progress_msg(self, transcriber: str) -> str:
         dataset: str = self.__dataset.name
-        return f"Processing pairs from {dataset} with {transcriber}..."
+        return f"Processing pairs from {dataset} with {transcriber}."

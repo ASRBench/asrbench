@@ -21,7 +21,7 @@ def test_when_dataset_not_present(config_loader_with_empty_data):
 def test_when_transcribers_not_present(config_loader_with_empty_data):
     with pytest.raises(
             KeyError,
-            match="Configfile dont have custom section.",
+            match="Configfile dont have transcribers section.",
     ):
         config_loader_with_empty_data.get_transcribers()
 

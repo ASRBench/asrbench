@@ -45,12 +45,11 @@ class ConfigLoader:
 
     def read_data(self) -> Dict[str, Any]:
         """Read config data."""
-        self._observer.notify("Reading configfile...")
+        self._observer.notify("Reading configfile.")
 
         with open(self.__path, "r") as file:
             config: Dict[str, Any] = yaml.safe_load(file)
 
-        self._observer.finish()
         return config
 
     def check_external_transcribers(self) -> None:
@@ -61,7 +60,7 @@ class ConfigLoader:
             load_registers(external_path)
 
     def set_up_benchmark(self) -> BenchmarkABC:
-        self._observer.notify("Mounting Benchmark...")
+        self._observer.notify("Mounting Benchmark.")
         benchmark = DefaultBenchmark(
             datasets=self.get_datasets(),
             transcribers=self.get_transcribers(),
@@ -69,7 +68,6 @@ class ConfigLoader:
             observer=self._observer,
             jiwer_=JiwerManager(language=self.get_language())
         )
-        self._observer.finish()
         return benchmark
 
     def get_language(self) -> str:
@@ -101,7 +99,7 @@ class ConfigLoader:
 
     def get_output(self) -> OutputContextABC:
         """Get output from the configuration file."""
-        type_: str = self.__output_cfg.get("type", "csv")
+        type_: str = self.get_output_type()
 
         match type_:
             case "csv":
@@ -110,6 +108,9 @@ class ConfigLoader:
                 return JsonOutputContext(self.get_output_filepath())
             case _:
                 raise ValueError(f"Output type {type_} not supported.")
+
+    def get_output_type(self) -> str:
+        return self.__output_cfg.get("type", "csv")
 
     def set_up_output_filename(self) -> str:
         timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
