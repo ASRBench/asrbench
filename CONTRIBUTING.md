@@ -21,6 +21,7 @@ To make it easier for you to navigate and contribute, here is an overview of the
 ### Installing dependencies
 
 Before you start developing, install the project's dependencies. They are listed in the pyproject.toml file.
+
 Run the following command from the root of the project to install the dependencies:
 ```sh
 poetry install
@@ -28,7 +29,7 @@ poetry install
 
 Activate the virtual environment with:
 ```sh
-	poetry shell
+poetry shell
 ```
 
 After that, you can change the code, run the tests and serve the documentation without any problems.
