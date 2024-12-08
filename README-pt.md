@@ -1,9 +1,7 @@
+[:us: American English Version](./README.md)
+
 # ASRBench
 ### Avalie, compare e encontre o melhor modelo para transcrição de áudio.
-
-## Línguas
-- [English](./README.md)
-- [Português](./README-pt.md)
 
 ## Índice
 - [Introdução](#introdução)

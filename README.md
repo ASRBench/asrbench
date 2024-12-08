@@ -1,9 +1,7 @@
-# ASRBench
-### Evaluate, compare and find the best model for audio transcription.
+[:brazil: Versão Português Brasileiro](./README-pt.md)
 
-## Languages
-- [English](./README.md)
-- [Portuguese](./README-pt.md)
+# ASRBench 
+### Evaluate, compare and find the best model for audio transcription.
 
 ## Index
 - [Introduction](#introduction)
