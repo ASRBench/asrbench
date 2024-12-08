@@ -53,8 +53,9 @@ we provide:
 - audio_dir: Directory where the audio files for transcription are located.
 - reference_dir: Directory with the reference files for each audio.
 
-!!! note "File Formats"
-    The audio files can be in different formats (wav, mp3, etc.), while the reference files must be in .txt format.
+!!! warning "Dataset Files"
+    For the system to correctly identify audio and transcript pairs, the files must have the same name, differing only 
+    by extension. Audio files can have any extension, while transcription files must have the extension .txt.
 
 ## Transcribers
 
