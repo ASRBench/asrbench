@@ -84,7 +84,7 @@ report.generate_report()
 If you prefer a more direct and simplified solution, you can check out [asrbench-cli]().
 
 ## Contribution
-If you want to contribute to ASRBench, see [CONTRIBUTING.md]() for information on how to set up the
+If you want to contribute to ASRBench, see [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to set up the
 development environment and the necessary dependencies. The main development tools are defined
 in the file [pyproject.toml](./pyproject.toml) and are managed with [Poetry](https://python-poetry.org/docs/#installation).
 
