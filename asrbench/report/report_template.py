@@ -4,10 +4,9 @@ from datetime import datetime, UTC
 from .input_ import Input
 from jinja2 import Template
 from .plots.appearance import (
-    AppearanceComposite,
-    EnumeratePoints,
-    LegendPosition,
-    FacetGridAxisLabels,
+    enumerate_points,
+    set_legend_position,
+    set_facet_axis_labels,
 )
 from .plots.strategy import DispersionPlot
 from .report_data import ReportData
@@ -49,8 +48,7 @@ class DefaultReport(ReportTemplate):
         self._result["mean_stats"] = mean.round(3).to_dict(orient="index")
 
         mean["transcriber_name"] = [
-            f"{n + 1} {name}"
-            for n, name in enumerate(mean.index.tolist())
+            f"{n + 1} {name}" for n, name in enumerate(mean.index.tolist())
         ]
 
         return mean
@@ -59,22 +57,18 @@ class DefaultReport(ReportTemplate):
         strategy = DispersionPlot(
             x="accuracy",
             y="rtf",
-            hue="transcriber_name"
+            hue="transcriber_name",
         )
         plot = strategy.plot(df)
 
-        appearance_kit: AppearanceComposite = AppearanceComposite()
-        appearance_kit.add(EnumeratePoints(df, "accuracy", "rtf"))
-        appearance_kit.add(LegendPosition(plot))
-        appearance_kit.add(
-            FacetGridAxisLabels(
-                plot=plot,
-                xlabel="Accuracy (% higher is better)",
-                ylabel="RTFx(higher is better)",
-                font_size=11.0,
-            )
+        enumerate_points(df, "accuracy", "rtf")
+        set_legend_position(plot)
+        set_facet_axis_labels(
+            plot=plot,
+            x_label="Accuracy (% higher is better)",
+            y_label="RTFx (higher is better)",
+            font_size=11.0,
         )
-        appearance_kit.customize()
 
         plot_output_path: str = self._output.with_suffix(".png").__str__()
         plot.savefig(plot_output_path, dpi=300)
@@ -94,5 +88,5 @@ class DefaultReport(ReportTemplate):
 
         HTML(
             string=template.render(**self._result),
-            base_url=self._output.parent
+            base_url=self._output.parent,
         ).write_pdf(self._output.with_suffix(".pdf"))

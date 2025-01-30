@@ -3,10 +3,6 @@ import pandas as pd
 from abc import ABC, abstractmethod
 from typing import Optional, Any
 
-sns.set()
-sns.set_context("paper")
-sns.set_style("darkgrid")
-
 
 class PlotStrategy(ABC):
 
@@ -17,12 +13,12 @@ class PlotStrategy(ABC):
 
 class DispersionPlot(PlotStrategy):
     def __init__(
-            self,
-            x: str,
-            y: str,
-            hue: Optional[str],
-            legend: bool = True,
-            point_size: int = 75,
+        self,
+        x: str,
+        y: str,
+        hue: Optional[str],
+        legend: bool = True,
+        point_size: int = 75,
     ) -> None:
         self._x: str = x
         self._y: str = y
@@ -43,11 +39,11 @@ class DispersionPlot(PlotStrategy):
 
 class JointPlot(PlotStrategy):
     def __init__(
-            self,
-            x: str,
-            y: str,
-            hue: Optional[str],
-            kind: str = "scatter",
+        self,
+        x: str,
+        y: str,
+        hue: Optional[str],
+        kind: str = "scatter",
     ) -> None:
         self.x = x
         self.y = y
@@ -56,5 +52,9 @@ class JointPlot(PlotStrategy):
 
     def plot(self, df: pd.DataFrame) -> sns.JointGrid:
         return sns.jointplot(
-            data=df, x=self.x, y=self.y, hue=self.hue, kind=self.kind,
+            data=df,
+            x=self.x,
+            y=self.y,
+            hue=self.hue,
+            kind=self.kind,
         )
