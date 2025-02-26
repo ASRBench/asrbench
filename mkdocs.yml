@@ -23,6 +23,10 @@ nav:
       - Output: references/output.md
       - Observer: references/observer.md
       - Jiwer: references/jiwer.md
+  - Cli: 
+      - Installation: cli/installation.md
+      - Configuration: cli/configuration.md
+      - Commands: cli/commands.md
 
 theme:
   name: material

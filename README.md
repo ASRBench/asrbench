@@ -81,7 +81,7 @@ report.generate_report()
 
 ```
 
-If you prefer a more direct and simplified solution, you can check out [asrbench-cli]().
+If you prefer a more direct and simplified solution, you can check out [asrbench-cli](https://github.com/ASRBench/asrbench-cli).
 
 ## Contribution
 If you want to contribute to ASRBench, see [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to set up the
@@ -91,7 +91,7 @@ in the file [pyproject.toml](./pyproject.toml) and are managed with [Poetry](htt
 ## About
 ASRBench was developed as part of a course completion project to explore and evaluate the efficiency of audio transcription models.
 of audio transcription models. The academic project provides a detailed analysis of the framework's development,
-as well as the challenges and results obtained during the research. For more information, see [TCC]().
+as well as the challenges and results obtained during the research. For more information, see [TCC](https://repositorio.animaeducacao.com.br/handle/ANIMA/48443).
 
 ## License
 Distributed under the MIT license. See the [LICENSE](./LICENSE) file for more details.
