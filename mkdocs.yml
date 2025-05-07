@@ -26,7 +26,8 @@ nav:
   - Cli: 
       - Installation: cli/installation.md
       - Configuration: cli/configuration.md
-      - Commands: cli/commands.md
+      - Usage: cli/usage.md
+      - Transcribers: cli/transcribers.md
 
 theme:
   name: material
