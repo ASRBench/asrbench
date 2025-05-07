@@ -1,6 +1,6 @@
 ASRBench Cli allows you to configure and run the benchmark using a YAML configuration file. This approach facilitates the
-benchmark environment by allowing the user to define datasets, transcribers and output parameters in a simple and declarative way.
-parameters in a simple and declarative way. 
+benchmark environment by allowing the user to define datasets, transcribers and output parameters in a simple and
+declarative way.
 
 ## Example
 
@@ -64,8 +64,8 @@ For each [Transcriber](./references/transcribers/transcriber.md), we provide:
 
 - identifier: A unique name for the transcriber.
 - asr: name of the ASR system registered in the framework.
-- other configuration parameters, such as model, compute_type, device, beam_size, language, etc., depending on the 
-specifics of the transcriber.
+- other configuration parameters, such as model, compute_type, device, beam_size, language, etc.,
+depending on the specifics of the transcriber.
 
 ```yaml
 transcribers:

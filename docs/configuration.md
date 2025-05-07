@@ -9,45 +9,27 @@ parameters in a simple and declarative way.
 Below is an example of the configuration file structure:
 
 ```yaml
- 
 # data output configuration
- 
 output:
- 
   type: "csv"
- 
   dir: "./results"
- 
   filename: "example_filename"
 
 # configuration of datasets
- 
 datasets:
- 
   dataset1:
- 
     audio_dir: "resources/common_voice_05/wav"
- 
     reference_dir: "resources/common_voice_05/txt"
 
 # transcription system configuration
- 
 transcribers:
- 
   faster_whisper_medium_int8:
- 
     asr: "faster_whisper"
- 
     model: "medium"
- 
     compute_type: "int8"
- 
     device: "cpu"
- 
     beam_size: 5
- 
     language: "en"  
- 
 ```
 
 The configuration file is divided into three main sections: output, datasets and transcribers. Below are
@@ -101,17 +83,11 @@ For each [Transcriber](./references/transcribers/transcriber.md), we provide:
 depending on the specifics of the transcriber.
  
 ```yaml
- 
 transcribers:
- 
   identifier:
- 
     asr: "asr_name"
- 
     model: "medium"
- 
     compute_type: "float16"
- 
 ```
  
 ## Next steps
