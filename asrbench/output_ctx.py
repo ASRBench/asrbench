@@ -85,7 +85,7 @@ class CsvOutputContext(OutputContextABC):
             self.__file.close()
 
         if exception_ is not None:
-            exception_.add_note("Error when create outputfile for benchmark.")
+            exception_.add_note("Error when create output file for benchmark.")
 
 
 class JsonOutputContext(OutputContextABC):

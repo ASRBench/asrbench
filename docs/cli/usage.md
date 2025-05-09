@@ -1,17 +1,23 @@
-With the configuration file in hand you can now **run** your benchmark:
+The ASRBench CLI offers two commands for running and analyzing benchmarks: run and resume.
+Use the run command to run a benchmark based on a configuration file:
 
 ```sh
-asrbench-cli run path/to/configfile.yml
+asrbench-cli run path/to/config.yml
 ```
 
-The CLI will read the configuration file, set up the benchmark and run it automatically. All progress and steps 
-will be displayed directly in the terminal, including the percentage of completion and a time estimate for the 
-completion of each stage of the transcription process.
+The CLI reads the configuration file, configures the benchmark and runs it automatically. The progress, including the percentage completed and a time estimate for each stage of the transcription process, is displayed in the terminal.
+Summarize Results
 
-Another command available in the cli is the **resume** command, which is very useful for quickly viewing the averages of
-each transcriber, after providing a file of the benchmark results (csv/json) it will calculate the averages and create a
-table in the terminal.
+Use the resume command to view the performance averages for each transcriber from a results file (CSV or JSON):
 
 ```sh
-asrbench-cli resume path/to/resultfile.csv
+asrbench-cli resume path/to/results.csv
 ```
+
+The CLI calculates the averages and displays a formatted table in the terminal with the results.
+
+| transcriber_name | audio_duration | runtime | rtf   | wer   | wil   | wip   | cer   | mer   | accuracy |
+|------------------|----------------|---------|-------|-------|-------|-------|-------|-------|----------|
+| faster_whisper   | 3.161          | 6.224   | 2.087 | 0.022 | 0.042 | 0.958 | 0.008 | 0.022 | 97.8     |
+| wav2vec          | 3.161          | 1.147   | 0.35  | 0.57  | 0.672 | 0.328 | 0.25  | 0.55  | 43.0     |
+
