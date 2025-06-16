@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Extensible, easy to use Python framework for evaluation of audio transcription systems."
 license = "MIT"
 authors = ["ASRBench <asrbenchmark@gmail.com>"]
-readme = "README.md"
+readme = "README-pypi.md"
 packages = [{ include = "asrbench" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
