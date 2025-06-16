@@ -4,12 +4,15 @@
 ### Evaluate, compare and find the best model for audio transcription.
 
 ## Index
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contribution](#contribution)
-- [About](#about)
-- [License](#license)
+- [ASRBench](#asrbench)
+    - [Evaluate, compare and find the best model for audio transcription.](#evaluate-compare-and-find-the-best-model-for-audio-transcription)
+  - [Index](#index)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contribution](#contribution)
+  - [About](#about)
+  - [License](#license)
 
 ## Introduction
 ASRBench is a framework developed in Python to create and run benchmarks of audio transcription systems.
@@ -28,7 +31,7 @@ pip install asrbench
 ASRBench allows you to configure and run the benchmark using a YAML configuration file. This approach facilitates the
 benchmark environment by allowing the user to define datasets, transcribers and output parameters in a simple and declarative way.
 parameters in a simple and declarative way. For more details on the structure of the configuration file, go to
-[documentation]().
+[documentation](https://asrbench.github.io/asrbench/configuration).
 
 Below is an example of the configuration file structure:
 
