@@ -76,7 +76,7 @@ If you prefer a more direct and simplified solution, you can check out [asrbench
 ## Contribution
 If you want to contribute to ASRBench, see [CONTRIBUTING.md](https://github.com/ASRBench/asrbench/blob/main/CONTRIBUTING.md) for information on how to set up the
 development environment and the necessary dependencies. The main development tools are defined
-in the file [pyproject.toml](./pyproject.toml) and are managed with [Poetry](https://python-poetry.org/docs/#installation).
+in the file [pyproject.toml](https://github.com/ASRBench/asrbench/blob/main/pyproject.toml) and are managed with [Poetry](https://python-poetry.org/docs/#installation).
 
 ## About
 ASRBench was developed as part of a course completion project to explore and evaluate the efficiency of audio transcription models.
