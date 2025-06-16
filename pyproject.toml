@@ -3,7 +3,7 @@ name = "asrbench"
 version = "0.1.0"
 description = "Extensible, easy to use Python framework for evaluation of audio transcription systems."
 license = "MIT"
-authors = ["BDu4rTe <brianschierduarte@outlook.com>"]
+authors = ["ASRBench <asrbenchmark@gmail.com>"]
 readme = "README.md"
 packages = [{ include = "asrbench" }]
 classifiers = [
