@@ -1,23 +1,22 @@
 [tool.poetry]
 name = "asrbench"
-version = "0.0.0"
+version = "0.1.0"
 description = "Extensible, easy to use Python framework for evaluation of audio transcription systems."
 license = "MIT"
 authors = ["BDu4rTe <brianschierduarte@outlook.com>"]
 readme = "README.md"
 packages = [{ include = "asrbench" }]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Framework :: ASRBench",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Education",
     "Topic :: System :: Benchmark",
 ]
 
 [tool.poetry.urls]
-"Documentation" = ""
+"Documentation" = "https://asrbench.github.io/asrbench"
 "Source" = "https://github.com/ASRBench/asrbench"
 "Bug Tracker" = "https://github.com/ASRBench/asrbench/issues"
 
